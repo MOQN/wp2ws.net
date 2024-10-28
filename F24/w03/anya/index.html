@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>project / p5 + three.js</title>
+
+  <!-- import p5.js -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
+
+  <!-- import three.js -->
+
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    window.THREE = THREE;
+    window.OrbitControls = OrbitControls;
+  </script>
+
+  <!-- link stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <script defer src="script-three.js"></script>
+  <script defer src="script-p5.js"></script>
+  <script defer src="main.js"></script>
+</head>
+
+<body>
+
+  <div id="container-three"></div>
+  <div id="container-p5"></div>
+
+
+</body>
+
+</html>
