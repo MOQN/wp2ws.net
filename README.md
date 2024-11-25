@@ -15,7 +15,6 @@
 ### Students Project | Fall 2023
 ## [Mickey Oh](https://mickeykorea.github.io/wp2ws/Project_B_XR/)
 ## [Coco Yu](https://cocoyuy.github.io/lfa/)
-## [Aurora](https://aurora4188.github.io/WP_2WS_SHJV2/public/)
 ## [Aurora Liu](https://aurora4188.github.io/WP_2WS_SHJV2/public/)
 
 ## Student Project | Fall 2024
