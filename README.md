@@ -1,60 +1,49 @@
-# Web Page to Web Space
+# Web Page to Web Space Docs
 
-## Student Project | Fall 2024
+This repository hosts a Docsify-based course site for Web Page to Web Space.
+It is adapted from an earlier ml5-oriented structure, while preserving the existing functional behavior and plugin setup.
 
-#### Week 3 | Virtual Minimalist Sculptures
+## Base reference
 
-<!-- - [Neo Alabastro](https://moqn.github.io/wp2ws.net/2024fall/w03/neo/) -->
+- https://github.com/MOQN/IMA-Web-Page-To-Web-Space
 
-- [Vivian Chen](https://moqn.github.io/wp2ws.net/2024fall/w03/vivian/)
-- [Minjae Lee](https://moqn.github.io/wp2ws.net/2024fall/w03/minjae/)
-- [Marissa Moreno](https://moqn.github.io/wp2ws.net/2024fall/w03/marissa/)
-- [Jaidyn Perry](https://moqn.github.io/wp2ws.net/2024fall/w03/jaidyn/)
-- [Emy Sainbayar](https://moqn.github.io/wp2ws.net/2024fall/w03/emy/)
-- [Vivian Xinwei Xie](https://moqn.github.io/wp2ws.net/2024fall/w03/xinwei/)
-- [Ash Guoxi Yang](https://moqn.github.io/wp2ws.net/2024fall/w03/ash/)
-- [Andy Jinran Ye](https://moqn.github.io/wp2ws.net/2024fall/w04/andy/)
-- [Anya Zhukova](https://moqn.github.io/wp2ws.net/2024fall/w04/anya/)
+## What changed
 
-#### Week 4 | Generative 3D Structures
+- Replaced legacy ml5-focused text content with Web Page to Web Space course content.
+- Kept docs functionality intact: Docsify routing, sidebar loading, search, copy-code, custom plugins, and dismissible banner.
 
-<!-- - [Neo Alabastro](https://moqn.github.io/wp2ws.net/2024fall/w04/neo/) -->
+## Tech stack
 
-- [Vivian Chen](https://moqn.github.io/wp2ws.net/2024fall/w04/vivian/)
-- [Minjae Lee](https://moqn.github.io/wp2ws.net/2024fall/w04/minjae/)
-- [Marissa Moreno](https://moqn.github.io/wp2ws.net/2024fall/w04/marissa/)
-- [Jaidyn Perry](https://moqn.github.io/wp2ws.net/2024fall/w04/jaidyn/)
-- [Emy Sainbayar](https://moqn.github.io/wp2ws.net/2024fall/w04/emy/)
-- [Vivian Xinwei Xie](https://moqn.github.io/wp2ws.net/2024fall/w04/xinwei/)
-- [Ash Guoxi Yang](https://moqn.github.io/wp2ws.net/2024fall/w04/ash/)
-- [Andy Jinran Ye](https://moqn.github.io/wp2ws.net/2024fall/w04/andy/)
-- [Anya Zhukova](https://moqn.github.io/wp2ws.net/2024fall/w04/anya/)
+- Docsify
+- docsify-tabs
+- docsify search plugin
+- docsify-copy-code
+- Custom plugins in docs/js/custom-plugins.js
 
-#### Week 5 | Generative 3D Structures + Light and Shadow
+## Run locally
 
-<!-- - [Neo Alabastro](https://moqn.github.io/wp2ws.net/2024fall/w05/neo/) -->
+1. Install dependencies.
+2. Serve the docs folder.
 
-- [Vivian Chen](https://moqn.github.io/wp2ws.net/2024fall/w05/vivian/)
-- [Minjae Lee](https://moqn.github.io/wp2ws.net/2024fall/w05/minjae/)
-- [Marissa Moreno](https://moqn.github.io/wp2ws.net/2024fall/w05/marissa/)
-- [Jaidyn Perry](https://moqn.github.io/wp2ws.net/2024fall/w05/jaidyn/)
-- [Emy Sainbayar](https://moqn.github.io/wp2ws.net/2024fall/w05/emy/)
-- [Vivian Xinwei Xie](https://moqn.github.io/wp2ws.net/2024fall/w05/xinwei/)
-- [Ash Guoxi Yang](https://moqn.github.io/wp2ws.net/2024fall/w05/ash/)
-- [Andy Jinran Ye](https://moqn.github.io/wp2ws.net/2024fall/w05/andy/)
-- [Anya Zhukova](https://moqn.github.io/wp2ws.net/2024fall/w05/anya/)
+```bash
+npm install
+npm run docs
+```
 
-#### Week 8 | Virtual Environments
+If your scripts differ, you can also use:
 
-Coming Soon!
+```bash
+npx docsify-cli serve docs
+```
 
-<!-- - [Neo Alabastro](https://moqn.github.io/wp2ws.net/2024fall/w06/neo/)
-- [Vivian Chen](https://moqn.github.io/wp2ws.net/2024fall/w06/vivian/)
-- [Minjae Lee](https://moqn.github.io/wp2ws.net/2024fall/w06/minjae/)
-- [Marissa Moreno](https://moqn.github.io/wp2ws.net/2024fall/w06/marissa/)
-- [Jaidyn Perry](https://moqn.github.io/wp2ws.net/2024fall/w06/jaidyn/)
-- [Emy Sainbayar](https://moqn.github.io/wp2ws.net/2024fall/w06/emy/)
-- [Vivian Xinwei Xie](https://moqn.github.io/wp2ws.net/2024fall/w06/xinwei/)
-- [Ash Guoxi Yang](https://moqn.github.io/wp2ws.net/2024fall/w06/ash/)
-- [Andy Jinran Ye](https://moqn.github.io/wp2ws.net/2024fall/w06/andy/)
-- [Anya Zhukova](https://moqn.github.io/wp2ws.net/2024fall/w06/anya/) -->
+## Project entry
+
+- docs/index.html: Docsify entry and global config
+- docs/sidebar.md: Navigation structure
+- docs/README.md: Home page content
+- docs/js/: Existing functional scripts
+
+## Notes
+
+This repository intentionally keeps prior architecture patterns to minimize migration risk while enabling fast content iteration.
+
