@@ -1,81 +1,40 @@
-# Web Page to Web Space
+# Web Page to Web Space | Fall 2026
+Interactive Media Arts (IMA) at NYU Shanghai
 
-## WebXR Demo
-#### [Basic](https://moqn.github.io/IMA-Web-Page-To-Web-Space/12_webXR/01_webxr_basic/)
-#### [PointsMaterial](https://moqn.github.io/IMA-Web-Page-To-Web-Space/12_webXR/02_webxr_points/)
-#### [Drag](https://moqn.github.io/IMA-Web-Page-To-Web-Space/12_webXR/03_webxr_drag/)
-#### [DynamicArray](https://moqn.github.io/IMA-Web-Page-To-Web-Space/12_webXR/04_webxr_dynamic_array/)
-#### [DynamicArray + Controller](https://moqn.github.io/IMA-Web-Page-To-Web-Space/12_webXR/05_webxr_dynamic_array_controller/)
+<br>
 
-### Three.js Examples
-#### [ballshooter](https://threejs.org/examples/webxr_xr_ballshooter.html)
-#### [Controls-Transform](https://threejs.org/examples/webxr_xr_controls_transform.html)
-#### [Interactive Cubes](https://threejs.org/examples/webxr_xr_cubes.html)
-#### [Dragging](https://threejs.org/examples/webxr_xr_dragging.html)
-<!-- #### [Dragging-Custom Depth](https://threejs.org/examples/webxr_xr_dragging_custom_depth.html) -->
-#### [Haptics](https://threejs.org/examples/webxr_xr_haptics.html)
-#### [Paint](https://threejs.org/examples/webxr_xr_paint.html)
-#### [Sculpt](https://threejs.org/examples/webxr_xr_sculpt.html)
+* [Course Projects](https://docs.google.com/document/d/1OH-SeNXuankDISuhR9uCAHy4ICLW5XCMwxEQlZJjT3E/edit?usp=sharing)
 
-### Students Project | Fall 2023
-#### [Mickey Oh](https://mickeykorea.github.io/wp2ws/mickey-universe-xr/)
-#### [Aurora Liu](https://aurora4188.github.io/WP_2WS_SHJV2/public/)
+### Course Information
+* Instructor: J.H. Moon
+  * Office: Room W839
+  * Office Hours: by appointment via [Calendar](https://calendar.app.google/Kvn7uG8DeCzguMBL6) or [Slack](https://join.slack.com/t/nyushanghaiima/shared_invite/zt-47ruesl1v-9BtEdZbMvtaTRWTyxk3CFg).
+* Class meeting days and times: Tuesday and Thursday, 6:45 to 8:00 PM
+* Classroom: N304
+* [Syllabus](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?usp=sharing)
+* [Resources](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.7hn1xbffa92p)
+* [Course Schedule Overview](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.y6mbbsoi6t21)
+* [Course Schedule](/_pages/schedule.md)
+* [Course Policies](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.azhyd49tdw8p)
 
-## Student Project | Fall 2024
+### Description
+The Internet and mobile devices have evolved rapidly over the last half century. Computing systems used to take up the whole room or building. Today, even the latest mobile phones hold powerful hardware comparable to laptop computers. The push towards developing Virtual or Augmented Reality (VR/AR) platforms may soon allow us to communicate virtually through mobile devices, without the need for complex hardware or our current tethered approach. Due to recent adjustments and development of technology and social media, people are more inclined to communicate virtually rather than face-to-face. In the near future, VR/AR platforms and the three dimensional (3D) contents may eventually overpower 2D images and textual content. Web pages will become Web Spaces. 
 
-#### Week 3 | Virtual Minimalist Sculptures
+Web Page to Web Space is a course that explores virtual interactive experience in the context of Virtual Embodiment, Virtual Space and Telepresence. Students will investigate new possible ways of using the Web to create new immersive environments in a web platform, by utilizing algorithmic 3D animation and server-side programming. This is an advanced course with technically challenging concepts with three.js and node.js and suitable for students with prior knowledge in visual programming.
 
-<!-- - [Neo Alabastro](https://moqn.github.io/wp2ws.net/2024fall/w03/neo/) -->
-
-- [Vivian Chen](https://moqn.github.io/wp2ws.net/2024fall/w03/vivian/)
-- [Minjae Lee](https://moqn.github.io/wp2ws.net/2024fall/w03/minjae/)
-- [Marissa Moreno](https://moqn.github.io/wp2ws.net/2024fall/w03/marissa/)
-- [Jaidyn Perry](https://moqn.github.io/wp2ws.net/2024fall/w03/jaidyn/)
-- [Emy Sainbayar](https://moqn.github.io/wp2ws.net/2024fall/w03/emy/)
-- [Vivian Xinwei Xie](https://moqn.github.io/wp2ws.net/2024fall/w03/xinwei/)
-- [Ash Guoxi Yang](https://moqn.github.io/wp2ws.net/2024fall/w03/ash/)
-- [Andy Jinran Ye](https://moqn.github.io/wp2ws.net/2024fall/w04/andy/)
-- [Anya Zhukova](https://moqn.github.io/wp2ws.net/2024fall/w04/anya/)
-
-#### Week 4 | Generative 3D Structures
-
-<!-- - [Neo Alabastro](https://moqn.github.io/wp2ws.net/2024fall/w04/neo/) -->
-
-- [Vivian Chen](https://moqn.github.io/wp2ws.net/2024fall/w04/vivian/)
-- [Minjae Lee](https://moqn.github.io/wp2ws.net/2024fall/w04/minjae/)
-- [Marissa Moreno](https://moqn.github.io/wp2ws.net/2024fall/w04/marissa/)
-- [Jaidyn Perry](https://moqn.github.io/wp2ws.net/2024fall/w04/jaidyn/)
-- [Emy Sainbayar](https://moqn.github.io/wp2ws.net/2024fall/w04/emy/)
-- [Vivian Xinwei Xie](https://moqn.github.io/wp2ws.net/2024fall/w04/xinwei/)
-- [Ash Guoxi Yang](https://moqn.github.io/wp2ws.net/2024fall/w04/ash/)
-- [Andy Jinran Ye](https://moqn.github.io/wp2ws.net/2024fall/w04/andy/)
-- [Anya Zhukova](https://moqn.github.io/wp2ws.net/2024fall/w04/anya/)
-
-#### Week 5 | Generative 3D Structures + Light and Shadow
-
-<!-- - [Neo Alabastro](https://moqn.github.io/wp2ws.net/2024fall/w05/neo/) -->
-
-- [Vivian Chen](https://moqn.github.io/wp2ws.net/2024fall/w05/vivian/)
-- [Minjae Lee](https://moqn.github.io/wp2ws.net/2024fall/w05/minjae/)
-- [Marissa Moreno](https://moqn.github.io/wp2ws.net/2024fall/w05/marissa/)
-- [Jaidyn Perry](https://moqn.github.io/wp2ws.net/2024fall/w05/jaidyn/)
-- [Emy Sainbayar](https://moqn.github.io/wp2ws.net/2024fall/w05/emy/)
-- [Vivian Xinwei Xie](https://moqn.github.io/wp2ws.net/2024fall/w05/xinwei/)
-- [Ash Guoxi Yang](https://moqn.github.io/wp2ws.net/2024fall/w05/ash/)
-- [Andy Jinran Ye](https://moqn.github.io/wp2ws.net/2024fall/w05/andy/)
-- [Anya Zhukova](https://moqn.github.io/wp2ws.net/2024fall/w05/anya/)
-
-#### Week 8 | Virtual Environments
-
-Coming Soon!
-
-<!-- - [Neo Alabastro](https://moqn.github.io/wp2ws.net/2024fall/w06/neo/)
-- [Vivian Chen](https://moqn.github.io/wp2ws.net/2024fall/w06/vivian/)
-- [Minjae Lee](https://moqn.github.io/wp2ws.net/2024fall/w06/minjae/)
-- [Marissa Moreno](https://moqn.github.io/wp2ws.net/2024fall/w06/marissa/)
-- [Jaidyn Perry](https://moqn.github.io/wp2ws.net/2024fall/w06/jaidyn/)
-- [Emy Sainbayar](https://moqn.github.io/wp2ws.net/2024fall/w06/emy/)
-- [Vivian Xinwei Xie](https://moqn.github.io/wp2ws.net/2024fall/w06/xinwei/)
-- [Ash Guoxi Yang](https://moqn.github.io/wp2ws.net/2024fall/w06/ash/)
-- [Andy Jinran Ye](https://moqn.github.io/wp2ws.net/2024fall/w06/andy/)
-- [Anya Zhukova](https://moqn.github.io/wp2ws.net/2024fall/w06/anya/) -->
+ 
+### Overview and Learning Outcomes
+This course will address the fundamentals of programming, such as Object-Oriented Programming (OOP). Advanced visual programming will be gradually applied by creating 3D objects and manipulating their properties and behaviors. By the end of the course, students will be able to create their own virtual space on the Web that connects people in different physical locations and provides interactive experiences. Both practical and creative applications are to be investigated as students are challenged to design their own solutions.
+ 
+#### Student Learning Outcomes
+Upon completion of this course, students will be able to:
+* practice and produce the fundamentals of programming;
+* demonstrate Object-Oriented Programming and integrate why/how to use the concept into practical applications;
+* combine fundamentals of web development with visual programming techniques to produce creative web pages;
+* expand and apply knowledge and experience in 3D animations;
+* utilize comprehensively fundamentals of visual programming in 3D and apply various methods in three.js to algorithmic animations;
+* visualize and simulate virtual environment and objects in 3D;
+* apply server-side programming in virtual environment to create a dynamic and interactive artifact;
+* construct innovative, practical and/or interactive interfaces on the web;
+* produce internet artworks and/or practical web applications by utilizing a combination of concepts and techniques discussed and demonstrated throughout the * duration of the course, and;
+* develop and discuss meaningful and effective user interactions, and recognize the context of Virtual Space and Telepresence.

@@ -1,0 +1,22 @@
+{
+  "name": "wp2ws-net",
+  "version": "1.0.0",
+  "description": "Docsify course site for Web Page to Web Space.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"No tests configured\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MOQN/wp2ws.net.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MOQN/wp2ws.net/issues"
+  },
+  "homepage": "https://github.com/MOQN/wp2ws.net#readme"
+}
