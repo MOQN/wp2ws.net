@@ -1,0 +1,1393 @@
+/* =========================================
+   RESET & BASE
+   ========================================= */
+* {
+	-webkit-overflow-scrolling: touch;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-text-size-adjust: none;
+	-webkit-touch-callout: none;
+	box-sizing: border-box;
+}
+
+/* new way in Docsify v5 to add scroll padding at the top */
+:root {
+	--scroll-padding-top: 30px;
+	--sidebar-width: 300px;
+	--sidebar-toggle-btn-width: 60px;
+	--sidebar-toggle-btn-height: 60px;
+}
+
+html,
+body {
+	height: 100%;
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
+	line-height: var(--body-line-height);
+	word-spacing: 1px;
+	color: var(--body-color);
+	background-color: var(--color-bg);
+}
+
+body {
+	-moz-osx-font-smoothing: grayscale;
+	letter-spacing: var(--body-letter-spacing);
+	margin: 0;
+	overflow-x: hidden;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+}
+
+p {
+	-webkit-font-smoothing: antialiased;
+	margin: 1rem 0;
+}
+
+div {
+	display: block;
+}
+
+/* =========================================
+   GLOBAL TYPOGRAPHY
+   ========================================= */
+a {
+	text-decoration: none;
+	color: var(--link-color);
+}
+
+a:hover {
+	color: var(--link-hover-color);
+	background-color: var(--link-hover-bg-color);
+}
+
+a[disabled] {
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+/* =========================================
+   DOCSIFY LAYOUT & NAVIGATION
+   ========================================= */
+main {
+	display: block;
+	position: relative;
+	width: 100vw;
+	height: 100%;
+	z-index: 0;
+}
+
+main.hidden {
+	display: none;
+}
+
+body:not(.ready) {
+	overflow: hidden;
+}
+
+body:not(.ready) [data-cloak],
+body:not(.ready) .app-nav,
+body:not(.ready)>nav {
+	display: none;
+}
+
+div#app {
+	font-size: 30px;
+	font-weight: var(--font-weight-light);
+	margin: 40vh auto;
+	text-align: center;
+}
+
+div#app:empty::before {
+	content: 'Loading...';
+}
+
+.progress {
+	background-color: var(--color-secondary);
+	height: 2px;
+	left: 0px;
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	transition: width 0.2s, opacity 0.4s;
+	width: 0%;
+	z-index: 999999;
+}
+
+.github-corner {
+	/* quick fix for the github corner */
+	/* We don't use it */
+	display: none;
+}
+
+.navbar {
+	width: 100%;
+	height: calc(3.5rem + 1px);
+	/* 1px: fine adjustment to keep consistency */
+	position: fixed;
+	top: 0;
+	z-index: 1000;
+	background-color: rgba(255, 255, 255, 1);
+	border-bottom: #ddd solid 1px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.app-nav {
+	transition: transform 250ms ease-out;
+}
+
+.logo {
+	margin-left: 2rem;
+}
+
+.logo button {
+	font-size: 1.5rem;
+	color: var(--color-primary);
+	background-color: transparent;
+	padding: 0.3rem 0.8rem;
+	border: none;
+}
+
+.logo button a:before,
+.menu button a:before {
+	background: var(--color-primary);
+}
+
+.menu {
+	display: flex;
+	margin-right: 2rem;
+}
+
+.menu a {
+	font-size: 0.9rem;
+	margin-left: 20px;
+}
+
+.menu a:first-child {
+	margin-left: 0;
+}
+
+.sidebar {
+	padding: 1rem 0 1rem 1.6rem;
+	margin-top: calc(3.5rem + 1px);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: var(--sidebar-width);
+	overflow-y: auto;
+	transition: transform 250ms ease;
+	z-index: 950;
+	background-color: var(--color-bg-light);
+}
+
+.sidebar>h1 {
+	/* not-used in our design */
+	margin: 0 auto 1rem;
+	font-size: 1.2rem;
+	font-weight: var(--font-weight-light);
+	text-align: center;
+}
+
+.sidebar>h1 a {
+	/* not-used in our design */
+	color: inherit;
+	text-decoration: none;
+}
+
+.sidebar>h1 .app-nav {
+	display: block;
+	position: relative;
+}
+
+.sidebar .sidebar-nav {
+	line-height: 1.8em;
+	padding-bottom: 40px;
+}
+
+.sidebar li {
+	margin: 0.4rem 0;
+}
+
+.sidebar li.collapse .app-sub-sidebar {
+	display: none;
+}
+
+/* for sidebar title (first) and second-level items */
+.sidebar ul {
+	font-family: var(--body-font-family);
+	font-size: 1rem;
+	list-style: none;
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+}
+
+/* for third-level items and beyond */
+.sidebar-nav ul ul ul {
+	padding-left: 1.0rem !important;
+	line-height: 1.4rem;
+}
+
+.sidebar li>p {
+	margin: 0;
+}
+
+.sidebar ul li a {
+	/* font ofr sub-menu  */
+	font-family: var(--body-font-family);
+	font-size: 0.9rem;
+	color: var(--color-text);
+	font-weight: var(--font-weight-normal);
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	border-bottom: none;
+	display: block;
+	overflow: hidden;
+}
+
+.sidebar ul li a:hover {
+	color: var(--color-text-dark);
+	text-decoration: underline;
+	text-decoration-color: var(--color-text-highlight);
+	text-decoration-thickness: 3px;
+	background-color: transparent;
+}
+
+.sidebar ul li.active>a {
+	border-right: 2px solid var(--color-text-highlight);
+	color: var(--color-secondary);
+	font-weight: var(--font-weight-bold);
+}
+
+.sidebar::-webkit-scrollbar {
+	width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+	background: transparent;
+	border-radius: 4px;
+}
+
+.sidebar:hover::-webkit-scrollbar-thumb {
+	background: rgba(var(--color-sidebar-scrollbar-rgb), 0.4);
+}
+
+.sidebar:hover::-webkit-scrollbar-track {
+	background: rgba(var(--color-sidebar-scrollbar-rgb), 0.1);
+}
+
+/* the horizontal line */
+.sidebar-section-divider {
+	height: 1px;
+	width: 90%;
+	border-top: 2px solid var(--color-secondary);
+	display: block;
+	margin: 0 0 0 -2px;
+}
+
+/* spacer */
+.sidebar-spacer {
+	width: 100%;
+	height: 1rem;
+}
+
+/* custom global search wrapper: aligns input and results with sidebar-nav */
+.sidebar .search {
+	/* had to hard code this number... */
+	/* otherwise the width will be slightly changing when searching. */
+	width: 244px;
+	border-bottom: none;
+	padding: 0.6rem 0 1.6rem 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+/* Search input field */
+.sidebar .search input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: var(--body-font-family);
+	font-size: 0.9rem;
+	background-color: var(--color-background-alt);
+	border: 1px solid var(--color-border);
+	border-radius: 4px;
+	padding: 0.6rem 0.8rem;
+	outline: none;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* Search input focus state */
+.sidebar .search input:focus {
+	border-color: var(--color-secondary);
+	box-shadow: 0 0 0 1px var(--color-secondary);
+	background-color: var(--color-background);
+}
+
+/* Search results panel spacing */
+.sidebar .search .results-panel {
+	padding: 0;
+	margin-top: 1rem;
+}
+
+/* Search result text and items */
+.search a {
+	display: block;
+	color: var(--color-text-light);
+	padding: 0.25rem 0;
+	text-decoration: none;
+}
+
+.search a:hover {
+	color: var(--color-text-dark);
+	background: transparent;
+}
+
+.sidebar .search .results-status {
+	color: var(--color-text-light);
+	padding: 1.25rem 0 0 0;
+}
+
+.sidebar .search .results-panel .matching-post .title {
+	font-weight: var(--font-weight-bold);
+}
+
+.sidebar .search .results-panel .matching-post .content {
+	font-size: 0.85rem;
+	line-height: 1.2rem;
+}
+
+.sidebar .search .results-panel .matching-post mark {
+	background-color: rgba(97, 252, 255, 0.2);
+	color: var(--color-primary) !important;
+	font-weight: var(--font-weight-bold);
+}
+
+.sidebar .search .results-panel .matching-post a:hover {
+	color: var(--color-secondary);
+}
+
+.sidebar .search .clear-button {
+	/* docsify will try to override these styles. */
+	/* !important is very necessary! */
+	background-color: var(--color-secondary) !important;
+	width: 1.6rem !important;
+	height: 1.6rem !important;
+	/* also check the script in index.html and custom-plugins.js */
+}
+
+
+/* the icon on the left bottom */
+.sidebar-toggle {
+	display: none;
+
+	position: absolute;
+	left: 0;
+	bottom: 0;
+
+	width: var(--sidebar-toggle-btn-width);
+	height: var(--sidebar-toggle-btn-height);
+	padding: calc(var(--sidebar-toggle-btn-height) / 4);
+	border: 0;
+
+	z-index: 1000;
+	cursor: pointer;
+	transition: opacity 0.3s, transform 250ms ease, background-color 1s;
+
+	/* background-color: rgba(var(--color-sidebar-toggle-bg-rgb), 0.8); */
+	background-color: transparent
+}
+
+.sidebar-toggle span {
+	background-color: var(--color-primary);
+	display: block;
+	margin-bottom: calc(var(--sidebar-toggle-btn-height) / 15);
+	width: calc(var(--sidebar-toggle-btn-height) / 2);
+	height: calc(var(--sidebar-toggle-btn-height) / 15);
+}
+
+
+.sidebar-toggle .sidebar-toggle-button {
+	/*  */
+}
+
+.sidebar-toggle:hover .sidebar-toggle-button {
+	opacity: 0.4;
+}
+
+body.sticky .sidebar,
+body.sticky .sidebar-toggle {
+	position: fixed;
+}
+
+footer {
+	position: relative;
+	display: flex;
+	width: auto;
+	background-color: var(--color-bg-light);
+	border-radius: var(--border-radius);
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 1rem 0;
+	margin-top: 5rem;
+}
+
+.footer-logo {
+	margin: 1.5rem 0 1.5rem 2rem;
+}
+
+.footer-logo button {
+	background-color: var(--color-bg);
+	padding: 2rem 0.85rem;
+	margin: 0 0.5rem;
+	font-size: 1.5rem;
+	font-weight: var(--font-weight-bold);
+	color: var(--color-primary);
+	border: none;
+}
+
+.footer-logo button a:before {
+	background: var(--color-primary);
+}
+
+.footer-content {
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+#banner {
+	font-family: var(--heading-font-family);
+	line-height: var(--body-line-height);
+	word-spacing: 1px;
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	width: fit-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	background-color: rgba(255, 255, 255);
+	color: var(--color-text);
+	padding: 1.2rem;
+	box-shadow: 0 -0.5rem 1rem rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	border: 2px solid var(--color-secondary);
+	z-index: 1000;
+	opacity: 1;
+	transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+	font-size: 1.1rem;
+}
+
+#banner-content {
+	flex-grow: 1;
+	cursor: pointer;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#banner-content a {
+	color: var(--color-text);
+	text-decoration: none;
+}
+
+#banner-content a:hover {
+	color: var(--color-primary);
+	text-decoration: underline;
+	background: transparent;
+}
+
+#close-banner {
+	background: none;
+	border: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+	color: var(--color-text);
+	transition: color 0.3s ease;
+}
+
+#close-banner:hover {
+	color: var(--color-primary);
+}
+
+/* =========================================
+   MARKDOWN SECTION
+   ========================================= */
+
+/* We need main> so that .content style won't apply to other elements (for example, .content inside the search result.) */
+main>.content {
+	padding-top: 60px;
+	padding-bottom: 60px;
+	width: calc(100% - 300px);
+	position: relative;
+	left: 300px;
+	transition: left 250ms ease, width 250ms ease;
+	display: flex;
+	justify-content: center;
+}
+
+.markdown-section {
+	/* limit the max width of the reference section by 800px. */
+	margin: 0 10%;
+	max-width: 800px;
+	padding: 30px 15px 40px 15px;
+	position: relative;
+}
+
+.markdown-section>* {
+	box-sizing: border-box;
+	font-size: inherit;
+}
+
+.markdown-section> :first-child {
+	margin-top: 0 !important;
+}
+
+/* the markdown-section link overrides the global link styles */
+.anchor {
+	display: inline-block;
+	text-decoration: none;
+}
+
+.anchor:hover {
+	text-decoration: underline;
+	text-decoration-thickness: 3px;
+	text-decoration-color: var(--color-text-highlight);
+	background: transparent;
+}
+
+.anchor span {
+	color: var(--link-color);
+}
+
+.markdown-section a {
+	font-weight: var(--font-weight-bold);
+}
+
+.markdown-section h1 a {
+	padding-top: 1rem;
+	margin: 1rem 0;
+	font-weight: var(--heading-font-weight);
+}
+
+.markdown-section h1 a span {
+	color: var(--color-text);
+	overflow-wrap: anywhere;
+	text-overflow: ellipsis;
+	font-size: 2.3rem;
+	font-family: var(--heading-font-family);
+}
+
+.markdown-section h2 a {
+	padding-top: 1rem;
+	margin: 3rem 0 0 0;
+	font-weight: var(--heading-font-weight);
+}
+
+.markdown-section h2 a span {
+	color: var(--color-secondary);
+	font-size: 1.7rem;
+	font-family: var(--heading-font-family);
+}
+
+.markdown-section h3 a {
+	margin: 1rem 0 0 0;
+}
+
+.markdown-section h3 a span {
+	color: var(--color-text-dark);
+	font-size: 1.5rem;
+	font-family: var(--heading-font-family);
+}
+
+.markdown-section h4 a span {
+	color: var(--color-text-dark);
+	font-size: 1.3rem;
+	font-family: var(--heading-small-font-family);
+}
+
+.markdown-section h5 a span {
+	color: var(--color-text-dark);
+	font-size: 1.15rem;
+	font-family: var(--heading-small-font-family);
+}
+
+.markdown-section h6 a span {
+	color: var(--color-text-dark);
+	font-size: 1.0rem;
+	font-family: var(--heading-small-font-family);
+}
+
+.markdown-section figure,
+.markdown-section p {
+	margin: 1.05em 0;
+}
+
+.markdown-section ul,
+.markdown-section ol {
+	line-height: 1.5rem;
+	word-spacing: 0.05rem;
+	padding-left: 1.5rem;
+}
+
+.markdown-section ul.task-list>li {
+	list-style-type: none;
+}
+
+/* List Items with Checkbox */
+li input[type='checkbox'] {
+	margin: 0 0.2em 0.25em 0;
+	vertical-align: middle;
+}
+
+.markdown-section blockquote {
+	border-left: 4px solid var(--color-text-highlight);
+	color: var(--color-text-light);
+	margin: 2em 0;
+	padding-left: 1.2rem;
+	font-style: italic;
+}
+
+.markdown-section blockquote p {
+	font-weight: var(--font-weight-bold);
+	margin-left: 0;
+}
+
+.markdown-section hr {
+	border: none;
+	border-bottom: 1px solid var(--color-border);
+	margin: 4em 0 1em 0;
+}
+
+.markdown-section em,
+.markdown-section b,
+.markdown-section strong {
+	color: var(--color-text-dark);
+	font-weight: var(--font-weight-bold);
+}
+
+/* DOCSIFY CALLOUTS (Tip & Important) */
+
+/* Tip (?>) */
+.markdown-section .tip {
+	background: rgba(var(--color-callout-tip-rgb), 0.03);
+	border: 1px solid rgba(var(--color-callout-tip-rgb), 0.5);
+	border-radius: var(--border-radius);
+	padding: 1rem 1rem 1rem 3.5rem;
+	position: relative;
+}
+
+.markdown-section .tip::before {
+	content: '💡';
+	position: absolute;
+	left: 1rem;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 1.8rem;
+}
+
+/* Important (!>) */
+.markdown-section .important {
+	background: rgba(var(--color-callout-important-rgb), 0.03);
+	border: 1px solid rgba(var(--color-callout-important-rgb), 0.5);
+	border-radius: var(--border-radius);
+	padding: 1rem 1rem 1rem 3.5rem;
+	position: relative;
+}
+
+.markdown-section .important::before {
+	content: '🦄';
+	position: absolute;
+	left: 1rem;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 1.8rem;
+}
+
+.markdown-section .tip p,
+.markdown-section .important p {
+	margin: 0;
+}
+
+/* DOCSIFY CALLOUTS (end) */
+
+.markdown-section table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	display: block;
+	margin-bottom: 1rem;
+	overflow: auto;
+	width: 100%;
+	z-index: 1;
+}
+
+.markdown-section th {
+	border: 1px solid var(--color-border);
+	font-weight: var(--font-weight-bold);
+	background-color: var(--color-table-header);
+	padding: 6px 13px;
+}
+
+.markdown-section td {
+	border: 1px solid var(--color-border);
+	padding: 6px 13px;
+}
+
+.markdown-section tr {
+	border: 1px solid var(--color-border);
+	background-color: transparent;
+}
+
+.markdown-section img {
+	max-width: 100%;
+	border-radius: var(--border-radius);
+}
+
+.markdown-section iframe {
+	border: 1px solid var(--color-border-light);
+	border-radius: var(--border-radius);
+	width: 1px;
+	min-width: 100%;
+	margin: -0.75em 0;
+	/* fix horizontal overflow on iOS Safari */
+}
+
+/* for header images on each page */
+.header-img {
+	display: block;
+	max-height: 400px;
+	margin-top: 2rem;
+}
+
+.img-credit {
+	text-align: right;
+	font-size: 0.7rem;
+	margin: 0.5rem 0;
+}
+
+/* for small images in the text */
+.inline-img {
+	max-height: 1rem;
+}
+
+/* not used? Consider removing this. */
+kbd {
+	border: solid 1px var(--color-border-dark);
+	border-radius: 3px;
+	display: inline-block;
+	font-size: 12px !important;
+	line-height: 12px;
+	margin-bottom: 3px;
+	padding: 3px 5px;
+	vertical-align: middle;
+}
+
+/* the two below are not used. */
+img.emoji {
+	height: 1.2em;
+	vertical-align: middle;
+}
+
+span.emoji {
+	font-size: 1.2em;
+	vertical-align: middle;
+}
+
+
+/* =========================================
+   CODE BLOCKS & SYNTAX HIGHLIGHTING
+   ========================================= */
+.markdown-section code,
+.markdown-section pre,
+.markdown-section output::after {
+	font-family: var(--font-monospace);
+}
+
+.markdown-section code::after,
+.markdown-section code::before,
+.markdown-section output::after,
+.markdown-section output::before {
+	letter-spacing: 0.05rem;
+}
+
+.markdown-section pre {
+	position: relative;
+	background-color: var(--color-bg-code);
+	border-radius: 12px;
+
+	/* adjust paddings and margins here for code block! */
+	margin: 1.6rem 0;
+	padding: 1.4rem 0;
+
+	overflow: hidden;
+	font-family: 'Fira Code', monospace;
+	box-shadow: 0 0 0 1px #e5e7eb;
+}
+
+.markdown-section p+pre,
+.markdown-section pre+p {
+	margin-top: 0.5rem;
+}
+
+.docsify-copy-code-button {
+	font-family: 'Fira Code', monospace;
+	text-transform: lowercase !important;
+	line-height: 17px !important;
+
+	position: absolute;
+	right: 1.4rem !important;
+	top: 0.7rem !important;
+	z-index: 100 !important;
+
+	font-size: 0.72rem !important;
+	font-weight: bold !important;
+	padding: 1px 7px !important;
+	border-radius: 6px !important;
+	border: 1px solid var(--color-text-p5) !important;
+
+	color: #FFF !important;
+	background: var(--color-text-p5) !important;
+}
+
+.docsify-copy-code-button:hover {
+	background: #FFF !important;
+	color: var(--color-text-p5) !important;
+	border: 1px solid var(--color-text-p5) !important;
+}
+
+/* code language that appears the right top corner*/
+.markdown-section pre::before {
+	content: attr(data-lang);
+	position: absolute;
+	right: 1.4rem;
+	top: 0.7rem;
+
+	font-size: 0.72rem;
+	font-weight: bold;
+	padding: 1px 7px;
+	border-radius: 6px;
+	text-transform: lowercase;
+	z-index: 10;
+	pointer-events: none;
+}
+
+.markdown-section pre>code {
+	background-color: transparent;
+	display: block;
+	color: var(--color-text);
+	padding: 1.2rem 1.4rem;
+	margin: 0;
+	font-size: 0.95rem;
+	line-height: 1.6rem;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	border-radius: 0;
+}
+
+.markdown-section pre>code,
+.markdown-section output::after {
+	-moz-osx-font-smoothing: initial;
+	-webkit-font-smoothing: initial;
+}
+
+.markdown-section code {
+	/* This will also change the inline code style. */
+	background-color: var(--color-bg-code);
+	border-radius: 2px;
+	color: var(--color-code-keyword-function);
+	margin: 0 2px;
+	padding: 3px 5px;
+	white-space: pre-wrap;
+}
+
+/* CUSTOM CODE BLOCK */
+
+/* styling for comments sitting right next to the code */
+.token.comment.inline-comment {
+	/* add more */
+}
+
+/* styling for comments on their own line (bubbles) */
+.token.comment.bubble-comment {
+	display: block;
+	width: 50%;
+
+	background-color: #fff;
+	color: var(--color-secondary) !important;
+	font-family: var(--body-font-family) !important;
+	font-weight: var(--font-weight-normal) !important;
+	font-style: normal !important;
+	/* font-size: 0.95rem; */
+	line-height: 1.4;
+	white-space: normal;
+	word-break: break-word;
+
+	padding: 0.5rem 0.8rem;
+	border-radius: var(--border-radius);
+
+	/* pushes the bubble to the right */
+	margin-left: auto;
+
+	/* negative margin to reduce spacing */
+	margin-bottom: -1.5rem;
+}
+
+/* hide the '//' part for bubble comments */
+.token.comment.bubble-comment .hide-slash {
+	font-size: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* mobile view adjustments for bubbles */
+@media screen and (max-width: 768px) {
+	.token.comment.bubble-comment {
+		width: 80%;
+		margin-left: auto;
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+}
+
+/* CUSTOM CODE BLOCK (end) */
+
+.markdown-section> :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) code {
+	font-size: 0.9rem;
+}
+
+.markdown-section output {
+	margin: 1.2em 0;
+	position: relative;
+	display: block;
+	padding: 1.7rem 1.4rem;
+	border: 1px dotted #ccc;
+	border-radius: 2px;
+}
+
+.markdown-section output> :first-child {
+	margin-top: 0;
+}
+
+.markdown-section output> :last-child {
+	margin-bottom: 0;
+}
+
+code .token {
+	-moz-osx-font-smoothing: initial;
+	-webkit-font-smoothing: initial;
+	min-height: 1.5rem;
+	position: relative;
+	left: auto;
+	font-family: var(--font-monospace);
+	font-weight: var(--font-weight-light);
+	font-size: 0.9rem;
+	color: var(--color-text);
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: var(--color-code-comment);
+}
+
+.token.namespace {
+	opacity: 0.8;
+}
+
+.token.boolean,
+.token.number {
+	color: var(--color-code-boolean-number);
+}
+
+.token.punctuation {
+	color: var(--color-code-punctuation);
+}
+
+.token.property {
+	color: var(--color-code-property);
+}
+
+.token.tag {
+	color: var(--color-code-tag);
+}
+
+.token.string {
+	color: var(--color-code-string);
+}
+
+.token.selector {
+	color: var(--color-code-selector);
+}
+
+.token.attr-name {
+	color: var(--color-code-attr-name);
+}
+
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: var(--color-code-entity-url);
+}
+
+.token.attr-value,
+.token.control,
+.token.directive,
+.token.unit {
+	color: var(--color-code-attr-value-control-directive-unit);
+}
+
+.token.keyword,
+.token.function {
+	color: var(--color-code-keyword-function);
+}
+
+.token.statement,
+.token.regex,
+.token.atrule {
+	color: var(--color-code-statement-regex-atrule);
+}
+
+.token.placeholder,
+.token.variable {
+	color: var(--color-code-placeholder-variable);
+}
+
+.token.deleted {
+	text-decoration: line-through;
+}
+
+.token.inserted {
+	border-bottom: 1px dotted var(--color-code-inserted);
+	text-decoration: none;
+}
+
+.token.italic {
+	font-style: italic;
+}
+
+.token.important,
+.token.bold {
+	font-weight: var(--font-weight-bold);
+}
+
+.token.important {
+	color: var(--color-code-important);
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.custom-highlight {
+	color: var(--color-code-custom-highlight);
+	font-weight: var(--font-weight-bold);
+}
+
+.token.custom-highlight-1 {
+	color: var(--color-code-custom-highlight-1);
+	font-weight: var(--font-weight-bold);
+}
+
+.token.custom-highlight-2 {
+	color: var(--color-code-custom-highlight-2);
+	font-weight: var(--font-weight-bold);
+}
+
+
+/* =========================================
+   CUSTOM UI COMPONENTS
+   ========================================= */
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	list-style: none;
+	overflow: hidden;
+	position: relative;
+	z-index: 0;
+	color: var(--color-text-button);
+	background-color: transparent;
+	padding: 0.18rem 0.4rem;
+	margin: 0 0.5rem;
+	border-style: none;
+	border-color: transparent;
+	border-radius: 1rem;
+}
+
+.button a {
+	color: inherit;
+	font-family: var(--button-font-family);
+	font-weight: var(--button-font-weight);
+	letter-spacing: -0.01rem;
+	text-decoration: none;
+	transition: color 250ms ease-in-out;
+}
+
+.button a:before {
+	content: '';
+	width: 0;
+	height: 0;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: -1;
+	border-radius: 1.5rem;
+	transition: all 500ms ease-in-out;
+	background: var(--button-hover-bg-color);
+}
+
+.button a:hover {
+	cursor: pointer;
+	color: var(--button-hover-color);
+	background-color: transparent;
+}
+
+.button a:hover:before {
+	width: 200%;
+	height: 200%;
+	left: -50%;
+	top: -50%;
+}
+
+/* legacy fallback */
+.code-comment-line,
+.code-block,
+.code-bubble {
+	display: none;
+}
+
+pre[data-lang='js']::before,
+pre[data-lang='javascript']::before {
+	background: #ded6ff;
+	color: #2f265f;
+}
+
+pre[data-lang='html']::before {
+	background: #fbebd2;
+	color: #593b00;
+}
+
+pre[data-lang='css']::before {
+	background: #dafdfa;
+	color: #003f3f;
+}
+
+pre[data-lang='json']::before {
+	background: #fce9ff;
+	color: #521847;
+}
+
+pre[data-lang='bash']::before {
+	background: #e8ffe3;
+	color: #2b4a2a;
+}
+
+pre[data-lang='processing']::before {
+	background: #fff0f5;
+	color: #5c2a3c;
+}
+
+/* =========================================
+   COVER PAGE
+	 (We don't use this!)
+	 (Docsify's default setting; we keep it here for reference.)
+   ========================================= */
+
+section.cover {
+	position: relative;
+	align-items: center;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height: 100vh;
+	width: 100%;
+	display: none;
+}
+
+section.cover.show {
+	display: flex;
+}
+
+section.cover.has-mask .mask {
+	background-color: #fff;
+	opacity: 0.8;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+section.cover .cover-main {
+	flex: 1;
+	margin: 0 16px;
+	text-align: center;
+	position: relative;
+}
+
+section.cover a {
+	color: inherit;
+	text-decoration: none;
+}
+
+section.cover a:hover {
+	text-decoration: none;
+}
+
+section.cover p {
+	line-height: 1.5rem;
+	margin: 1em 0;
+}
+
+section.cover h1 {
+	color: inherit;
+	font-size: 2.5rem;
+	font-weight: var(--font-weight-light);
+	margin: 0.625rem 0 2.5rem;
+	position: relative;
+	text-align: center;
+}
+
+section.cover h1 a {
+	display: block;
+}
+
+section.cover h1 small {
+	bottom: -0.4375rem;
+	font-size: 1rem;
+	position: absolute;
+}
+
+section.cover blockquote {
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+section.cover ul {
+	line-height: 1.8;
+	list-style-type: none;
+	margin: 1em auto;
+	max-width: 500px;
+	padding: 0;
+}
+
+section.cover .cover-main>p:last-child a {
+	border-color: var(--color-secondary);
+	border-radius: 2rem;
+	border-style: solid;
+	border-width: 1px;
+	box-sizing: border-box;
+	color: var(--color-secondary);
+	display: inline-block;
+	font-size: 1.05rem;
+	letter-spacing: 0.1rem;
+	margin: 0.5rem 1rem;
+	padding: 0.75em 2rem;
+	text-decoration: none;
+	transition: all 0.15s ease;
+}
+
+section.cover .cover-main>p:last-child a:last-child {
+	background-color: var(--color-secondary);
+	color: #fff;
+}
+
+section.cover .cover-main>p:last-child a:last-child:hover {
+	color: inherit;
+	opacity: 0.8;
+}
+
+section.cover .cover-main>p:last-child a:hover {
+	color: inherit;
+	background: transparent;
+}
+
+section.cover blockquote>p>a {
+	border-bottom: 2px solid var(--color-secondary);
+	transition: color 0.3s;
+}
+
+section.cover blockquote>p>a:hover {
+	color: var(--color-secondary);
+	background: transparent;
+}
+
+
+/* =========================================
+   RESPONSIVE / MEDIA QUERIES
+   ========================================= */
+@media (max-width: 768px) {
+	#banner {
+		display: none;
+		visibility: hidden;
+	}
+
+	#banner-content {
+		white-space: normal;
+	}
+}
+
+@media screen and (max-width: 1060px) {
+	.sidebar {
+		transform: translateX(calc(-1 * var(--sidebar-width)));
+	}
+
+	.sidebar.show {
+		transform: translateX(0);
+	}
+
+	main>.content {
+		left: 0;
+		width: 100%;
+	}
+
+	.app-nav {
+		display: none;
+	}
+
+	.sidebar-toggle {
+		display: block;
+	}
+
+	body:has(.sidebar.show) .sidebar-toggle {
+		transform: translateX(calc(var(--sidebar-width) - var(--sidebar-toggle-btn-width)));
+	}
+}
+
+@media screen and (max-width: 700px) {
+	.navbar .menu {
+		display: none !important;
+	}
+
+	#demo,
+	.demo-iframe {
+		display: none !important;
+	}
+
+	.markdown-section {
+		width: 90%;
+		margin: 0 auto;
+	}
+}
+
+@media print {
+
+	.sidebar-toggle,
+	.sidebar,
+	.app-nav,
+	#banner {
+		display: none;
+	}
+}

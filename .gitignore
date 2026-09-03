@@ -1,9 +1,6 @@
 # folder
-/other
-/archive
-/__test__
-
-# files
+__*
+.vscode/
 .DS_Store
 *.zip
 *.rar

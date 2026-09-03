@@ -1,49 +1,40 @@
-# Web Page to Web Space Docs
+# Web Page to Web Space | Fall 2026
+Interactive Media Arts (IMA) at NYU Shanghai
 
-This repository hosts a Docsify-based course site for Web Page to Web Space.
-It is adapted from an earlier ml5-oriented structure, while preserving the existing functional behavior and plugin setup.
+<br>
 
-## Base reference
+* [Course Projects](https://docs.google.com/document/d/1OH-SeNXuankDISuhR9uCAHy4ICLW5XCMwxEQlZJjT3E/edit?usp=sharing)
 
-- https://github.com/MOQN/IMA-Web-Page-To-Web-Space
+### Course Information
+* Instructor: J.H. Moon
+  * Office: Room W839
+  * Office Hours: by appointment via [Calendar](https://calendar.app.google/Kvn7uG8DeCzguMBL6) or [Slack](https://join.slack.com/t/nyushanghaiima/shared_invite/zt-47ruesl1v-9BtEdZbMvtaTRWTyxk3CFg).
+* Class meeting days and times: Tuesday and Thursday, 6:45 to 8:00 PM
+* Classroom: N304
+* [Syllabus](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?usp=sharing)
+* [Resources](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.7hn1xbffa92p)
+* [Course Schedule Overview](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.y6mbbsoi6t21)
+* [Course Schedule](/_pages/schedule.md)
+* [Course Policies](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.azhyd49tdw8p)
 
-## What changed
+### Description
+The Internet and mobile devices have evolved rapidly over the last half century. Computing systems used to take up the whole room or building. Today, even the latest mobile phones hold powerful hardware comparable to laptop computers. The push towards developing Virtual or Augmented Reality (VR/AR) platforms may soon allow us to communicate virtually through mobile devices, without the need for complex hardware or our current tethered approach. Due to recent adjustments and development of technology and social media, people are more inclined to communicate virtually rather than face-to-face. In the near future, VR/AR platforms and the three dimensional (3D) contents may eventually overpower 2D images and textual content. Web pages will become Web Spaces. 
 
-- Replaced legacy ml5-focused text content with Web Page to Web Space course content.
-- Kept docs functionality intact: Docsify routing, sidebar loading, search, copy-code, custom plugins, and dismissible banner.
+Web Page to Web Space is a course that explores virtual interactive experience in the context of Virtual Embodiment, Virtual Space and Telepresence. Students will investigate new possible ways of using the Web to create new immersive environments in a web platform, by utilizing algorithmic 3D animation and server-side programming. This is an advanced course with technically challenging concepts with three.js and node.js and suitable for students with prior knowledge in visual programming.
 
-## Tech stack
-
-- Docsify
-- docsify-tabs
-- docsify search plugin
-- docsify-copy-code
-- Custom plugins in docs/js/custom-plugins.js
-
-## Run locally
-
-1. Install dependencies.
-2. Serve the docs folder.
-
-```bash
-npm install
-npm run docs
-```
-
-If your scripts differ, you can also use:
-
-```bash
-npx docsify-cli serve docs
-```
-
-## Project entry
-
-- docs/index.html: Docsify entry and global config
-- docs/sidebar.md: Navigation structure
-- docs/README.md: Home page content
-- docs/js/: Existing functional scripts
-
-## Notes
-
-This repository intentionally keeps prior architecture patterns to minimize migration risk while enabling fast content iteration.
-
+ 
+### Overview and Learning Outcomes
+This course will address the fundamentals of programming, such as Object-Oriented Programming (OOP). Advanced visual programming will be gradually applied by creating 3D objects and manipulating their properties and behaviors. By the end of the course, students will be able to create their own virtual space on the Web that connects people in different physical locations and provides interactive experiences. Both practical and creative applications are to be investigated as students are challenged to design their own solutions.
+ 
+#### Student Learning Outcomes
+Upon completion of this course, students will be able to:
+* practice and produce the fundamentals of programming;
+* demonstrate Object-Oriented Programming and integrate why/how to use the concept into practical applications;
+* combine fundamentals of web development with visual programming techniques to produce creative web pages;
+* expand and apply knowledge and experience in 3D animations;
+* utilize comprehensively fundamentals of visual programming in 3D and apply various methods in three.js to algorithmic animations;
+* visualize and simulate virtual environment and objects in 3D;
+* apply server-side programming in virtual environment to create a dynamic and interactive artifact;
+* construct innovative, practical and/or interactive interfaces on the web;
+* produce internet artworks and/or practical web applications by utilizing a combination of concepts and techniques discussed and demonstrated throughout the * duration of the course, and;
+* develop and discuss meaningful and effective user interactions, and recognize the context of Virtual Space and Telepresence.

@@ -1,0 +1,105 @@
+/* =========================================
+   DESIGN VARIABLES
+   (Shared between Gatsby and Docsify!)
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Noto+Sans+Mono:wght@400;600&display=swap');
+
+:root {
+	--color-primary: #7c3aed;
+	--color-secondary: #7c3aed;
+	--color-tertiary: #634fa2;
+	--color-quaternary: #ff9999;
+	--color-transparent: rgba(255, 255, 255, 0.0);
+
+	--color-text: #2a2334;
+	--color-text-transparent: rgba(42, 35, 52, 0.9);
+	--color-text-dark: #1f172b;
+	--color-text-light: #6e6583;
+	--color-text-highlight: #ff9999;
+	--color-text-highlight-green: #d9f99d;
+	--color-text-p5: #ec3865;
+
+	--color-text-button: #1f172b;
+	--color-text-link: var(--link-color);
+
+	--color-bg: #ffffff;
+	--color-bg-light: #f8f9fb;
+	--color-bg-gray: #f5f5f5;
+	--color-bg-code: var(--color-bg-light);
+
+	--color-border: #eadff8;
+	--color-border-light: #f4ecfb;
+	--color-border-dark: #d7c4ee;
+
+	--color-table-header: var(--color-bg-gray);
+	--color-table-odd: #ffffff;
+	--color-table-even: #fdf8ff;
+
+	/* we use rgb values here to add transparency later. */
+	--color-footer-rgb: 124, 58, 237;
+	--color-callout-tip-rgb: 249, 115, 22;
+	--color-callout-important-rgb: 124, 58, 237;
+	--color-sidebar-scrollbar-rgb: 148, 163, 184;
+	--color-sidebar-toggle-bg-rgb: 255, 255, 255;
+
+	--link-color: var(--color-tertiary);
+	--link-hover-color: var(--color-primary);
+	--link-hover-bg-color: var(--color-transparent);
+
+	--color-code-comment: #9ca3af;
+	--color-code-boolean-number: #7c3aed;
+	--color-code-punctuation: #4b5563;
+	--color-code-property: #a855f7;
+	--color-code-tag: #d946ef;
+	--color-code-string: #f97316;
+	--color-code-selector: #ea580c;
+	--color-code-attr-name: #2563eb;
+	--color-code-entity-url: #0ea5e9;
+	--color-code-attr-value-control-directive-unit: #7c3aed;
+	--color-code-keyword-function: #7c3aed;
+	--color-code-statement-regex-atrule: #0ea5e9;
+	--color-code-placeholder-variable: #3b82f6;
+	--color-code-deleted: #202746;
+	--color-code-inserted: #202746;
+	--color-code-important: #f43f5e;
+	--color-code-custom-highlight: var(--color-secondary);
+	--color-code-custom-highlight-1: var(--color-quaternary);
+	--color-code-custom-highlight-2: var(--color-tertiary);
+
+	--font-serif: "Georgia", "Times New Roman", serif;
+	--font-sans-serif: "Raleway", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+	--font-monospace: "Noto Sans Mono", "SFMono-Regular", "Consolas", monospace;
+	--font-emoji: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+	--font-weight-bold: 700;
+	--font-weight-normal: 400;
+	--font-weight-light: 500;
+	--logo-font-weight: 800;
+
+	--body-color: var(--color-text);
+	--body-font-family: var(--font-sans-serif);
+	--body-font-size: 16px;
+	--body-font-weight: 400;
+	--body-line-height: 1.6;
+	--body-letter-spacing: 0;
+
+	--heading-color: var(--color-text-dark);
+	--heading-font-family: "Montserrat", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+	--heading-font-weight: 600;
+	--heading-small-font-family: "Montserrat", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+	--heading-small-font-weight: 500;
+
+	--button-hover-color: #ffffff;
+	--button-hover-bg-color: var(--color-primary);
+	--button-font-family: "Montserrat", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+	--button-font-weight: 600;
+
+	--navbar-init-height: 6rem;
+	--border-radius: 0.5rem;
+
+	/* Docsify tabs - not used */
+	/* var(--theme-color) */
+	--docsifytabs-border-color: #ededed;
+	--docsifytabs-tab-highlight-color: var(--color-secondary);
+}
