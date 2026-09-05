@@ -88,10 +88,9 @@
 
 ## Assignment
 
-**Mini Project  Due Monday 11:59 PM**
+?> Mini Project Due **Monday 11:59 PM**
 
-* [W01 \- Moving Geometry: Exploring Transformation and Vectors](https://docs.google.com/document/d/1OH-SeNXuankDISuhR9uCAHy4ICLW5XCMwxEQlZJjT3E/edit?usp=sharing)  
-* [Or, W01 \- Imaginary Environment with Forces](https://docs.google.com/document/d/1OH-SeNXuankDISuhR9uCAHy4ICLW5XCMwxEQlZJjT3E/edit?usp=sharing)
+* [W01 \- Moving Geometry: Exploring Transformation, Vectors & OOP](https://docs.google.com/document/d/1OH-SeNXuankDISuhR9uCAHy4ICLW5XCMwxEQlZJjT3E/edit?usp=sharing)
 
 Readings: The Nature of Code
 
