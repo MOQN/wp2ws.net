@@ -529,9 +529,10 @@ footer {
 main>.content {
 	padding-top: 60px;
 	padding-bottom: 60px;
-	width: calc(100% - 300px);
+	width: calc(100% - var(--sidebar-width));
+	max-width: calc(100vw - var(--sidebar-width));
 	position: relative;
-	left: 300px;
+	left: var(--sidebar-width);
 	transition: left 250ms ease, width 250ms ease;
 	display: flex;
 	justify-content: center;
@@ -539,7 +540,8 @@ main>.content {
 
 .markdown-section {
 	/* limit the max width of the reference section by 800px. */
-	margin: 0 10%;
+	width: min(100%, 800px);
+	margin: 0 auto;
 	max-width: 800px;
 	padding: 30px 15px 40px 15px;
 	position: relative;
@@ -952,6 +954,21 @@ span.emoji {
 
 /* mobile view adjustments for bubbles */
 @media screen and (max-width: 768px) {
+	main>.content {
+		width: 100%;
+		max-width: 100%;
+		left: 0;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.markdown-section {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 30px 16px 40px;
+	}
+
 	.token.comment.bubble-comment {
 		width: 80%;
 		margin-left: auto;
