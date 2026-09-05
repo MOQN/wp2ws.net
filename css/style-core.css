@@ -43,7 +43,7 @@
 	--color-sidebar-scrollbar-rgb: 148, 163, 184;
 	--color-sidebar-toggle-bg-rgb: 255, 255, 255;
 
-	--link-color: var(--color-tertiary);
+	--link-color: #ee8888;
 	--link-hover-color: var(--color-primary);
 	--link-hover-bg-color: var(--color-transparent);
 

@@ -607,16 +607,24 @@ main>.content {
 	margin: 1rem 0 0 0;
 }
 
+.markdown-section h3,
+.markdown-section h3 a,
 .markdown-section h3 a span {
 	color: var(--color-text-dark);
-	font-size: 1.5rem;
+	font-size: 1.1rem;
 	font-family: var(--heading-font-family);
+	font-weight: var(--font-weight-bold);
 }
 
+.markdown-section h4,
+.markdown-section h4 a,
 .markdown-section h4 a span {
 	color: var(--color-text-dark);
-	font-size: 1.3rem;
+	font-size: 1rem;
 	font-family: var(--heading-small-font-family);
+	font-weight: var(--font-weight-bold);
+	margin-top: 1.5rem;
+	margin-bottom: 0;
 }
 
 .markdown-section h5 a span {

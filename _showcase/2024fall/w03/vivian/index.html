@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project | p5.js + three.js</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- Link to external stylesheet -->
+    <!-- Import p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/",
+            "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.3/build/index.module.js",
+            "three-bvh-csg": "https://cdn.jsdelivr.net/npm/three-bvh-csg@0.0.16/build/index.module.js"
+          }
+        }
+      </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { SUBTRACTION, Brush, Evaluator } from 'three-bvh-csg';
+        window.THREE = THREE;
+        window.OrbitControls = OrbitControls;
+        window.Brush = Brush;
+        window.SUBTRACTION = SUBTRACTION;
+        window.Evaluator = Evaluator;
+    </script>
+    <script defer src="js/script-three.js"></script>
+    <script defer src="js/script-p5.js"></script>
+    <script defer src="js/main.js"></script>
+</head>
+
+<body>
+    <div id="container-three"></div>
+    <div id="container-p5"></div>
+</body>
+
+</html>
+
+<!--  -->

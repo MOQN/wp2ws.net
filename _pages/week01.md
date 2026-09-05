@@ -3,11 +3,13 @@
 
 <h1>Introduction to Web Page to Web Space | Sep 1 & 3, 2026</h1>
 
+## Class Materials
+
 ### Class Slide
 
 * [Introduction to WP2WS](https://docs.google.com/presentation/d/1VDj0Rc9gYMdNUzi6nbNfFF4reAhIzLrBUeI-JDDHYAg/edit?usp=sharing)
 
-### Slides to Review!
+### Slides to Review! ✅
 * [Transformation functions in p5.js](https://docs.google.com/presentation/d/1rBdg_g8lz-O6_WkaatfZa5LmG5J7rmDXFS_b8pOczdU/edit?usp=sharing)
 * [Vectors | Nature of Code](https://docs.google.com/presentation/d/1HcRvZMOxkzLmWckT0_2c5ITtQ5Pgm2UJ2L9Kieh0THw/edit?usp=sharing)
 * [Object-Oriented Programming | Creative Coding Lab](https://drive.google.com/drive/folders/1_IjuCuagA7jqkuWMZ8OLicppj2MlqkBJ?usp=sharing)
@@ -20,7 +22,7 @@
 
 ## Concepts and Activities
 
-Lecture:
+#### Lecture:
 
 * Class introductions ([slides](https://docs.google.com/presentation/d/1VDj0Rc9gYMdNUzi6nbNfFF4reAhIzLrBUeI-JDDHYAg/edit?usp=sharing))  
 * Overview of materials to be explored  
@@ -38,7 +40,7 @@ Lecture:
   * `heading()`, `rotate()`, `fromAngle()`
   * `mag()`, `dist()`
 
-Extra:
+#### Extra:
 * p5.Vector: Static vs. Non-Static Functions  
   * p5.Vector.add(vector1, vector  2);	**Static: called from the class name.**  
   * vector1.add(vector2);             		**Non-static: called from an object instance.**  
@@ -52,7 +54,7 @@ Extra:
   * map(), constrain(), lerp()
 
 
-In-class Codes
+#### In-class Codes
 
 * Transformations
   * [01 Transformations](https://editor.p5js.org/MOQN/sketches/-iLOWpBAe)  

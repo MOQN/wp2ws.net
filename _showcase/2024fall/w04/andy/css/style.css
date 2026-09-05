@@ -1,0 +1,26 @@
+#p5Container{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    z-index: 999;
+    /* display: none; */
+    /* background-color: #000000; */
+}
+
+#threeContainer{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    z-index: 0;
+    /* background-color: #000000; */
+}
