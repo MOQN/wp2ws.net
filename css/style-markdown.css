@@ -574,7 +574,7 @@ main>.content {
 }
 
 .markdown-section a {
-	font-weight: var(--font-weight-bold);
+	font-weight: var(--link-font-weight);
 }
 
 .markdown-section h1 a {
