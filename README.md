@@ -14,7 +14,7 @@ Interactive Media Arts (IMA) at NYU Shanghai
 * [Syllabus](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?usp=sharing)
 * [Resources](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.7hn1xbffa92p)
 * [Course Schedule Overview](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.y6mbbsoi6t21)
-* [Course Schedule](/_pages/schedule.md)
+* [Course Schedule](/pages/schedule.md)
 * [Course Policies](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.azhyd49tdw8p)
 
 ### Description
