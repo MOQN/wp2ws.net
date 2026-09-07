@@ -129,11 +129,29 @@
     hook.doneEach(sidebarStateByViewport);
   };
 
+  const showcaseSidebarLinkPlugin = function (hook) {
+    const updateShowcaseLink = () => {
+      const showcaseLink = document.querySelector('.sidebar-nav a[href="#/showcase/26f-01/"]')
+        || document.querySelector('.sidebar-nav a[href="#/showcase/26f-01/index.html"]')
+        || document.querySelector('.sidebar-nav a[href*="showcase/26f-01"]');
+
+      if (!showcaseLink) return;
+
+      showcaseLink.href = '/showcase/26f-01/index.html';
+      showcaseLink.target = '_blank';
+      showcaseLink.rel = 'noopener noreferrer';
+    };
+
+    hook.ready(updateShowcaseLink);
+    hook.doneEach(updateShowcaseLink);
+  };
+
   window.ml5DocsPlugins = {
     prismCustomPlugin,
     examplesSearchPlugin,
     clearSearchTextPlugin,
-    sidebarStatePlugin
+    sidebarStatePlugin,
+    showcaseSidebarLinkPlugin
   };
 
 })();

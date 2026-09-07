@@ -26,3 +26,10 @@
   - [09 Navigation](/examples/09/)
   - [10 Interaction & ML](/examples/10/)
   - [12 WebXR](/examples/12/)
+
+<div class="sidebar-spacer">&nbsp;</div>
+
+- **Showcase F26**
+  <div class="sidebar-section-divider">&nbsp;</div>
+  
+  - <a href="/showcase/26f-01/index.html" target="_blank" rel="noopener noreferrer">Week 01</a>

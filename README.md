@@ -12,10 +12,10 @@ Interactive Media Arts (IMA) at NYU Shanghai
 * Class meeting days and times: Tuesday and Thursday, 6:45 to 8:00 PM
 * Classroom: N304
 * [Syllabus](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?usp=sharing)
-* [Resources](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.7hn1xbffa92p)
-* [Course Schedule Overview](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.y6mbbsoi6t21)
-* [Course Schedule](/pages/schedule.md)
-* [Course Policies](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.azhyd49tdw8p)
+  * [Resources](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.7hn1xbffa92p)
+  * [Course Schedule Overview](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.y6mbbsoi6t21)
+  * [Course Schedule](/pages/schedule.md)
+  * [Course Policies](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.azhyd49tdw8p)
 
 ### Description
 The Internet and mobile devices have evolved rapidly over the last half century. Computing systems used to take up the whole room or building. Today, even the latest mobile phones hold powerful hardware comparable to laptop computers. The push towards developing Virtual or Augmented Reality (VR/AR) platforms may soon allow us to communicate virtually through mobile devices, without the need for complex hardware or our current tethered approach. Due to recent adjustments and development of technology and social media, people are more inclined to communicate virtually rather than face-to-face. In the near future, VR/AR platforms and the three dimensional (3D) contents may eventually overpower 2D images and textual content. Web pages will become Web Spaces. 
