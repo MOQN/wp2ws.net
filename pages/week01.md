@@ -1,6 +1,5 @@
 # Week 01
 
-
 <h1>Introduction to Web Page to Web Space | Sep 1 & 3, 2026</h1>
 
 ## Class Materials

@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+  --theme-color: #f3e8ff;
+  --sub-color: #dcfce7;
+  --accent-color: #9333ea;
+
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --text-muted: #666666;
+  --border-color: #e5e5e5;
+
+  --hover-bg: #f0f0f0;
+  --hover-border: #aaaaaa;
+  --active-bg: #f9ffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  height: 100vh;
+  overflow: hidden;
+  /* text-transform: uppercase; */
+}
+
+
+.layout-container {
+  display: flex;
+  height: 100vh;
+  padding: 5vh 5vw;
+  gap: 5vw;
+}
+
+.iframe-wrapper {
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 45px);
+  margin-top: -45px;
+  border: none;
+  background-color: #ffffff;
+}
+
+.right-panel {
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.site-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  /* 12px padding to align with the list text below (4px border + 8px padding) */
+  padding-left: 12px;
+}
+
+.site-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.site-header p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.menu-container {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+ul#project-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+ul#project-list li {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 8px;
+  background-color: var(--bg-color);
+  border-left: 4px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+ul#project-list li:hover {
+  background-color: var(--hover-bg);
+  border-left-color: var(--hover-border);
+}
+
+ul#project-list li.active {
+  background-color: var(--active-bg);
+  border-left-color: var(--accent-color);
+}
+
+
+.project-name {
+  display: block;
+  flex: 1 1 auto;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.project-header-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-documentation-label {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.project-name:hover,
+.project-documentation-label:hover {
+  color: #5b21b6;
+}
+
+.menu-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.menu-container::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+}

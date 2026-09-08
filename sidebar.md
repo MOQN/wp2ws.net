@@ -10,6 +10,7 @@
 
   - [Schedule](/pages/schedule.md)
   - [Week 01](/pages/week01.md)
+  - [Week 02](/pages/week02.md)
 
 <div class="sidebar-spacer">&nbsp;</div>
 

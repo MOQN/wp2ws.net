@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WP2WS Showcase</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="layout-container">
+    <!-- Left: p5.js Iframe -->
+    <div class="iframe-wrapper">
+      <!-- Add the allow attribute to grant permissions for webcam, microphone, and autoplay -->
+      <iframe id="p5-iframe" src="" scrolling="no" allow="camera; microphone; autoplay; fullscreen"></iframe>
+    </div>
+
+    <!-- Right: Header and Student Menu -->
+    <aside class="right-panel">
+      <!-- Sticky Header Section -->
+      <header class="site-header">
+        <h1>WP2WS</h1>
+        <p>Interactive Media Arts | NYU Shanghai</p>
+        <br><br><br>
+        <h4>Week 01</h4>
+      </header>
+
+      <!-- Scrollable List Section -->
+      <div class="menu-container">
+        <ul id="project-list"></ul>
+      </div>
+    </aside>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
