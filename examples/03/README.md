@@ -1,19 +1,18 @@
-# Week 03: Intro to Three.js
+# Week 04: Objects & Dynamic Arrays + GUI
 
-Introduction to Three.js fundamentals: geometries, materials, and lighting.
+Learn object organization, dynamic arrays, and GUI controls.
 
 ## Examples
 
-1. [Get Box](01.md) - Basic box geometry
-2. [Get Sphere](02.md) - Sphere geometry
-3. [Get Plane](03.md) - Plane geometry
-4. [Get Torus](04.md) - Torus geometry
-5. [Group](05.md) - Grouping objects
-6. [MeshBasicMaterial](06.md) - Basic material properties
-7. [MeshPhongMaterial & Light](07.md) - Phong material with lighting
-8. [Sculpture Template (Dark)](08.md) - Dark theme template
-9. [Sculpture Template (Bright)](09.md) - Bright theme template
+1. [Object Organization](01.md)
+2. [Dynamic Arrays Prep](02.md)
+3. [Dynamic Arrays Remove](03.md)
+4. [Dynamic Arrays Lifespan](04.md)
+5. [GUI: Updating Values Manually](05.md)
+6. [GUI: Using JS Objects and Folders](06.md)
+7. [GUI: Manipulating Objects](07.md)
 
 ## Resources
 
-- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/03_intro_to_threejs)
+- [03a GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/04a_objects_dynamicArrays)
+- [03b GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/04b_adding_gui)

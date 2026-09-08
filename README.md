@@ -3,7 +3,10 @@ Interactive Media Arts (IMA) at NYU Shanghai
 
 <br>
 
+* [In-Class Code](https://docs.google.com/document/d/16ICvi0Gwq118q1JdIkcsmLYNfWd6yEP704TqT47ZuhQ/edit?usp=sharing)
 * [Course Projects](https://docs.google.com/document/d/1OH-SeNXuankDISuhR9uCAHy4ICLW5XCMwxEQlZJjT3E/edit?usp=sharing)
+
+<br>
 
 ### Course Information
 * Instructor: J.H. Moon
@@ -14,7 +17,7 @@ Interactive Media Arts (IMA) at NYU Shanghai
 * [Syllabus](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?usp=sharing)
   * [Resources](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.7hn1xbffa92p)
   * [Course Schedule Overview](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.y6mbbsoi6t21)
-  * [Course Schedule](/pages/schedule.md)
+  * [Course Schedule](/docs/schedule.md)
   * [Course Policies](https://docs.google.com/document/d/14vZ0bdSUIb3AAjqV1bl6_tYKCzKU81rlszq5GFeNxlY/edit?tab=t.0#bookmark=id.azhyd49tdw8p)
 
 ### Description

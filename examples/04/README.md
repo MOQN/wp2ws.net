@@ -1,18 +1,19 @@
-# Week 04: Objects & Dynamic Arrays + GUI
+# Week 05: Lights & Shadow
 
-Learn object organization, dynamic arrays, and GUI controls.
+Explore lighting systems, shadows, and fog effects in Three.js.
 
 ## Examples
 
-1. [Object Organization](01.md)
-2. [Dynamic Arrays Prep](02.md)
-3. [Dynamic Arrays Remove](03.md)
-4. [Dynamic Arrays Lifespan](04.md)
-5. [GUI: Updating Values Manually](05.md)
-6. [GUI: Using JS Objects and Folders](06.md)
-7. [GUI: Manipulating Objects](07.md)
+1. [Fogs](01.md)
+2. [Ambient Light](02.md)
+3. [Hemisphere Light](03.md)
+4. [Point Light](04.md)
+5. [Point Light Shadow](05.md)
+6. [Spot Light Shadow](06.md)
+7. [Spot Light Target](07.md)
+8. [Directional Light Target](08.md)
+9. [Rect Area Light](09.md)
 
 ## Resources
 
-- [04a GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/04a_objects_dynamicArrays)
-- [04b GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/04b_adding_gui)
+- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/05_lights_n_shadow)
