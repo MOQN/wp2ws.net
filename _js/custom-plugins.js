@@ -4,50 +4,74 @@
 
 (function () {
   // Inspired by Yafira, her code was merged into the official docsify copy-code plugin!
+  const installPrismCommentRules = function (mode = 'plain') {
+    if (typeof Prism === 'undefined' || !Prism.languages.javascript) return;
+
+    if (!Prism.languages.javascript['custom-highlight']) {
+      Prism.languages.insertBefore('javascript', 'keyword', {
+        'custom-highlight': /\b(function|add|more)\b/,
+        'custom-highlight-1': /\b(async|await|add|more)\b/,
+        'custom-highlight-2': /\b(add|more)\b/
+      });
+    }
+
+    if (!Prism.__ml5DocsCommentRulesInstalled) {
+      Prism.hooks.add('after-tokenize', function (env) {
+        let isLineStart = true;
+        for (let i = 0; i < env.tokens.length; i++) {
+          let token = env.tokens[i];
+          if (typeof token === 'string') {
+            if (token.includes('\n')) {
+              const afterLastNewline = token.split('\n').pop();
+              isLineStart = (afterLastNewline.trim() === '');
+            } else if (token.trim() !== '') {
+              isLineStart = false;
+            }
+          } else {
+            if (token.type === 'comment') {
+              let aliases = Array.isArray(token.alias) ? token.alias : (token.alias ? [token.alias] : []);
+
+              if (mode === 'bubble') {
+                aliases.push(isLineStart ? 'bubble-comment' : 'inline-comment');
+              } else {
+                aliases.push('inline-comment');
+              }
+
+              token.alias = aliases;
+              isLineStart = false;
+            } else {
+              isLineStart = false;
+            }
+          }
+        }
+      });
+      Prism.__ml5DocsCommentRulesInstalled = true;
+    }
+
+    if (mode === 'bubble' && !Prism.__ml5DocsBubbleCommentWrapInstalled) {
+      Prism.hooks.add('wrap', function (env) {
+        if (env.type === 'comment' && env.classes && env.classes.includes('bubble-comment')) {
+          env.content = env.content.replace(/^(\/\/\s*)/, '<span class="hide-slash">$1</span>');
+        }
+      });
+      Prism.__ml5DocsBubbleCommentWrapInstalled = true;
+    }
+  };
+
+  // Keep the old bubble behavior available, but don't use it for now.
   const prismCustomPlugin = function (hook) {
     const injectPrismRules = () => {
-      if (typeof Prism !== 'undefined' && Prism.languages.javascript) {
-        if (!Prism.languages.javascript['custom-highlight']) {
-          Prism.languages.insertBefore('javascript', 'keyword', {
-            'custom-highlight': /\b(function|add|more)\b/,
-            'custom-highlight-1': /\b(async|await|add|more)\b/,
-            'custom-highlight-2': /\b(add|more)\b/
-          });
+      installPrismCommentRules('bubble');
+    };
 
-          // figure out if the comment is on its own line or right next to some code
-          Prism.hooks.add('after-tokenize', function (env) {
-            let isLineStart = true;
-            for (let i = 0; i < env.tokens.length; i++) {
-              let token = env.tokens[i];
-              if (typeof token === 'string') {
-                if (token.includes('\n')) {
-                  const afterLastNewline = token.split('\n').pop();
-                  isLineStart = (afterLastNewline.trim() === '');
-                } else if (token.trim() !== '') {
-                  isLineStart = false;
-                }
-              } else {
-                if (token.type === 'comment') {
-                  let aliases = Array.isArray(token.alias) ? token.alias : (token.alias ? [token.alias] : []);
-                  // add 'bubble-comment' class if it starts the line, or 'inline-comment' if it's on the side
-                  aliases.push(isLineStart ? 'bubble-comment' : 'inline-comment');
-                  token.alias = aliases;
-                  isLineStart = false;
-                } else {
-                  isLineStart = false;
-                }
-              }
-            }
-          });
+    hook.init(injectPrismRules);
+    hook.doneEach(injectPrismRules);
+  };
 
-          // visually hide the '//' symbol only for bubble comments
-          Prism.hooks.add('wrap', function (env) {
-            if (env.type === 'comment' && env.classes && env.classes.includes('bubble-comment')) {
-              env.content = env.content.replace(/^(\/\/\s*)/, '<span class="hide-slash">$1</span>');
-            }
-          });
-        }
-      }
+  // Show the comment text normally without hiding the leading //.
+  const prismCustomPluginPlain = function (hook) {
+    const injectPrismRules = () => {
+      installPrismCommentRules('plain');
     };
 
     hook.init(injectPrismRules);
@@ -148,6 +172,7 @@
 
   window.ml5DocsPlugins = {
     prismCustomPlugin,
+    prismCustomPluginPlain,
     examplesSearchPlugin,
     clearSearchTextPlugin,
     sidebarStatePlugin,

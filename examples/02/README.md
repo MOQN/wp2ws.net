@@ -2,7 +2,7 @@
 
 Introduction to Three.js fundamentals: geometries, materials, and lighting.
 
-## Examples
+## Examples | Three.js
 
 1. [Get Box](01.md) - Basic box geometry
 2. [Get Sphere](02.md) - Sphere geometry
@@ -13,6 +13,18 @@ Introduction to Three.js fundamentals: geometries, materials, and lighting.
 7. [MeshPhongMaterial & Light](07.md) - Phong material with lighting
 8. [Sculpture Template (Dark)](08.md) - Dark theme template
 9. [Sculpture Template (Bright)](09.md) - Bright theme template
+
+## Examples | GUI
+
+- [Tweakpane](https://tweakpane.github.io/docs/) (Recommended!)
+  - [Tweakpane: Basic](https://editor.p5js.org/MOQN/sketches/_SKJ0MVdm)
+  - [Tweakpane: Controlling Objects](https://editor.p5js.org/MOQN/sketches/Ac7PcEVAz)
+
+- [Dat.GUI](https://github.com/dataarts/dat.gui)
+  - [dat.GUI: Introduction](https://editor.p5js.org/MOQN/sketches/UPNUHyLaR)
+  - [dat.GUI: Updating Values in Object](https://editor.p5js.org/MOQN/sketches/DpvmK0swY)
+  - [dat.GUI: Sending Reference to Object](https://editor.p5js.org/MOQN/sketches/H7O7V6y5x)
+
 
 ## Resources
 
