@@ -13,6 +13,7 @@
   - [Schedule](/docs/schedule.md)
   - [Week 01](/docs/week01.md)
   - [Week 02](/docs/week02.md)
+  - [Week 03](/docs/week03.md)
 
 <div class="sidebar-spacer">&nbsp;</div>
 
@@ -32,7 +33,8 @@
 
 <div class="sidebar-spacer">&nbsp;</div>
 
-- **Showcase F26**
+- **Showcase 2026**
   <div class="sidebar-section-divider">&nbsp;</div>
   
-  - <a href="/showcase/26f-01/index.html" target="_blank" rel="noopener noreferrer">Week 01</a>
+  - <a href="/showcase/2026/02/index.html" target="wp2ws-showcase" rel="noopener noreferrer">Week 02</a>
+  - <a href="/showcase/2026/01/index.html" target="wp2ws-showcase" rel="noopener noreferrer">Week 01</a>

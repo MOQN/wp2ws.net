@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APERTURE</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- import the p5.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@2.3.2/lib/p5.js"></script>
+
+  <!-- import the three.js library -->
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    window.THREE = THREE;
+    window.OrbitControls = OrbitControls;
+  </script>
+
+  <script defer src="js/script-three.js"></script>
+  <script defer src="js/script-p5.js"></script>
+  <script defer src="js/main.js"></script>
+</head>
+
+<body>
+  <div id="container-three"></div>
+  <div id="container-p5"></div>
+
+  <header class="title">
+    <h1>APERTURE</h1>
+  </header>
+
+  <footer class="panel">
+    <div class="hint">
+      <p>Drag to leave the circle.</p>
+    </div>
+    <div class="cycle">
+      <div class="caption"><span id="phase">Still</span><span id="time">00 / 20s</span></div>
+      <div class="track"><span id="progress"></span></div>
+    </div>
+    <nav class="controls">
+      <button id="front" title="Return to the front">Front <kbd>R</kbd></button>
+      <button id="back" title="Turn to the back">Back <kbd>B</kbd></button>
+      <button id="pause" title="Pause or resume"><span id="pause-label">Pause</span> <kbd>Space</kbd></button>
+    </nav>
+  </footer>
+</body>
+
+</html>

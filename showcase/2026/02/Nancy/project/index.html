@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- ///// get p5.js from cdn ///// -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@2.3.2/lib/p5.js"></script>
+
+    <!-- ///// import three.js from cdn in case es6 doen't work on one's computer ///// -->
+    <script async src="https://ga.jspm.io/npm:es-module-shims@2.8.4/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": 
+            "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+                "three/addons/": 
+            "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module"> // p5 cannot be used here in the module
+        // THREE is object
+        import * as THREE from 'three'; // get the library
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        window.THREE = THREE; // globalize it outside the module
+        window.OrbitControls = OrbitControls;
+        THREE
+        // window means the browser, by writing these two lines 
+        // we can use THREE (object) as a global variable outside the module
+        // so that p5 can use it as well
+    </script>
+
+    <script defer src="js/script-p5.js"></script>
+    <script defer src="js/script-three.js"></script>
+    <!-- defer: wait until everything is loaded -->
+    <script defer src="js/main.js"></script>
+</head>
+
+<body>
+
+    <div id="container-three"></div>
+    <div id="container-p5"></div>
+
+</body>
+
+</html>

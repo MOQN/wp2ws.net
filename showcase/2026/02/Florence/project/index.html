@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Impossible Balance</title>
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+
+
+  <!-- p5 -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/p5@2.3.2/lib/p5.js">
+  </script>
+
+
+  <!-- Three.js import map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/"
+      }
+    }
+  </script>
+
+</head>
+
+
+<body>
+
+  <div id="container-three"></div>
+
+  <div id="container-p5"></div>
+
+
+  <script type="module">
+
+    import * as THREE from "three";
+
+    import {
+      OrbitControls
+    } from "three/addons/controls/OrbitControls.js";
+
+
+    window.THREE = THREE;
+
+    window.OrbitControls = OrbitControls;
+
+
+    // load normal JS files in the correct order
+    function loadScript(src) {
+
+      return new Promise((resolve, reject) => {
+
+        const script =
+          document.createElement("script");
+
+        script.src = src;
+
+        script.onload = resolve;
+
+        script.onerror = reject;
+
+        document.body.appendChild(script);
+
+      });
+
+    }
+
+
+    await loadScript("js/main.js");
+
+    await loadScript("js/script-three.js");
+
+    await loadScript("js/script-p5.js");
+
+
+    // start Three.js directly
+    initThree();
+
+  </script>
+
+</body>
+
+</html>

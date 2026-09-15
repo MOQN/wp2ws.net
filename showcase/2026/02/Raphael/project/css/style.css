@@ -1,0 +1,188 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background-color: #e6e2dc;
+  color: #353630;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* the wall behind the sculpture: a halo of the light that comes through the
+   aperture, the warm key light moving over the wall, and darker edges */
+body {
+  --light: 1;
+  --lx: 33%;
+  --ly: 21%;
+  background:
+    radial-gradient(circle at 50% 50%, rgb(255 250 238 / calc(var(--light) * .7)) 0%, rgb(255 250 238 / calc(var(--light) * .45)) 26%, rgb(255 250 238 / 0) 54%),
+    radial-gradient(circle at var(--lx) var(--ly), rgb(255 244 224 / .45) 0%, rgb(255 244 224 / 0) 46%),
+    radial-gradient(circle at 50% 50%, rgb(88 82 70 / 0) 42%, rgb(88 82 70 / .26) 100%),
+    #e6e2dc;
+}
+
+canvas {
+  display: block;
+}
+
+#container-three {
+  position: fixed;
+  inset: 0;
+  cursor: grab;
+}
+
+#container-three:active {
+  cursor: grabbing;
+}
+
+#container-p5 {
+  display: none;
+}
+
+.title {
+  position: fixed;
+  top: 44px;
+  left: 52px;
+  pointer-events: none;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: .24em;
+}
+
+.panel {
+  position: fixed;
+  left: 52px;
+  right: 52px;
+  bottom: 28px;
+  display: grid;
+  grid-template-columns: 1fr 190px 1fr;
+  gap: 36px;
+  align-items: center;
+  padding-top: 22px;
+  border-top: 1px solid rgba(67, 65, 56, .2);
+  pointer-events: none;
+}
+
+.hint p {
+  margin: 0;
+  font: italic 1.125rem/1.5 Georgia, "Times New Roman", serif;
+}
+
+.caption {
+  display: flex;
+  justify-content: space-between;
+  font-size: .75rem;
+  color: #6e6c64;
+}
+
+#time {
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  height: 1px;
+  margin-top: 12px;
+  background: rgba(67, 65, 56, .2);
+}
+
+#progress {
+  display: block;
+  height: 100%;
+  background: #84413a;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  pointer-events: auto;
+}
+
+button {
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: .875rem;
+  letter-spacing: .06em;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #84413a;
+  background: rgba(100, 90, 75, .06);
+}
+
+kbd {
+  margin-left: 6px;
+  padding: 2px 5px;
+  border: 1px solid rgba(67, 65, 56, .2);
+  border-radius: 2px;
+  font: .75rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #6e6c64;
+}
+
+@media (max-width: 760px) {
+  .title {
+    top: 30px;
+    left: 24px;
+  }
+
+  h1 {
+    font-size: 1.625rem;
+  }
+
+  .panel {
+    left: 24px;
+    right: 24px;
+    bottom: 20px;
+    grid-template-columns: 1fr auto;
+    gap: 16px 12px;
+    padding-top: 16px;
+  }
+
+  .cycle {
+    grid-column: 1 / -1;
+  }
+
+  .hint p {
+    font-size: .9375rem;
+  }
+
+  .controls {
+    gap: 2px;
+  }
+
+  button {
+    padding: 8px 5px;
+  }
+
+  kbd {
+    display: none;
+  }
+}
+
+@media (max-height: 500px) and (min-width: 600px) {
+  .title {
+    top: 22px;
+  }
+
+  .panel {
+    bottom: 12px;
+    padding-top: 12px;
+    grid-template-columns: 1fr auto;
+  }
+
+  .cycle {
+    display: none;
+  }
+}

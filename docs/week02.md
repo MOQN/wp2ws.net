@@ -39,13 +39,6 @@
   * Mesh \= Geometry \+ Materials  
 * Controls  
   * OrbitContorl.js  
-* Lights?  
-  * if time allows.  
-* Supportive JS Libraries (on Thursday)  
-  * Tweakpane [https://tweakpane.github.io/docs/](https://tweakpane.github.io/docs/)  
-  * Other  
-    * [stats.js](https://github.com/mrdoob/stats.js/) to monitor frame Rate  
-    * [dat.gui.js](https://github.com/dataarts/dat.gui) to add graphical user interfaces.
 
 ### Exercises
 
