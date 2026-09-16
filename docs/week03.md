@@ -69,7 +69,7 @@
   * [Primitives](https://threejs.org/manual/en/primitives.html)  
   * [Materials](https://threejs.org/manual/en/materials.html)  
   * [Scenegraph](https://threejs.org/manual/en/scenegraph.html)  
-* Learn Three.js \- Fourth Edition ([Direct Link](http://proxy.library.nyu.edu/login?url=https://learning.oreilly.com/library/view/-/9781803233871/?orpq&email=%5Eu), [Link to NYU Library](https://search.library.nyu.edu/discovery/fulldisplay?docid=alma99100442754307871&context=L&vid=01NYU_INST:NYU&lang=en&search_scope=CI_NYU_CONSORTIA&adaptor=Local%20Search%20Engine&tab=Unified_Slot&query=any%2Ccontains%2CLearn%20Three.js&sortby=rank&mode=basic))  
+* Learn Three.js \- Fourth Edition ([Direct Link](https://na07.alma.exlibrisgroup.com/view/action/uresolver.do?operation=resolveService&package_service_id=77682873770007871&institutionId=7871&customerId=7870), [Link to NYU Library](https://search.library.nyu.edu/discovery/fulldisplay?docid=alma990093936450107871&context=L&vid=01NYU_INST:NYU&lang=en&search_scope=CI_NYU_CONSORTIA&adaptor=Local%20Search%20Engine&tab=Unified_Slot&query=any,contains,learn%20three.js%202023))
   * [Part 2: Working with the Three.js Core Components](https://learning-oreilly-com.proxy.library.nyu.edu/library/view/learn-three-js/9781803233871/B18726_Part2.xhtml#_idTextAnchor055)  
     * [W4. Working with Three.js Materials](https://learning-oreilly-com.proxy.library.nyu.edu/library/view/learn-three-js/9781803233871/B18726_04.xhtml#_idTextAnchor057)  
     * [5\. Learning to Work with Geometries](https://learning-oreilly-com.proxy.library.nyu.edu/library/view/learn-three-js/9781803233871/B18726_05.xhtml#_idTextAnchor082)  
