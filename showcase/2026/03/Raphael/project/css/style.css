@@ -1,0 +1,454 @@
+/* accent colors, set from main.js (updateTones) */
+:root {
+  --tone-a: #e0b35a;
+  --tone-b: #c93a8f;
+  --tone-c: #3057d6;
+  --tones: linear-gradient(90deg, var(--tone-a), var(--tone-b), var(--tone-c));
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background-color: black;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+canvas {
+  display: block;
+}
+
+#container-p5 {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+}
+
+#container-three {
+  position: fixed;
+  inset: 0;
+  cursor: none; /* custom pointer: #cursor and #dot */
+}
+
+.title {
+  position: fixed;
+  top: 44px;
+  left: 52px;
+  pointer-events: none;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.24em;
+}
+
+.panel {
+  position: fixed;
+  left: 52px;
+  right: 52px;
+  bottom: 28px;
+  display: grid;
+  grid-template-columns: 1fr 340px 1fr;
+  gap: 36px;
+  align-items: center;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}
+
+.hint p {
+  margin: 0;
+  font: italic 1.0625rem/1.5 Georgia, "Times New Roman", serif;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.caption {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+#phases span {
+  margin-right: 18px;
+  opacity: 0.32;
+  transition: opacity 0.6s;
+}
+
+#phases span.active {
+  opacity: 1;
+}
+
+#number {
+  color: rgba(255, 255, 255, 0.5);
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  height: 1px;
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+#progress {
+  display: block;
+  height: 2px;
+  margin-top: -0.5px;
+  background: var(--tones);
+  clip-path: inset(0 100% 0 0);
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  pointer-events: auto;
+}
+
+/* buttons of the bottom panel only (the GUI has buttons of its own): a line appears under the button on hover */
+.controls button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font: inherit;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.controls button::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: 7px;
+  height: 1px;
+  background: var(--tones);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.controls button:hover,
+.controls button.active {
+  color: #fff;
+}
+
+.controls button:hover::after {
+  transform: scaleX(1);
+}
+
+.controls button:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 4px;
+}
+
+.key {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: square;
+}
+
+/* New: the spiral icon is redrawn on hover, and loops while melting */
+.spiral path {
+  stroke-dasharray: 70;
+}
+
+.controls button:hover .spiral path {
+  animation: draw 0.9s cubic-bezier(0.3, 0.6, 0.2, 1);
+}
+
+.melting .spiral path {
+  animation: draw 1.6s ease-in-out infinite alternate;
+}
+
+.melting #regenerate {
+  color: var(--tone-a);
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 70;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Pause: bars, or a triangle while paused */
+.bars,
+.play {
+  transition: opacity 0.3s;
+}
+
+.play {
+  fill: currentColor;
+  stroke: none;
+  opacity: 0;
+}
+
+.paused .bars {
+  opacity: 0;
+}
+
+.paused .play {
+  opacity: 1;
+}
+
+.paused #pause {
+  color: var(--tone-a);
+}
+
+/* Controls: knobs move on hover, colored while the GUI is open */
+.knob {
+  fill: #17181c;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), fill 0.3s;
+}
+
+.controls button:hover .knob:nth-of-type(1) {
+  transform: translateX(5px);
+}
+
+.controls button:hover .knob:nth-of-type(2) {
+  transform: translateX(-6px);
+}
+
+.controls button:hover .knob:nth-of-type(3) {
+  transform: translateX(4px);
+}
+
+#gui.active .knob {
+  fill: var(--tone-a);
+  stroke: var(--tone-a);
+}
+
+/* custom pointer: a small square at the pointer and a frame that follows it.
+   the frame has the size of the heated area, its outline shows the film added */
+#cursor,
+#dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  will-change: transform;
+}
+
+#cursor.on,
+#dot.on {
+  opacity: 1;
+}
+
+#cursor {
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+}
+
+#cursor svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.7)); /* dark edge for contrast */
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s;
+}
+
+#cursor.drag svg {
+  transform: scale(0.22);
+  opacity: 0.7;
+}
+
+.rim {
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 0.75;
+}
+
+/* corner brackets: slightly smaller while heating */
+.ticks {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 1;
+  stroke-linecap: square;
+  transform-origin: 50px 50px;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+#cursor.hot .ticks {
+  transform: scale(0.93);
+}
+
+#arc {
+  fill: none;
+  stroke: url(#tones);
+  stroke-width: 1.5;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-dasharray: 0 100;
+  transition: stroke-dasharray 0.25s linear;
+}
+
+#reading {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-top: 10px;
+  transform: translateX(-50%);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.9); /* readable over bright bars */
+  transition: opacity 0.4s;
+}
+
+#cursor.drag #reading {
+  opacity: 0;
+}
+
+#dot {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  background: #fff;
+  mix-blend-mode: difference;
+}
+
+.bare #cursor,
+.bare #dot {
+  display: none;
+}
+
+/* H: hide the interface */
+.bare .title,
+.bare .panel {
+  display: none;
+}
+
+/* GUI: below the title, above the panel, scrolls if too tall.
+   closed = moved to the right and faded out */
+.tp-dfwv {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(36px);
+  transition: opacity 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), visibility 0s linear 0.5s;
+  top: 40px !important;
+  right: 52px !important;
+  width: 292px !important;
+  max-height: calc(100vh - 170px);
+  overflow-y: auto;
+}
+
+/* small windows (e.g. an embed): no hint text, smaller title, one row */
+.gui-open:not(.bare) .tp-dfwv {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition-delay: 0s;
+}
+
+@media (max-width: 1000px), (max-height: 620px) {
+  .title {
+    top: 24px;
+    left: 28px;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  .panel {
+    left: 28px;
+    right: 28px;
+    bottom: 10px;
+    grid-template-columns: minmax(0, 340px) 1fr;
+    gap: 24px;
+    padding-top: 12px;
+  }
+
+  .hint,
+  .key {
+    display: none;
+  }
+
+  .controls {
+    gap: 20px;
+  }
+
+  .tp-dfwv {
+    top: 16px !important;
+    right: 16px !important;
+    max-height: calc(100vh - 90px);
+  }
+}
+
+@media (max-width: 760px) {
+  .title {
+    top: 30px;
+    left: 24px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .panel {
+    left: 24px;
+    right: 24px;
+    bottom: 18px;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding-top: 16px;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .controls {
+    justify-content: space-between;
+  }
+
+  .tp-dfwv {
+    top: 84px !important;
+    right: 24px !important;
+    max-height: calc(100vh - 260px);
+  }
+}
+
+/* very low windows: only the title and the phases */
+@media (max-height: 340px) {
+  .controls {
+    display: none;
+  }
+
+  .panel {
+    grid-template-columns: 1fr;
+    border-top: 0;
+    padding-top: 0;
+  }
+}

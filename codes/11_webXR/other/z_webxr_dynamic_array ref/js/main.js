@@ -253,16 +253,16 @@ function getBox() {
 
 class Cube {
   constructor() {
-    this.pos = createVector();
-    this.vel = createVector();
-    this.acc = createVector();
+    this.pos = new THREE.Vector3();
+    this.vel = new THREE.Vector3();
+    this.acc = new THREE.Vector3();
 
-    this.scl = createVector(1, 1, 1);
+    this.scl = new THREE.Vector3(1, 1, 1);
     this.mass = this.scl.x * this.scl.y * this.scl.z;
 
-    this.rot = createVector();
-    this.rotVel = createVector();
-    this.rotAcc = createVector();
+    this.rot = new THREE.Vector3();
+    this.rotVel = new THREE.Vector3();
+    this.rotAcc = new THREE.Vector3();
 
     this.lifespan = 1.0;
     this.lifeReduction = random(0.005, 0.010);
@@ -272,19 +272,19 @@ class Cube {
     scene.add(this.mesh);
   }
   setPosition(x, y, z) {
-    this.pos = createVector(x, y, z);
+    this.pos = new THREE.Vector3(x, y, z);
     return this;
   }
   setVelocity(x, y, z) {
-    this.vel = createVector(x, y, z);
+    this.vel = new THREE.Vector3(x, y, z);
     return this;
   }
   setRotationAngle(x, y, z) {
-    this.rot = createVector(x, y, z);
+    this.rot = new THREE.Vector3(x, y, z);
     return this;
   }
   setRotationVelocity(x, y, z) {
-    this.rotVel = createVector(x, y, z);
+    this.rotVel = new THREE.Vector3(x, y, z);
     return this;
   }
   setScale(w, h = w, d = w) {
@@ -292,23 +292,23 @@ class Cube {
     if (w < minScale) w = minScale;
     if (h < minScale) h = minScale;
     if (d < minScale) d = minScale;
-    this.scl = createVector(w, h, d);
+    this.scl = new THREE.Vector3(w, h, d);
     this.mass = this.scl.x * this.scl.y * this.scl.z;
     return this;
   }
   move() {
     this.vel.add(this.acc);
     this.pos.add(this.vel);
-    this.acc.mult(0);
+    this.acc.set(0, 0, 0);
   }
   rotate() {
     this.rotVel.add(this.rotAcc);
     this.rot.add(this.rotVel);
-    this.rotAcc.mult(0);
+    this.rotAcc.set(0, 0, 0);
   }
   applyForce(f) {
-    let force = f.copy();
-    force.div(this.mass);
+    let force = f.clone();
+    force.divideScalar(this.mass);
     this.acc.add(force);
   }
   reappear() {
@@ -332,7 +332,7 @@ class Cube {
     this.mesh.position.set(this.pos.x, this.pos.y, this.pos.z);
     this.mesh.rotation.set(this.rot.x, this.rot.y, this.rot.z);
 
-    let newScale = p5.Vector.mult(this.scl, this.lifespan);
+    let newScale = this.scl.clone().multiplyScalar(this.lifespan);
     this.mesh.scale.set(newScale.x, newScale.y, newScale.z);
   }
 }

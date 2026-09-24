@@ -1,4 +1,4 @@
-# Week 09: Navigation
+# Week 08: Navigation
 
 Camera controls, navigation systems, and character movement.
 
@@ -20,4 +20,4 @@ Camera controls, navigation systems, and character movement.
 
 ## Resources
 
-- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/09a_navigation)
+- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/08a_navigation)

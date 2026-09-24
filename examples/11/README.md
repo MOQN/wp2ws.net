@@ -1,4 +1,4 @@
-# Week 12: WebXR
+# Week 11: WebXR
 
 Immersive WebXR experiences with VR support.
 
@@ -12,4 +12,4 @@ Immersive WebXR experiences with VR support.
 
 ## Resources
 
-- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/12_webXR)
+- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/11_webXR)

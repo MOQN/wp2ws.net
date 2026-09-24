@@ -1,4 +1,4 @@
-# Week 10: Interaction & ML Models
+# Week 09: Interaction & ML Models
 
 Raycasting for interaction and integrating ML models with Three.js.
 
@@ -21,5 +21,5 @@ Raycasting for interaction and integrating ML models with Three.js.
 
 ## Resources
 
-- [10a GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/10a_interaction_raycaster)
-- [10b GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/10b_Interaction_w_MLmodels)
+- [09a GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/09a_interaction_raycaster)
+- [09b GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/09b_Interaction_w_MLmodels)

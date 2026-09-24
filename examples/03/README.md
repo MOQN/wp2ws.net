@@ -1,4 +1,4 @@
-# Week 04: Objects & Dynamic Arrays + GUI
+# Week 03: Objects & Dynamic Arrays + GUI
 
 Learn object organization, dynamic arrays, and GUI controls.
 
@@ -8,11 +8,13 @@ Learn object organization, dynamic arrays, and GUI controls.
 2. [Dynamic Arrays Prep](02.md)
 3. [Dynamic Arrays Remove](03.md)
 4. [Dynamic Arrays Lifespan](04.md)
-5. [GUI: Updating Values Manually](05.md)
-6. [GUI: Using JS Objects and Folders](06.md)
-7. [GUI: Manipulating Objects](07.md)
+5. [Flow Field](05.md)
+6. [Dynamic Arrays Lifespan + Flow Field](06.md)
+7. [GUI: Updating Values Manually](07.md)
+8. [GUI: Using JS Objects and Folders](08.md)
+9. [GUI: Manipulating Objects](09.md)
 
 ## Resources
 
-- [03a GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/04a_objects_dynamicArrays)
-- [03b GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/04b_adding_gui)
+- [Objects & Dynamic Arrays GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/03_objects_dynamicArrays)
+- [GUI GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/03_adding_gui)

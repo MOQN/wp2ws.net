@@ -1,4 +1,4 @@
-# Week 05: Lights & Shadow
+# Week 04: Lights & Shadow
 
 Explore lighting systems, shadows, and fog effects in Three.js.
 
@@ -16,4 +16,4 @@ Explore lighting systems, shadows, and fog effects in Three.js.
 
 ## Resources
 
-- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/05_lights_n_shadow)
+- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/04_lights_n_shadow)

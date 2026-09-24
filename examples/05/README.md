@@ -1,4 +1,4 @@
-# Week 06: Points Material & Adding Realism
+# Week 05: Points Material & Adding Realism
 
 Advanced materials, textures, and realistic rendering techniques.
 
@@ -33,5 +33,5 @@ Advanced materials, textures, and realistic rendering techniques.
 
 ## Resources
 
-- [05a GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/06a_pointsMaterial)
-- [05b GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/06b_adding_realism)
+- [05a GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/05a_pointsMaterial)
+- [05b GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/05b_adding_realism)

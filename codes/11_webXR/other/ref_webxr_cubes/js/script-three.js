@@ -1,10 +1,11 @@
 console.log("___Test1___");
 console.log("three.js Version: " + THREE.REVISION);
 
-let container, gui, stats;
+let container, pane;
 let scene, camera, renderer;
 let controls;
 let time, frame = 0;
+const fps = { value: 0, last: 0 };
 
 function initThree() {
   scene = new THREE.Scene();
@@ -23,12 +24,25 @@ function initThree() {
   container.appendChild(renderer.domElement);
 
   //controls = new OrbitControls(camera, renderer.domElement);
+  if (typeof params === "undefined") { window.params = {}; }
+  if (typeof params.fps === "undefined") { params.fps = 0; }
 
-  gui = new dat.GUI();
 
-  stats = new Stats();
-  stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-  document.body.appendChild(stats.domElement);
+
+  pane = new Pane();
+  pane.addBinding(params, "fps", {
+    label: "FPS",
+    readonly: true,
+  });
+  pane.addBinding(params, "fps", {
+    label: "FPS Graph",
+    readonly: true,
+    view: "graph",
+    min: 0,
+    max: 120,
+  });
+  pane.addBlade({ view: "separator" });
+
 
   setupThree(); // *** 
 
@@ -38,11 +52,16 @@ function initThree() {
 
 function animate() {
   //requestAnimationFrame(animate);
-  stats.update();
-  time = performance.now();
+time = performance.now();
   frame++;
+  fps.value = 1000 / (time - (fps.last || time));
+  fps.last = time;
+  params.fps = fps.value.toFixed(2);
+
 
   updateThree(); // ***
+
+  pane.refresh();
 
   renderer.render(scene, camera);
 }

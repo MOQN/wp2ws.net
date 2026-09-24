@@ -28,4 +28,4 @@ Introduction to Three.js fundamentals: geometries, materials, and lighting.
 
 ## Resources
 
-- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/03_intro_to_threejs)
+- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/02_intro_to_threejs)

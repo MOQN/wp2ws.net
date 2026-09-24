@@ -22885,7 +22885,8 @@
       function (_dereq_, module, exports) {
         var fails = _dereq_('../internals/fails');
         var whitespaces = _dereq_('../internals/whitespaces');
-        var non = '​᠎';
+        var non = '​
+᠎';
         // check that a method works with the correct list
         // of whitespaces and has a correct name
         module.exports = function (METHOD_NAME) {
