@@ -64,7 +64,7 @@ function setupThree() {
   //Camera position
   camera.position.set(0, 35, 180);
   camera.lookAt(0, 35, 0);
-//Checking if camera is inside the room or outside the house
+  //Checking if camera is inside the room or outside the house
   window.addEventListener("pointerdown", event => {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
