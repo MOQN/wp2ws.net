@@ -31,7 +31,10 @@
   * [PointLightShadow](https://threejs.org/docs/#api/en/lights/shadows/PointLightShadow)
   * [SpotLightShadow](https://threejs.org/docs/#api/en/lights/shadows/SpotLightShadow)
   * [DirectionalLightShadow](https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow)
-* "Target" for SpotLight and DirectionalLight
+* "Target" for SpotLight, DirectionalLight, and RectAreaLight
+* Official Three.js Documentation for Lights and Shadows
+  * [Lights](https://threejs.org/manual/?q=light#lights)
+  * [Shadows](https://threejs.org/manual/?q=shadow#shadows)
 
 ### Exercises
 
@@ -51,7 +54,6 @@
   * [Fog](https://threejs.org/manual/en/fog.html)
   * [Lights](https://threejs.org/manual/en/lights.html)
   * [Shadows](https://threejs.org/manual/en/shadows.html)
-  * [Custom BufferGeometry](https://threejs.org/manual/en/custom-buffergeometry.html)
 * Learn Three.js \- Fourth Edition ([Direct Link](https://na07.alma.exlibrisgroup.com/view/action/uresolver.do?operation=resolveService&package_service_id=77682873770007871&institutionId=7871&customerId=7870), [Link to NYU Library](https://search.library.nyu.edu/discovery/fulldisplay?docid=alma990093936450107871&context=L&vid=01NYU_INST:NYU&lang=en&search_scope=CI_NYU_CONSORTIA&adaptor=Local%20Search%20Engine&tab=Unified_Slot&query=any,contains,learn%20three.js%202023))
   * [Working with Light Sources in Three.js](https://learning-oreilly-com.proxy.library.nyu.edu/library/view/learn-three-js/9781803233871/B18726_03.xhtml#_idTextAnchor041)
     * [What lighting types are provided in Three.js?](https://learning-oreilly-com.proxy.library.nyu.edu/library/view/learn-three-js/9781803233871/B18726_03.xhtml#_idTextAnchor042)
