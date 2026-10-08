@@ -1,9 +1,11 @@
 let params = {
   fps: 0,
+  drawCount: 0,
 };
 
 const WORLD_SIZE = 2000;
-const MAX_PARTICLE_NUMBER = 5000;
+const WORLD_HALF = WORLD_SIZE / 2;
+const MAX_PARTICLE_NUMBER = 10000;
 
 let pointCloud;
 let particles = [];
@@ -12,8 +14,8 @@ function setupThree() {
   // particles
   for (let i = 0; i < MAX_PARTICLE_NUMBER; i++) {
     let tParticle = new Particle()
-      .setPosition(random(-300, 300), 0, 0)
-      .setVelocity(random(-0.2, 0.2), random(-0.2, 0.2), random(-0.2, 0.2))
+      .setPosition(random(-WORLD_HALF, WORLD_HALF), random(-WORLD_HALF, WORLD_HALF), random(-WORLD_HALF, WORLD_HALF))
+      .setVelocity(random(-0.5, 0.5), random(-0.5, 0.5), random(-0.5, 0.5))
     particles.push(tParticle);
   }
   params.drawCount = particles.length;
@@ -21,14 +23,20 @@ function setupThree() {
   // Points
   pointCloud = getPoints(particles);
   scene.add(pointCloud);
+
+  pane.addBinding(params, "drawCount", {
+    min: 0,
+    max: MAX_PARTICLE_NUMBER,
+    step: 1,
+  });
 }
 
 function updateThree() {
   // generate more particles
   while (particles.length < MAX_PARTICLE_NUMBER) {
     let tParticle = new Particle()
-      .setPosition(random(-300, 300), 0, 0)
-      .setVelocity(random(-0.2, 0.2), random(-0.2, 0.2), random(-0.2, 0.2))
+      .setPosition(random(-WORLD_HALF, WORLD_HALF), random(-WORLD_HALF, WORLD_HALF), random(-WORLD_HALF, WORLD_HALF))
+      .setVelocity(random(-0.5, 0.5), random(-0.5, 0.5), random(-0.5, 0.5))
     particles.push(tParticle);
   }
 
@@ -36,13 +44,13 @@ function updateThree() {
   for (let i = 0; i < particles.length; i++) {
     let p = particles[i];
 
-    //p.attractedTo(0, 0, 0);
-    p.flow();
-    p.move();
-    p.adjustVelocity(-0.005);
-    p.rotate();
+    p.attractedTo(0, 0, 0);
+    p.updatePosition();
+    p.adjustVelocity(-0.01);
+    p.updateRotation();
 
-    p.age();
+    p.updateLifespan();
+    p.updateScale();
     if (p.isDone) {
       particles.splice(i, 1);
       i--;
@@ -73,21 +81,12 @@ function getPoints(objects) {
   const geometry = new THREE.BufferGeometry();
   // attributes
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.getAttribute('position').setUsage(THREE.DynamicDrawUsage);
   // draw range
   const drawCount = objects.length; // draw the whole objects
   geometry.setDrawRange(0, drawCount);
-  // geometry
-  const texture = new THREE.TextureLoader().load('assets/particle_texture.jpg');
-  const material = new THREE.PointsMaterial({
-    color: 0xFF9911,
-    size: random(1, 5),
-    sizeAttenuation: true,
-    //opacity: 1.0,
-    //transparent: true,
-    depthTest: false,
-    blending: THREE.AdditiveBlending,
-    map: texture
-  });
+  // material
+  const material = new THREE.PointsMaterial({ color: 0xFFFFFF });
   // Points
   const points = new THREE.Points(geometry, material);
   return points;
@@ -99,7 +98,8 @@ class Particle {
     this.vel = new THREE.Vector3();
     this.acc = new THREE.Vector3();
 
-    this.scl = new THREE.Vector3(1, 1, 1);
+    this.baseScl = new THREE.Vector3(1, 1, 1);
+    this.scl = this.baseScl.clone();
     this.mass = 1;
     //this.setMass(); // feel free to use this method; it arbitrarily defines the mass based on the scale.
 
@@ -132,18 +132,19 @@ class Particle {
     if (w < minScale) w = minScale;
     if (h < minScale) h = minScale;
     if (d < minScale) d = minScale;
-    this.scl = new THREE.Vector3(w, h, d);
+    this.baseScl.set(w, h, d);
+    this.scl.copy(this.baseScl);
     return this;
   }
   setMass(mass) {
     if (mass) {
       this.mass = mass;
     } else {
-      this.mass = 1 + (this.scl.x * this.scl.y * this.scl.z) * 0.000001; // arbitrary
+      this.mass = 1 + (this.baseScl.x * this.baseScl.y * this.baseScl.z) * 0.000001; // arbitrary
     }
     return this;
   }
-  move() {
+  updatePosition() {
     this.vel.add(this.acc);
     this.pos.add(this.vel);
     this.acc.set(0, 0, 0);
@@ -151,7 +152,7 @@ class Particle {
   adjustVelocity(amount) {
     this.vel.multiplyScalar(1 + amount);
   }
-  rotate() {
+  updateRotation() {
     this.rotVel.add(this.rotAcc);
     this.rot.add(this.rotVel);
     this.rotAcc.set(0, 0, 0);
@@ -164,40 +165,37 @@ class Particle {
     this.acc.add(force);
   }
   reappear() {
-    if (this.pos.z > WORLD_SIZE / 2) {
-      this.pos.z = -WORLD_SIZE / 2;
+    if (this.pos.z > WORLD_HALF) {
+      this.pos.z = -WORLD_HALF;
     }
   }
   disappear() {
-    if (this.pos.z > WORLD_SIZE / 2) {
+    if (this.pos.z > WORLD_HALF) {
       this.isDone = true;
     }
   }
-  age() {
+  updateLifespan() {
     this.lifespan -= this.lifeReduction;
     if (this.lifespan <= 0) {
       this.lifespan = 0;
       this.isDone = true;
     }
   }
+  updateScale() {
+    this.scl.set(
+      this.baseScl.x * this.lifespan,
+      this.baseScl.y * this.lifespan,
+      this.baseScl.z * this.lifespan
+    );
+  }
   attractedTo(x, y, z) {
     let target = new THREE.Vector3(x, y, z);
     let force = target.clone().sub(this.pos);
     if (force.length() < 100) {
-      force.multiplyScalar(-0.005);
+      force.multiplyScalar(-0.002 * random(1, 5));
     } else {
       force.multiplyScalar(0.0001);
     }
-    this.applyForce(force);
-  }
-  flow() {
-    let xFreq = this.pos.x * 0.05 + frame * 0.005;
-    let yFreq = this.pos.y * 0.05 + frame * 0.005;
-    let zFreq = this.pos.z * 0.05 + frame * 0.005;
-    let noiseValue = map(noise(xFreq, yFreq, zFreq), 0.0, 1.0, -1.0, 1.0);
-    let force = new THREE.Vector3(cos(frame * 0.005), sin(frame * 0.005), sin(frame * 0.002));
-    force.normalize();
-    force.multiplyScalar(noiseValue * 0.01);
     this.applyForce(force);
   }
 }

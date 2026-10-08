@@ -33,5 +33,5 @@ Advanced materials, textures, and realistic rendering techniques.
 
 ## Resources
 
-- [05a GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/05a_pointsMaterial)
-- [05b GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/05b_adding_realism)
+- [Points Material GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/05_pointsMaterial)
+- [Adding Realism GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/06_adding_realism)
