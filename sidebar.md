@@ -38,6 +38,7 @@
 - **Showcase 2026**
   <div class="sidebar-section-divider">&nbsp;</div>
   
+  - <a href="/showcase/2026/04/index.html" target="wp2ws-showcase" rel="noopener noreferrer">Week 04</a>
   - <a href="/showcase/2026/03/index.html" target="wp2ws-showcase" rel="noopener noreferrer">Week 03</a>
   - <a href="/showcase/2026/02/index.html" target="wp2ws-showcase" rel="noopener noreferrer">Week 02</a>
   - <a href="/showcase/2026/01/index.html" target="wp2ws-showcase" rel="noopener noreferrer">Week 01</a>

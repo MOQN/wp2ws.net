@@ -1,0 +1,325 @@
+/* accent colours follow the surface */
+:root {
+  --tone-a: #729bcb;
+  --tone-b: #707bcc;
+  --tone-c: #9b82bb;
+  --tones: linear-gradient(90deg, var(--tone-a), var(--tone-b), var(--tone-c));
+  --space: clamp(20px, 3.5vw, 44px);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #030811;
+  color: #e2e7ec;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+canvas { display: block; }
+#container-three { position: fixed; inset: 0; cursor: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible { outline: 1px solid #bac9d7; outline-offset: 5px; }
+
+.title {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px 24px;
+  padding: 28px var(--space) 30px;
+  background: linear-gradient(#030811b8, #03081100);
+  pointer-events: none;
+  z-index: 2;
+}
+.nameplate { display: flex; align-items: baseline; gap: 22px; }
+h1 { margin: 0; font-size: 24px; font-weight: 400; letter-spacing: .2em; line-height: 1.2; }
+#number { color: #8a97a6; font-size: 10px; letter-spacing: .1em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+#story { grid-column: 1 / -1; margin: 0; font: italic 12px/1.5 Georgia, serif; color: #929eae; }
+.process-link { justify-self: end; color: #b2bdc9; font-size: 10px; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; pointer-events: auto; padding: 8px 0; }
+.process-link:hover { color: #f2f6fa; }
+
+.panel {
+  position: fixed;
+  left: var(--space);
+  right: var(--space);
+  bottom: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 28px;
+  padding: 0 0 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+.panel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -32px calc(-1 * var(--space)) -24px;
+  background: linear-gradient(#03081100, #030811b8);
+}
+.cycle { min-width: 0; }
+.caption, #phases { display: flex; align-items: center; }
+#phases { gap: 26px; }
+#phases button, .controls button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #8896a7;
+  font: 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: color .3s;
+}
+#phases button.active, #phases button:hover, .controls button:hover, .controls button.active { color: #f2f6fa; }
+#phases button.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1px;
+  height: 1px;
+  background: #bdcad8;
+}
+.track { position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: #c8d8e326; }
+#progress { display: block; height: 1px; background: var(--tones); clip-path: inset(0 100% 0 0); }
+.controls { display: flex; align-items: center; justify-content: flex-end; gap: 26px; pointer-events: auto; }
+.key { display: none; }
+
+.icon {
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: square;
+}
+
+/* New: the spiral icon is redrawn on hover, and loops while melting */
+.spiral path {
+  stroke-dasharray: 70;
+}
+
+.controls button:hover .spiral path {
+  animation: draw 0.9s cubic-bezier(0.3, 0.6, 0.2, 1);
+}
+
+.melting .spiral path {
+  animation: draw 1.6s ease-in-out infinite alternate;
+}
+
+.melting #regenerate {
+  color: var(--tone-a);
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 70;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Pause: bars, or a triangle while paused */
+.bars,
+.play {
+  transition: opacity 0.3s;
+}
+
+.play {
+  fill: currentColor;
+  stroke: none;
+  opacity: 0;
+}
+
+.paused .bars {
+  opacity: 0;
+}
+
+.paused .play {
+  opacity: 1;
+}
+
+.paused #pause {
+  color: var(--tone-a);
+}
+
+/* Controls: knobs move on hover, colored while the GUI is open */
+.knob {
+  fill: #17181c;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), fill 0.3s;
+}
+
+.controls button:hover .knob:nth-of-type(1) {
+  transform: translateX(5px);
+}
+
+.controls button:hover .knob:nth-of-type(2) {
+  transform: translateX(-6px);
+}
+
+.controls button:hover .knob:nth-of-type(3) {
+  transform: translateX(4px);
+}
+
+#gui.active .knob {
+  fill: var(--tone-a);
+  stroke: var(--tone-a);
+}
+
+/* custom pointer: a small square at the pointer and a frame that follows it.
+   the frame has the size of the heated area, its outline shows the film added */
+#cursor,
+#dot {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  will-change: transform;
+}
+
+#cursor.on,
+#dot.on {
+  display: block;
+  opacity: 1;
+}
+
+#cursor {
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+}
+
+#cursor svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.7)); /* dark edge for contrast */
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s;
+}
+
+#cursor.drag svg {
+  transform: scale(0.22);
+  opacity: 0.7;
+}
+
+.rim {
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 0.75;
+}
+
+/* corner brackets: slightly smaller while heating */
+.ticks {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 1;
+  stroke-linecap: square;
+  transform-origin: 50px 50px;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+#cursor.hot .ticks {
+  transform: scale(0.93);
+}
+
+#arc {
+  fill: none;
+  stroke: url(#tones);
+  stroke-width: 1.5;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-dasharray: 0 100;
+  transition: stroke-dasharray 0.25s linear;
+}
+
+#reading {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-top: 10px;
+  transform: translateX(-50%);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.9); /* readable over bright bars */
+  transition: opacity 0.4s;
+}
+
+#cursor.drag #reading {
+  opacity: 0;
+}
+
+#dot {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  background: #fff;
+  mix-blend-mode: difference;
+}
+
+.bare #cursor,
+.bare #dot {
+  display: none;
+}
+
+/* H hides the interface */
+.bare .title, .bare .panel { display: none; }
+.tp-dfwv {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(12px);
+  transition: opacity .3s, transform .3s, visibility .3s;
+  top: 124px !important;
+  right: var(--space) !important;
+  width: 292px !important;
+  max-height: calc(100vh - 214px);
+  overflow-y: auto;
+}
+.gui-open:not(.bare) .tp-dfwv { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+
+@media (max-width: 680px) {
+  .title { padding-top: 22px; gap: 6px 14px; }
+  h1 { font-size: 20px; }
+  .nameplate { gap: 14px; }
+  #number { font-size: 9px; }
+  #story { font-size: 11px; }
+  .process-link { font-size: 9px; }
+  .panel { grid-template-columns: 1fr; gap: 4px; bottom: 18px; }
+  #phases, .controls { width: 100%; justify-content: space-between; gap: 12px; }
+  #phases button, .controls button { min-height: 38px; }
+  .tp-dfwv { top: 140px !important; width: min(292px, calc(100vw - 40px)) !important; max-height: calc(100vh - 268px); }
+}
+@media (max-height: 620px) and (min-width: 681px) {
+  .title { padding-top: 18px; padding-bottom: 18px; gap: 3px 18px; }
+  h1 { font-size: 20px; }
+  .panel { bottom: 14px; }
+  .tp-dfwv { top: 100px !important; max-height: calc(100vh - 172px); }
+}
+@media (max-height: 380px) {
+  #story { display: none; }
+  .title { padding-top: 14px; }
+  .panel { grid-template-columns: minmax(0, 1fr) auto; gap: 16px; bottom: 10px; }
+  #phases { gap: 12px; }
+  .controls button span { display: none; }
+  .controls { gap: 12px; width: auto; }
+  .tp-dfwv { top: 65px !important; max-height: calc(100vh - 120px); }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BISMUTH | Light and Shadow</title>
+  <link rel="icon" href="data:,">
+
+  <link rel="stylesheet" href="css/style.css?v=47">
+
+  <!-- import the p5.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@2.3.2/lib/p5.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/p5.sound@0.4.1/dist/p5.sound.min.js"></script> -->
+
+  <!-- import the three.js library -->
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/",
+        "tweakpane": "https://cdn.jsdelivr.net/npm/tweakpane@4.0.5/dist/tweakpane.min.js"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+    RectAreaLightUniformsLib.init();
+    import { Reflector } from 'three/addons/objects/Reflector.js';
+    import { Pane } from 'tweakpane';
+    window.THREE = THREE;
+    window.OrbitControls = OrbitControls;
+    window.Reflector = Reflector;
+    window.Pane = Pane;
+  </script>
+
+  <!-- import your scripts here! -->
+  <script defer src="js/script-three.js?v=47"></script>
+  <script defer src="js/script-p5.js?v=47"></script>
+  <script defer src="js/sky.js?v=47"></script>
+  <script defer src="js/station.js?v=47"></script>
+  <script defer src="js/main.js?v=47"></script>
+</head>
+
+<body>
+  <div id="container-three"></div>
+
+  <!-- custom pointer -->
+  <div id="cursor">
+    <svg viewBox="0 0 100 100">
+      <defs>
+        <radialGradient id="warm">
+          <stop offset="0" style="stop-color: var(--tone-a)" stop-opacity="0.14" />
+          <stop offset="1" style="stop-color: var(--tone-a)" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="tones" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100" y2="100">
+          <stop offset="0" style="stop-color: var(--tone-a)" />
+          <stop offset="0.5" style="stop-color: var(--tone-b)" />
+          <stop offset="1" style="stop-color: var(--tone-c)" />
+        </linearGradient>
+      </defs>
+      <rect class="rim" x="2" y="2" width="96" height="96" fill="url(#warm)" />
+      <path id="arc" d="M2 2H98V98H2Z" pathLength="100" />
+      <path class="ticks" d="M2 11V2h9M89 2h9v9M98 89v9h-9M11 98H2v-9" />
+    </svg>
+    <span id="reading"></span>
+  </div>
+  <div id="dot"></div>
+
+  <header class="title">
+    <div class="nameplate"><h1>BISMUTH</h1><span id="number">No. 7</span></div>
+    <a class="process-link" href="https://www.boyanpeng.art/works/bismuth-stage2.html" target="_blank" rel="noopener">Process ↗</a>
+    <p id="story">Matter gathers in the dark.</p>
+  </header>
+
+  <footer class="panel">
+    <div class="cycle">
+      <div class="caption">
+        <nav id="phases" aria-label="Growth stages"><button data-phase="grow" title="Restart growth and play">Grow</button><button data-phase="temper" title="Jump to Temper and continue from this form">Temper</button><button data-phase="hold" title="Jump to Hold and continue from this form">Hold</button><button data-phase="melt" title="Start starfall and play Melt">Melt</button></nav>
+      </div>
+      <div class="track"><span id="progress"></span></div>
+    </div>
+    <nav class="controls" aria-label="Playback controls">
+      <button id="regenerate" title="Melt it down and grow another (R)">
+        <svg class="icon spiral" viewBox="0 0 20 20"><path d="M10 10h2v-3h-5v6h8v-9h-11v12h13" /></svg>
+        <span>New</span><span class="key">R</span>
+      </button>
+      <button id="pause" title="Pause or resume (Space)">
+        <svg class="icon" viewBox="0 0 20 20"><path class="bars" d="M7 5v10M13 5v10" /><path class="play" d="M7 4.5l9 5.5l-9 5.5z" /></svg>
+        <span id="pause-label">Pause</span><span class="key">Space</span>
+      </button>
+      <button id="gui" title="Show or hide the controls (G)">
+        <svg class="icon sliders" viewBox="0 0 20 20"><path d="M2 5h16M2 10h16M2 15h16" /><rect class="knob" x="5.4" y="3.4" width="3.2" height="3.2" /><rect class="knob" x="11.4" y="8.4" width="3.2" height="3.2" /><rect class="knob" x="7.4" y="13.4" width="3.2" height="3.2" /></svg>
+        <span>Controls</span><span class="key">G</span>
+      </button>
+    </nav>
+  </footer>
+</body>
+
+</html>
