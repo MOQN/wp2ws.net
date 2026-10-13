@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const documentationLabel = document.createElement('a');
         documentationLabel.className = 'project-documentation-label';
-        documentationLabel.textContent = '🟣';
+        documentationLabel.textContent = '+';
         documentationLabel.href = documentationUrl;
         documentationLabel.target = '_blank';
         documentationLabel.rel = 'noopener noreferrer';

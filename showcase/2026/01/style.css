@@ -13,6 +13,7 @@
   --hover-bg: #f0f0f0;
   --hover-border: #aaaaaa;
   --active-bg: #f9ffff;
+  --link-hover-color: #9333ea;
 }
 
 * {
@@ -83,6 +84,40 @@ body {
   font-size: 0.75rem;
   color: var(--text-muted);
   line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.week-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.week-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.week-link:hover {
+  color: var(--link-hover-color);
+}
+
+.week-link.active {
+  color: var(--text-color);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.week-link.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: default;
 }
 
 .menu-container {
