@@ -20,7 +20,8 @@
     * You may consider using:
       * `geometry.attributes.position.setUsage(THREE.DynamicDrawUsage);`
       * `geometry.attributes.color.setUsage(THREE.DynamicDrawUsage);`
-        * This allows the geometry to be updated dynamically on the GPU without needing to re-upload the entire buffer each frame.
+        * This hints that the attribute will change frequently; it does not upload changes or replace `needsUpdate`.
+        * After changing attribute data on the CPU, set `attribute.needsUpdate = true` for Three.js to upload the changes to the GPU.
       * `positionAttribute.setXYZ(i, x, y, z)`
         * This updates the position of the vertex at index `i` to the new coordinates `(x, y, z)`.
   * [TextureLoader](https://threejs.org/docs/#api/en/loaders/TextureLoader)

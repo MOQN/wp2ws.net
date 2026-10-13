@@ -16,6 +16,7 @@
   - [Week 03](/docs/week03.md)
   - [Week 04](/docs/week04.md)
   - [Week 05](/docs/week05.md)
+  - [Week 06](/docs/week06.md)
 
 <div class="sidebar-spacer">&nbsp;</div>
 
