@@ -84,7 +84,7 @@
 
 ?> Due **Oct 19, 2026**
 
-* Slides for the Asynchronous Concept Proposal
+* [Slides for the Asynchronous Concept Proposal](https://docs.google.com/presentation/d/1anXWPMft_YOy7rtsTRBx8n9n4IDEKV6qWd05_gP0glU/edit?usp=sharing)
 
 ### Project B Proposals from Previous Semester
 
