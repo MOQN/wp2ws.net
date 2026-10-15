@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <title>One-Sided Ocean</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Keep the starter's Three.js and Tweakpane versions. -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/",
+        "tweakpane": "https://cdn.jsdelivr.net/npm/tweakpane@4.0.5/dist/tweakpane.min.js"
+      }
+    }
+  </script>
+  <script type="module">
+    import('./js/script-three.js').catch((error) => {
+      document.getElementById('error-message').hidden = false;
+      console.error(error);
+    });
+  </script>
+</head>
+<body>
+  <main id="container-three" aria-label="An animated ocean current made of glowing particles on a Möbius strip"></main>
+  <header class="caption">
+  </header>
+  <div id="controls" aria-label="Ocean controls"></div>
+</body>
+</html>

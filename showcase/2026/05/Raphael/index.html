@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#080b10" />
+    <title>Remains</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./css/style.css?v=25-comments" />
+    <script type="importmap">
+      { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js" } }
+    </script>
+  </head>
+  <body>
+    <main
+      id="stage"
+      aria-label="A hollow sculpture of white petals. Touch the surface to send an impulse."
+    ></main>
+    <header class="identity" data-interface><h1>Remains</h1></header>
+    <p class="invitation" id="invitation" data-interface>Touch the surface. Leave a trace.</p>
+    <div class="caption" aria-live="polite" aria-atomic="true" data-interface>
+      <span class="phase" id="phase">Suspended</span>
+      <p id="thought">Still whole. Still breathing.</p>
+    </div>
+    <nav class="transport" aria-label="Artwork controls" data-interface>
+      <button id="pause" type="button" aria-label="Pause animation"><span id="play-icon">Ⅱ</span></button>
+      <span class="control-divider" aria-hidden="true"></span>
+      <button id="impact" type="button"><span class="button-label">Impulse</span></button>
+      <button id="reset" type="button"><span class="button-label">Restart</span></button>
+      <button id="dof" type="button" aria-pressed="true">
+        <span class="auto-dot" aria-hidden="true"></span><span class="button-label">Focus</span>
+      </button>
+      <button id="auto" type="button" aria-pressed="true">
+        <span class="auto-dot" aria-hidden="true"></span><span class="button-label">Auto on</span>
+      </button>
+      <div class="sound-controls" aria-label="Sound controls" data-interface>
+        <button
+          id="sound"
+          type="button"
+          aria-pressed="false"
+          aria-label="Enable sound"
+          title="M: sound on or off"
+        >
+          <span class="auto-dot" aria-hidden="true"></span><span class="button-label">Sound</span>
+        </button>
+      </div>
+    </nav>
+    <button id="restart-center" type="button" hidden>Begin again</button>
+    <p id="sound-status" class="sr-only" role="status" aria-live="polite"></p>
+    <p class="error" id="error" role="alert" hidden></p>
+    <script type="module" src="./js/main.js?v=25-comments"></script>
+    <script type="module" src="./sound/player.js?v=25-comments"></script>
+  </body>
+</html>

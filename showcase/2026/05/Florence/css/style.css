@@ -1,0 +1,34 @@
+html,
+body {
+  height: 100%;
+  background-color: black;
+}
+
+body {
+  margin: 0;
+}
+
+canvas {
+  display: block;
+}
+
+#container-p5 {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+}
+
+#container-three {
+  display: block;
+}
+
+body { overflow: hidden; color: #9fbcc8; font-family: Arial, sans-serif; }
+#container-three { position: fixed; inset: 0; }
+#controls { position: fixed; top: 24px; right: 24px; width: 260px; }
+#controls .tp-lblv_l { flex: 0 0 82px; width: 82px; }
+#controls .tp-lblv_v { flex: 1; min-width: 0; width: auto; }
+.caption { position: fixed; top: 24px; left: 28px; pointer-events: none; }
+.caption h1 { margin: 8px 0; font-size: 25px; font-weight: 400; }
+.caption p { font-size: 10px; letter-spacing: 1px; color: #64808c; }
+footer { position: fixed; bottom: 24px; left: 28px; right: 28px; display: flex; justify-content: space-between; font-size: 9px; letter-spacing: 1px; color: #64808c; pointer-events: none; }
+#error-message { position: fixed; top: 45%; left: 15%; width: 70%; text-align: center; }

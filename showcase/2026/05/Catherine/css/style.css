@@ -1,0 +1,34 @@
+html,
+body {
+  height: 100%;
+  background-color: white;
+}
+
+body {
+  margin: 0;
+}
+
+canvas {
+  display: block;
+}
+
+#container-p5 {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+}
+
+#container-three {
+  display: block;
+}
+#hint {
+  position: fixed;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(255, 153, 179);
+  font: 18px sans-serif;
+  letter-spacing: 3px;
+  pointer-events: none;
+  user-select: none;
+}
