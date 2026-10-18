@@ -24,19 +24,18 @@ function getPlane() {
   });
   let mesh = new THREE.Mesh(geometry, material);
 
-  //console.log(geometry.attributes.position.array);
-  let posArray = geometry.attributes.position.array; // REORGANIZE
-  for (let i = 0; i < posArray.length; i += 3) {
-    let x = posArray[i + 0];
-    let y = posArray[i + 1];
-    let z = posArray[i + 2];
+  let positionAttributes = geometry.attributes.position;
+  for (let i = 0; i < positionAttributes.array.length; i += 3) {
+    let x = positionAttributes.array[i + 0];
+    let y = positionAttributes.array[i + 1];
 
     let xOffset = (x + WORLD_HALF) * 0.005;
     let yOffset = (y + WORLD_HALF) * 0.005;
     let amp = 9;
     let noiseValue = (noise(xOffset, yOffset) * amp) ** 3;
 
-    posArray[i + 2] = noiseValue; // update the z value.
+    positionAttributes.array[i + 2] = noiseValue; // update the z value.
   }
+  positionAttributes.needsUpdate = true;
   return mesh;
 }
