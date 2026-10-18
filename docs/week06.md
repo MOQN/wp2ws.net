@@ -59,7 +59,7 @@
   * [Refraction](https://threejs.org/examples/webgl_refraction.html)
 * [MeshPhysicalMaterial](https://threejs.org/docs/#api/en/materials/MeshPhysicalMaterial)
   * A physically based material with additional effects such as clearcoat, transmission, and sheen.
-  * [Example code](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/06b_adding_realism/14_MeshPhysicalMaterial) in the course GitHub repository
+  * [Example code](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/06_adding_realism/16_MeshPhysicalMaterial) in the course GitHub repository
 * Generate 3D models from [Tripo AI](https://studio.tripo3d.ai/)
   * Or download 3D objects and textures:
     * [TurboSquid](https://www.turbosquid.com/)
