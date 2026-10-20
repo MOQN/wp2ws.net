@@ -20,6 +20,13 @@
 
 <div class="sidebar-spacer">&nbsp;</div>
 
+- **Showcase**
+  <div class="sidebar-section-divider">&nbsp;</div>
+  
+  - <a href="/showcase/2026/05/index.html" target="wp2ws-showcase" rel="noopener noreferrer">2026</a>
+
+<div class="sidebar-spacer">&nbsp;</div>
+
 - **Examples**
   <div class="sidebar-section-divider">&nbsp;</div>
 
@@ -125,8 +132,3 @@
   - [11 WebXR](/examples/11/README.md)
 
 <div class="sidebar-spacer">&nbsp;</div>
-
-- **Showcase**
-  <div class="sidebar-section-divider">&nbsp;</div>
-  
-  - <a href="/showcase/2026/05/index.html" target="wp2ws-showcase" rel="noopener noreferrer">2026</a>
