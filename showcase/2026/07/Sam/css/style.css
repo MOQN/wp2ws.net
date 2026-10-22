@@ -1,0 +1,42 @@
+html,
+body {
+  height: 100%;
+  background-color: black;
+}
+
+body {
+  margin: 0;
+}
+
+canvas {
+  display: block;
+}
+
+#container-p5 {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+}
+
+#container-three {
+  display: block;
+  position: relative;
+}
+
+.cityview-tooltip {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  padding: 7px 12px;
+  border: 1px solid #777;
+  border-radius: 3px;
+  background: rgba(205, 205, 205, 0.94);
+  color: #222;
+  font: 19px/1.2 times-new-roman, serif;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: min(320px, calc(100vw - 24px));
+  pointer-events: none;
+  white-space: normal;
+  overflow-wrap: break-word;
+}

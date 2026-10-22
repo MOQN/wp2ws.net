@@ -1,0 +1,11 @@
+Model Information:
+* title:	Phonograph (Record Player)
+* source:	https://sketchfab.com/3d-models/phonograph-record-player-424b4fd4b1034569959fb0397da7da77
+* author:	Sudhanshu.Joshi (https://sketchfab.com/Sudhanshu.Joshi)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Phonograph (Record Player)" (https://sketchfab.com/3d-models/phonograph-record-player-424b4fd4b1034569959fb0397da7da77) by Sudhanshu.Joshi (https://sketchfab.com/Sudhanshu.Joshi) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

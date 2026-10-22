@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a4d4ec">
+  <title>Almost Somewhere</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    { "imports": {
+      "three": "./vendor/three/three.module.js",
+      "three/addons/controls/OrbitControls.js": "./vendor/three/OrbitControls.js",
+      "three/addons/": "./vendor/three/addons/",
+      "tweakpane": "./vendor/tweakpane/tweakpane.min.js"
+    } }
+  </script>
+  <script type="module" src="js/script-three.js"></script>
+</head>
+<body>
+  <main id="container-three" aria-label="Interactive floating pastel stairscape"></main>
+  <header class="intro">
+    <!-- <h1>Almost<br><em>Somewhere</em></h1> -->
+  </header>
+  <nav class="view-buttons" aria-label="Change view mode">
+    <button id="illusion-button" type="button">Main View</button>
+  </nav>
+  <div id="error-message" role="alert" hidden></div>
+</body>
+</html>

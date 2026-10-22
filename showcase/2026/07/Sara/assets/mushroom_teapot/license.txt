@@ -1,0 +1,11 @@
+Model Information:
+* title:	Mushroom Teapot
+* source:	https://sketchfab.com/3d-models/mushroom-teapot-893d032f7b03472790935b1548d1a27c
+* author:	madisparks (https://sketchfab.com/madisparks)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Mushroom Teapot" (https://sketchfab.com/3d-models/mushroom-teapot-893d032f7b03472790935b1548d1a27c) by madisparks (https://sketchfab.com/madisparks) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>The Unseen Push · Ceiling Noise Study</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="scene"></div>
+    <div id="loading" role="status">Preparing the scene…</div>
+    <div id="panel">
+      <div id="pane"></div>
+      <div id="audio-panel">
+        <input id="file" hidden type="file" accept="audio/*" /><audio
+          id="audio"
+          controls
+          preload="metadata"
+        ></audio>
+        <div id="status" role="status">Static view · No audio loaded</div>
+        <button id="preview" hidden type="button">Start Light Preview</button>
+      </div>
+    </div>
+    
+    </div>
+    
+      ·
+      <a
+        href="https://creativecommons.org/licenses/by/4.0/"
+        target="_blank"
+        rel="noopener"
+        >CC BY 4.0</a
+      >
+    </div>
+    <!-- Load all external libraries here, as in the Project A reference. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/",
+          "tweakpane": "https://cdn.jsdelivr.net/npm/tweakpane@4.0.5/dist/tweakpane.min.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+      import { Reflector } from "three/addons/objects/Reflector.js";
+      import { ImprovedNoise } from "three/addons/math/ImprovedNoise.js";
+      import { Pane } from "tweakpane";
+
+      window.THREE = THREE;
+      window.GLTFLoader = GLTFLoader;
+      window.Reflector = Reflector;
+      window.ImprovedNoise = ImprovedNoise;
+      window.Pane = Pane;
+
+      // Start only after all CDN libraries are available.
+      window.THREE_LIBRARIES_READY = true;
+      window.dispatchEvent(new Event("three-libraries-ready"));
+    </script>
+
+    <!-- Ordinary JavaScript files: no import or export statements needed. -->
+    <script defer src="./js/RoomLookControls.js"></script>
+    <script defer src="./js/ceiling.js"></script>
+    <script defer src="./js/black-threads.js"></script>
+    <script defer src="./js/main.js"></script>
+  </body>
+</html>

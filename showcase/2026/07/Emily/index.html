@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GLTFLoader | Original Materials</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- p5.js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@2.3.2/lib/p5.js"></script>
+
+  <!-- Import map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/",
+      "tweakpane": "https://cdn.jsdelivr.net/npm/tweakpane@4.0.5/dist/tweakpane.min.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+
+    import * as THREE from "three";
+
+    import {
+      OrbitControls
+    } from "three/addons/controls/OrbitControls.js";
+
+    import {
+      GLTFLoader
+    } from "three/addons/loaders/GLTFLoader.js";
+
+    import {
+      Pane
+    } from "tweakpane";
+        import { Reflector } from 'three/addons/objects/Reflector.js'
+            import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
+
+
+
+    // Make libraries globally available
+    window.THREE = THREE;
+    window.OrbitControls = OrbitControls;
+    window.GLTFLoader = GLTFLoader;
+    window.Pane = Pane;
+    window.Reflector = Reflector;
+    window.HDRLoader = HDRLoader;
+
+
+
+    // Load project scripts in order
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => reject(
+          new Error("Failed to load " + src)
+        );
+        document.body.appendChild(script);
+      });
+    }
+
+    async function startProject() {
+
+      await loadScript("js/script-three.js");
+      await loadScript("js/main.js");
+      await loadScript("js/script-p5.js");
+
+    }
+
+    startProject().catch(console.error);
+
+  </script>
+
+</head>
+
+<body>
+  <div id="container-three"></div>
+  <div id="container-p5"></div>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #06080b;
+  color: #d4d8df;
+  font:
+    13px system-ui,
+    sans-serif;
+}
+#scene {
+  height: 100dvh;
+  width: 100%;
+}
+canvas {
+  display: block;
+  touch-action: none;
+}
+/* Default Tweakpane appearance, matching Project A. */
+#panel {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 256px;
+  max-height: calc(100dvh - 16px);
+  overflow: auto;
+}
+#pane {
+  width: 100%;
+}
+#audio-panel {
+  margin-top: 4px;
+  padding: 8px;
+  border-radius: 6px;
+  background: hsl(230, 7%, 17%);
+  color: hsl(230, 7%, 75%);
+  font: 11px/1.6 monospace;
+}
+audio {
+  display: block;
+  width: 100%;
+  height: 30px;
+}
+#status {
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+}
+#instructions {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  line-height: 1.8;
+  pointer-events: none;
+  text-shadow: 0 1px 4px #000;
+}
+#instructions span {
+  font-size: 11px;
+  color: #969fab;
+}
+#credit {
+  position: absolute;
+  right: 16px;
+  bottom: 5px;
+  color: #77818c;
+  font-size: 10px;
+}
+#credit a {
+  color: inherit;
+}
+#loading {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  pointer-events: none;
+}
+@media (max-width: 650px) {
+  #panel {
+    width: 240px;
+  }
+  #instructions {
+    left: 14px;
+    bottom: 42px;
+    max-width: calc(100% - 28px);
+    font-size: 11px;
+  }
+}

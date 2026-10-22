@@ -23,7 +23,7 @@
 - **Showcase**
   <div class="sidebar-section-divider">&nbsp;</div>
   
-  - <a href="/showcase/2026/05/index.html" target="wp2ws-showcase" rel="noopener noreferrer">2026</a>
+  - <a href="/showcase/2026/07/index.html" target="wp2ws-showcase" rel="noopener noreferrer">2026</a>
 
 <div class="sidebar-spacer">&nbsp;</div>
 

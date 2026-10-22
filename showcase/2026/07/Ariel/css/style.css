@@ -1,0 +1,31 @@
+html,
+body {
+  height: 100%;
+  background-color: black;
+}
+
+body {
+  margin: 0;
+}
+
+canvas {
+  display: block;
+}
+
+#container-p5 {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+}
+
+#container-three {
+  display: block;
+  /* add your style */
+}
+
+/* dat.gui on the left, so it doesn't cover Tweakpane on the right */
+.dg.ac {
+  left: 0;
+  right: auto !important;
+  z-index: 10;
+}

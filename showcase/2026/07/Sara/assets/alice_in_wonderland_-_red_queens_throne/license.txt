@@ -1,0 +1,11 @@
+Model Information:
+* title:	Alice in Wonderland - Red Queen's Throne
+* source:	https://sketchfab.com/3d-models/alice-in-wonderland-red-queens-throne-cbe155e9f492404d964124ce284b5f1e
+* author:	smian (https://sketchfab.com/smian)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Alice in Wonderland - Red Queen's Throne" (https://sketchfab.com/3d-models/alice-in-wonderland-red-queens-throne-cbe155e9f492404d964124ce284b5f1e) by smian (https://sketchfab.com/smian) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
