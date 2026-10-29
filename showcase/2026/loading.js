@@ -24,7 +24,10 @@ function render() {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       zIndex: '2147483647',
-      padding: '12px 18px',
+      minWidth: '180px',
+      boxSizing: 'border-box',
+      padding: '20px 32px',
+      borderRadius: '12px',
       background: 'rgba(0, 0, 0, 0.75)',
       color: '#fff',
       font: '400 14px/1.6 system-ui, sans-serif',
@@ -41,7 +44,7 @@ function render() {
   const complete = [...tasks].every(task => task.done);
   const progress = [...tasks].reduce((sum, task) => sum + task.progress, 0) / tasks.size;
   lastPercent = complete ? 100 : Math.min(99, Math.max(lastPercent, Math.floor(progress * 100)));
-  const nextLabel = failed ? 'Loading failed' : 'Loading';
+  const nextLabel = failed ? 'LOADING FAILED' : 'LOADING';
   const nextPercentage = failed ? 'Check console' : `${lastPercent}%`;
   if (label.textContent !== nextLabel) label.textContent = nextLabel;
   if (percentage.textContent !== nextPercentage) percentage.textContent = nextPercentage;
