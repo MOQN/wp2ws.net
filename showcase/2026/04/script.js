@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const row = document.createElement('div');
         row.className = 'project-row';
         const nameLink = document.createElement('a');
+        const openLink = document.createElement('a');
         const docLink = document.createElement('a');
 
         nameLink.className = 'project-name';
@@ -87,6 +88,28 @@ document.addEventListener('DOMContentLoaded', () => {
           nameLink.tabIndex = -1;
         }
 
+        openLink.className = 'project-open-link';
+        openLink.textContent = '+';
+        openLink.title = `Open ${name} in the project window`;
+        openLink.setAttribute('aria-label', openLink.title);
+
+        if (projectAvailable) {
+          openLink.href = projectUrl;
+          openLink.target = 'wp2ws-project';
+        } else {
+          openLink.classList.add('disabled');
+          openLink.setAttribute('aria-disabled', 'true');
+          openLink.tabIndex = -1;
+        }
+
+        openLink.addEventListener('click', event => {
+          event.stopPropagation();
+
+          if (!projectAvailable) {
+            event.preventDefault();
+          }
+        });
+
         docLink.className = 'project-doc-link';
         docLink.textContent = '+';
 
@@ -101,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         row.appendChild(nameLink);
+        row.appendChild(openLink);
         row.appendChild(docLink);
         li.appendChild(row);
 

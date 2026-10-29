@@ -49,6 +49,24 @@
 
     setupPlayerInput() {
       const canvas = this.renderer.domElement;
+
+      // A canvas is not keyboard-focusable by default. Local pages often work
+      // because the whole tab already owns focus, while hosted previews are
+      // commonly placed inside an iframe. Making the canvas focusable and
+      // focusing it after a click ensures WASD reaches this document.
+      canvas.tabIndex = 0;
+      canvas.style.outline = "none";
+      canvas.setAttribute(
+        "aria-label",
+        "3D scene. Click to focus, use WASD to move, and drag to look around."
+      );
+
+      canvas.addEventListener(
+        "pointerdown",
+        () => this.focusPlayerCanvas(),
+        { capture: true }
+      );
+
       const updateKey = (event, pressed) => {
         if (this.params.cameraMode !== "player") return;
         const target = event.target;
@@ -126,6 +144,19 @@
       canvas.addEventListener("pointercancel", stopPlayerLook);
     }
 
+    focusPlayerCanvas() {
+      if (this.params.cameraMode !== "player") return;
+
+      // window.focus() helps when the published scene is inside a preview
+      // iframe. The canvas focus is the important part for keyboard events.
+      window.focus();
+      try {
+        this.renderer.domElement.focus({ preventScroll: true });
+      } catch (_error) {
+        this.renderer.domElement.focus();
+      }
+    }
+
     resetPlayerKeys() {
       this.playerKeys.forward = false;
       this.playerKeys.backward = false;
@@ -157,6 +188,9 @@
         this.camera.far = 1100;
         this.camera.updateProjectionMatrix();
         this.updatePlayerCamera(0);
+        requestAnimationFrame(() => {
+          if (document.hasFocus()) this.focusPlayerCanvas();
+        });
         return;
       }
 

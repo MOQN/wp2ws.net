@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const row = document.createElement('div');
         row.className = 'project-row';
         const nameLink = document.createElement('a');
+        const openLink = document.createElement('a');
         const docLink = document.createElement('a');
 
         nameLink.className = 'project-name';
@@ -73,6 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
         nameLink.textContent = name;
         nameLink.target = '_blank';
         nameLink.rel = 'noopener noreferrer';
+
+        openLink.className = 'project-open-link';
+        openLink.textContent = '+';
+        openLink.href = projectUrl;
+        openLink.target = 'wp2ws-project';
+        openLink.title = `Open ${name} in the project window`;
+        openLink.setAttribute('aria-label', openLink.title);
+        openLink.addEventListener('click', event => {
+          event.stopPropagation();
+        });
 
         docLink.className = 'project-doc-link';
         docLink.textContent = '+';
@@ -88,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         row.appendChild(nameLink);
+        row.appendChild(openLink);
         row.appendChild(docLink);
         li.appendChild(row);
 

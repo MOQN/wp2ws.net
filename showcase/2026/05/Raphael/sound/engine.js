@@ -1,4 +1,4 @@
-import { chooseSample, loadSamples, loadViolinSamples } from './samples.js?v=25-comments';
+import { chooseSample, loadSamples, loadViolinSamples } from './samples.js';
 export { loadSamples, loadViolinSamples };
 const clamp = (n, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, Number.isFinite(n) ? n : lo));
 const smooth = (x, a, b) => {

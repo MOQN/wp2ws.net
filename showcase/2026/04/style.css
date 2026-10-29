@@ -181,6 +181,31 @@ body {
   gap: 10px;
 }
 
+.project-open-link {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+.project-open-link:hover {
+  color: var(--link-hover-color);
+  text-decoration: none;
+}
+
+.project-open-link:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+}
+
+.project-open-link.disabled,
+.project-doc-link.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 .project-doc-link {
   flex: 0 0 auto;
   color: var(--text-muted);
@@ -198,11 +223,6 @@ body {
 .project-doc-link:hover {
   color: var(--link-hover-color);
   text-decoration: none;
-}
-
-.project-doc-link.disabled {
-  opacity: 0.35;
-  pointer-events: none;
 }
 
 .menu-container::-webkit-scrollbar {

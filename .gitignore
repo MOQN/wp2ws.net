@@ -10,3 +10,9 @@ __*
 *.avi
 *.mkv
 *.mov
+
+# movie files in assets folders
+!**/assets/**/*.mp4
+!**/assets/**/*.avi
+!**/assets/**/*.mkv
+!**/assets/**/*.mov

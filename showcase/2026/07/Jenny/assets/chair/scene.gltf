@@ -1,11 +1,28 @@
 {
+  "asset": {
+    "generator": "glTF-Transform v4.5.1",
+    "version": "2.0",
+    "extras": {
+      "author": "ROY (https://sketchfab.com/roy.gearloft.in)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/chair-wooden-chair-abe60bfc1d4f43c686a06fe04e29cab9",
+      "title": "Chair / Wooden Chair"
+    }
+  },
   "accessors": [
     {
-      "bufferView": 2,
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 4356,
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
       "componentType": 5126,
       "count": 1587,
       "max": [
-        12.617446899414063,
+        12.617446899414062,
         9.836956024169922,
         28.821800231933594
       ],
@@ -14,203 +31,39 @@
         -19.20010757446289,
         -24.323932647705078
       ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 19044,
-      "componentType": 5126,
-      "count": 1587,
-      "max": [
-        1.0,
-        1.0,
-        1.0
-      ],
-      "min": [
-        -1.0,
-        -1.0,
-        -1.0
-      ],
-      "type": "VEC3"
-    },
-    {
       "bufferView": 1,
-      "componentType": 5126,
-      "count": 1587,
-      "max": [
-        0.7589967250823975,
-        0.5265886783599854
-      ],
-      "min": [
-        0.4917968511581421,
-        0.2796481251716614
-      ],
-      "type": "VEC2"
+      "byteOffset": 0
     },
     {
-      "bufferView": 0,
-      "componentType": 5125,
-      "count": 4356,
-      "type": "SCALAR"
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1587,
+      "normalized": true,
+      "bufferView": 1,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 1587,
+      "normalized": true,
+      "bufferView": 1,
+      "byteOffset": 20
     }
   ],
-  "asset": {
-    "extras": {
-      "author": "ROY (https://sketchfab.com/roy.gearloft.in)",
-      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/chair-wooden-chair-abe60bfc1d4f43c686a06fe04e29cab9",
-      "title": "Chair / Wooden Chair"
-    },
-    "generator": "Sketchfab-13.83.0",
-    "version": "2.0"
-  },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 17424,
-      "name": "floatBufferViews",
+      "byteOffset": 0,
+      "byteLength": 8712,
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 12696,
-      "byteOffset": 17424,
-      "byteStride": 8,
-      "name": "floatBufferViews",
-      "target": 34962
-    },
-    {
-      "buffer": 0,
+      "byteOffset": 8712,
       "byteLength": 38088,
-      "byteOffset": 30120,
-      "byteStride": 12,
-      "name": "floatBufferViews",
+      "byteStride": 24,
       "target": 34962
-    }
-  ],
-  "buffers": [
-    {
-      "byteLength": 68208,
-      "uri": "scene.bin"
-    }
-  ],
-  "images": [
-    {
-      "uri": "textures/Material.001_baseColor.png"
-    }
-  ],
-  "materials": [
-    {
-      "doubleSided": true,
-      "name": "Material.001",
-      "pbrMetallicRoughness": {
-        "baseColorTexture": {
-          "index": 0
-        },
-        "metallicFactor": 0.373984,
-        "roughnessFactor": 0.808943
-      }
-    }
-  ],
-  "meshes": [
-    {
-      "name": "Object_0",
-      "primitives": [
-        {
-          "attributes": {
-            "NORMAL": 1,
-            "POSITION": 0,
-            "TEXCOORD_0": 2
-          },
-          "indices": 3,
-          "material": 0,
-          "mode": 4
-        }
-      ]
-    }
-  ],
-  "nodes": [
-    {
-      "children": [
-        1
-      ],
-      "matrix": [
-        -0.019999999552965164,
-        -1.637630652819705e-22,
-        7.375232797809326e-07,
-        0.0,
-        7.375232797809326e-07,
-        -4.440891999238953e-18,
-        0.019999999552965164,
-        0.0,
-        0.0,
-        0.019999999552965164,
-        4.440891999238953e-18,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ],
-      "name": "Sketchfab_model"
-    },
-    {
-      "children": [
-        2
-      ],
-      "name": "root"
-    },
-    {
-      "children": [
-        3
-      ],
-      "matrix": [
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        2.220446049250313e-16,
-        1.0,
-        0.0,
-        0.0,
-        -1.0,
-        2.220446049250313e-16,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ],
-      "name": "GLTF_SceneRootNode"
-    },
-    {
-      "children": [
-        4
-      ],
-      "matrix": [
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        -1.685873969314855e-07,
-        0.9999999999999858,
-        0.0,
-        0.0,
-        -0.9999999999999858,
-        -1.685873969314855e-07,
-        0.0,
-        -4.9498443603515625,
-        28.821802139282227,
-        -13.639250755310059,
-        1.0
-      ],
-      "name": "tv_0"
-    },
-    {
-      "mesh": 0,
-      "name": "Object_4"
     }
   ],
   "samplers": [
@@ -221,7 +74,116 @@
       "wrapT": 10497
     }
   ],
-  "scene": 0,
+  "textures": [
+    {
+      "sampler": 0,
+      "extensions": {
+        "EXT_texture_webp": {
+          "source": 0
+        }
+      }
+    }
+  ],
+  "images": [
+    {
+      "mimeType": "image/webp",
+      "uri": "textures/Material.001_baseColor.webp"
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "scene.bin",
+      "byteLength": 46800
+    }
+  ],
+  "materials": [
+    {
+      "name": "Material.001",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "roughnessFactor": 0.808943,
+        "metallicFactor": 0.373984,
+        "baseColorTexture": {
+          "index": 0
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Object_0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 1,
+            "NORMAL": 2,
+            "TEXCOORD_0": 3
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 0
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Sketchfab_model",
+      "rotation": [
+        0.000013037693095167668,
+        0.7071067810663524,
+        0.7071067810663526,
+        -0.000013037693095167672
+      ],
+      "scale": [
+        0.01999999956656368,
+        0.01999999956656368,
+        0.019999999552965164
+      ],
+      "children": [
+        1
+      ]
+    },
+    {
+      "name": "root",
+      "children": [
+        2
+      ]
+    },
+    {
+      "name": "GLTF_SceneRootNode",
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "children": [
+        3
+      ]
+    },
+    {
+      "name": "tv_0",
+      "translation": [
+        -4.9498443603515625,
+        28.821802139282227,
+        -13.639250755310059
+      ],
+      "rotation": [
+        0.7071068407911908,
+        0,
+        0,
+        0.7071067215818992
+      ],
+      "children": [
+        4
+      ]
+    },
+    {
+      "name": "Object_4",
+      "mesh": 0
+    }
+  ],
   "scenes": [
     {
       "name": "Sketchfab_Scene",
@@ -230,10 +192,13 @@
       ]
     }
   ],
-  "textures": [
-    {
-      "sampler": 0,
-      "source": 0
-    }
+  "scene": 0,
+  "extensionsUsed": [
+    "EXT_texture_webp",
+    "KHR_mesh_quantization"
+  ],
+  "extensionsRequired": [
+    "EXT_texture_webp",
+    "KHR_mesh_quantization"
   ]
 }
