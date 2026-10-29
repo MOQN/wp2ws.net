@@ -116,6 +116,7 @@ function setupSoundControls() {
 
 function createAudioTrack(source) {
  const audio = new Audio(source);
+ window.showcaseLoading.trackMedia(audio);
  audio.loop = true;
  audio.preload = "auto";
  return audio;

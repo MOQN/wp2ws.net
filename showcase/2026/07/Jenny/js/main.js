@@ -373,7 +373,9 @@ async function init() {
   try {
     renderer = new THREE.WebGLRenderer({ antialias: true });
   } catch (error) {
-    document.getElementById("loading").textContent =
+    const message = document.getElementById("scene-error");
+    message.hidden = false;
+    message.textContent =
       "WebGL is unavailable. Open this page in a browser with hardware acceleration enabled.";
     throw error;
   }
@@ -388,8 +390,6 @@ async function init() {
   document.getElementById("scene").appendChild(renderer.domElement);
   const floor = addRoom(scene);
   scene.add(new THREE.AmbientLight(0xcbd2df, 0.045));
-  document.getElementById("loading").textContent =
-    "Loading hands, chair and threads…";
   const loader = new GLTFLoader();
   const [chairAsset, handAsset, ceilingAsset] = await Promise.all([
     loader.loadAsync("./assets/chair/scene.gltf"),
@@ -832,7 +832,6 @@ async function init() {
     lastGUI = 0,
     frames = 0,
     elapsed = 0;
-  document.getElementById("loading").hidden = true;
   let noiseTime = 0,
     motionTick = -1;
   renderer.setAnimationLoop((now) => {
@@ -907,9 +906,9 @@ async function init() {
 // Wait for the CDN module in index.html before starting the scene.
 function startScene() {
   init().catch((error) => {
-    const loading = document.getElementById("loading");
-    loading.hidden = false;
-    loading.textContent =
+    const message = document.getElementById("scene-error");
+    message.hidden = false;
+    message.textContent =
       "Scene failed to load. Please reload: " + error.message;
     console.error(error);
   });

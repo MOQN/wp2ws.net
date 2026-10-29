@@ -19,6 +19,7 @@ let STAR_MAX_SCALE = 300 + params.Intensity * 50;
 let stars = [];
 let starScale = 0.01;
 let starPointClouds = [];
+let starTexture;
 
 
 let groundMirror, ceilingMirror;
@@ -348,14 +349,16 @@ function getStarPoints(starScale, maxScale) {
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
 
-  const texture = new THREE.TextureLoader().load("assets/particle_texture.PNG");
+  if (!starTexture) {
+    starTexture = new THREE.TextureLoader().load("assets/particle_texture.PNG");
+  }
 
 
   const material = new THREE.PointsMaterial({
     color: "#5afcff",
     vertexColors: true,
     size: starScale * maxScale,
-    map: texture,
+    map: starTexture,
     depthTest: false,
     blending: THREE.AdditiveBlending,
   });

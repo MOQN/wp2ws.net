@@ -37,4 +37,4 @@ Textures, advanced materials, environment maps, and 3D model loading.
 
 ## Resources
 
-- [Adding Realism GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/06_adding_realism)
+- [Adding Realism GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/06_adding_realism)

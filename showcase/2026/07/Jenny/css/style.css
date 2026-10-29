@@ -69,7 +69,7 @@ audio {
 #credit a {
   color: inherit;
 }
-#loading {
+#scene-error {
   position: absolute;
   left: 20px;
   top: 20px;

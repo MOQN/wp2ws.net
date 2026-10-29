@@ -24,6 +24,7 @@ function initThree() {
 
   controls = new OrbitControls(camera, renderer.domElement);
 
+  if (typeof params.fps === "undefined") params.fps = 0;
   pane = new Pane();
   pane.addBinding(params, "fps", {
     label: "FPS",

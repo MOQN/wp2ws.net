@@ -2,34 +2,40 @@
 // https://editor.p5js.org/ml5/sketches/c8sl_hGmN
 
 let pose = {
-  nose: { x: 0, y: 0, score: 0 },
-  left_eye: { x: 0, y: 0, score: 0 },
-  right_eye: { x: 0, y: 0, score: 0 },
-  left_ear: { x: 0, y: 0, score: 0 },
-  right_ear: { x: 0, y: 0, score: 0 },
-  left_shoulder: { x: 0, y: 0, score: 0 },
-  right_shoulder: { x: 0, y: 0, score: 0 },
-  left_elbow: { x: 0, y: 0, score: 0 },
-  right_elbow: { x: 0, y: 0, score: 0 },
-  left_wrist: { x: 0, y: 0, score: 0 },
-  right_wrist: { x: 0, y: 0, score: 0 },
-  left_hip: { x: 0, y: 0, score: 0 },
-  right_hip: { x: 0, y: 0, score: 0 },
-  left_knee: { x: 0, y: 0, score: 0 },
-  right_knee: { x: 0, y: 0, score: 0 },
-  left_ankle: { x: 0, y: 0, score: 0 },
-  right_ankle: { x: 0, y: 0, score: 0 },
+  nose: { x: 0, y: 0, confidence: 0 },
+  left_eye: { x: 0, y: 0, confidence: 0 },
+  right_eye: { x: 0, y: 0, confidence: 0 },
+  left_ear: { x: 0, y: 0, confidence: 0 },
+  right_ear: { x: 0, y: 0, confidence: 0 },
+  left_shoulder: { x: 0, y: 0, confidence: 0 },
+  right_shoulder: { x: 0, y: 0, confidence: 0 },
+  left_elbow: { x: 0, y: 0, confidence: 0 },
+  right_elbow: { x: 0, y: 0, confidence: 0 },
+  left_wrist: { x: 0, y: 0, confidence: 0 },
+  right_wrist: { x: 0, y: 0, confidence: 0 },
+  left_hip: { x: 0, y: 0, confidence: 0 },
+  right_hip: { x: 0, y: 0, confidence: 0 },
+  left_knee: { x: 0, y: 0, confidence: 0 },
+  right_knee: { x: 0, y: 0, confidence: 0 },
+  left_ankle: { x: 0, y: 0, confidence: 0 },
+  right_ankle: { x: 0, y: 0, confidence: 0 },
 };
 
 let video;
 let bodypose;
 let poses = [];
+let lastPoseTime = -Infinity;
+const POSE_TIMEOUT_MS = 500;
 
-function preload() {
-  bodypose = ml5.bodyPose();
+function clearPoseConfidence() {
+  for (const point of Object.values(pose)) point.confidence = 0;
 }
 
-function setup() {
+
+async function setup() {
+  // p5.js 2 uses async setup instead of preload for model loading.
+  bodypose = await ml5.bodyPose();
+
   let canvas = createCanvas(640, 480);
   canvas.parent("container-p5");
 
@@ -43,6 +49,7 @@ function setup() {
 }
 
 function draw() {
+  if (performance.now() - lastPoseTime > POSE_TIMEOUT_MS) clearPoseConfidence();
   background(50);
 
   drawMirroredCam();
@@ -62,25 +69,28 @@ function draw() {
 }
 
 function gotPoses(results) {
-  // let's flip horizontally
-  for (const pose of results) {
-    for (const p of pose.keypoints) {
-      p.x = video.width - p.x;
-    }
-  }
   poses = results;
+  clearPoseConfidence();
+  if (!results.length) return;
+  lastPoseTime = performance.now();
 
-  // update newPose with lerp()
-  if (results.length > 0) {
-    newPose = results[0].keypoints;
-    const amount = 0.25;
-    let index = 0;
-    for (let point in pose) {
-      pose[point].x = lerp(pose[point].x, newPose[index].x, amount);
-      pose[point].y = lerp(pose[point].y, newPose[index].y, amount);
-      pose[point].confidence = newPose[index].confidence;
-      index++;
-    }
+  // Mirror a copy for the preview; do not mutate the model's input data.
+  poses = results.map(result => ({
+    ...result,
+    keypoints: result.keypoints.map(point => ({ ...point, x: video.width - point.x }))
+  }));
+  const points = results[0].keypoints || [];
+  const amount = 0.25;
+  for (const [index, point] of points.entries()) {
+    const name = point.name || results[0].keypoints[index]?.name;
+    const target = pose[name];
+    if (!target) continue;
+    const confidence = point.confidence ?? results[0].keypoints[index]?.confidence ?? 0;
+    if (confidence <= 0.1 || !Number.isFinite(point.x) || !Number.isFinite(point.y)) continue;
+    target.x = lerp(target.x, video.width - point.x, amount);
+    target.y = lerp(target.y, point.y, amount);
+
+    target.confidence = confidence;
   }
 }
 

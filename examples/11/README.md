@@ -12,4 +12,4 @@ Immersive WebXR experiences with VR support.
 
 ## Resources
 
-- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/11_webXR)
+- [GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/11_webXR)

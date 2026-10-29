@@ -5,7 +5,7 @@ let params = {
 const WORLD_SIZE = 2000;
 
 const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
+const mouse = new THREE.Vector2(-2, -2);
 
 let cubes = [];
 
@@ -26,7 +26,7 @@ function updateThree() {
 
   // update the ray and calculate intersected objects
   raycaster.setFromCamera(mouse, camera);
-  const intersections = raycaster.intersectObjects(scene.children);
+  const intersections = raycaster.intersectObjects(cubes.map(cube => cube.mesh), false);
 
   // update the cubes
   for (let c of cubes) {
@@ -43,6 +43,8 @@ function updateThree() {
     let c = cubes[i];
     if (c.isDone) {
       scene.remove(c.mesh);
+      c.mesh.geometry.dispose();
+      c.mesh.material.dispose();
       cubes.splice(i, 1);
       i--;
     }
@@ -168,7 +170,7 @@ class Cube {
       this.mesh.material.color.g = random(1.0);
       this.mesh.material.color.b = random(1.0);
 
-      this.vel.mult(0.8);
+      this.vel.multiplyScalar(0.8);
       this.setScale(random(30, 80), random(30, 80), random(30, 80));
 
       // this object can be also removed!
@@ -188,7 +190,7 @@ class Cube {
 
 // event listeners
 window.addEventListener("resize", onWindowResize);
-window.addEventListener('mousemove', onMouseMove);
+window.addEventListener('pointermove', onMouseMove);
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -197,8 +199,16 @@ function onWindowResize() {
 }
 
 function onMouseMove(event) {
+  if (event.target !== renderer.domElement) return;
+  const canvasBounds = renderer.domElement.getBoundingClientRect();
+  if (!canvasBounds.width || !canvasBounds.height) return;
   // calculate mouse position in normalized device coordinates
   // (-1 to +1) for both components
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  mouse.x = ((event.clientX - canvasBounds.left) / canvasBounds.width) * 2 - 1;
+  mouse.y = -((event.clientY - canvasBounds.top) / canvasBounds.height) * 2 + 1;
 }
+// Stop hovering after the pointer leaves the canvas or the window loses focus.
+window.addEventListener('pointerout', event => {
+  if (event.target === renderer.domElement) mouse.set(-2, -2);
+});
+window.addEventListener('blur', () => mouse.set(-2, -2));

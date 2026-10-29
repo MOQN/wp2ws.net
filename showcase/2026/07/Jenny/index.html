@@ -8,7 +8,7 @@
   </head>
   <body>
     <div id="scene"></div>
-    <div id="loading" role="status">Preparing the scene…</div>
+    <div id="scene-error" role="alert" hidden></div>
     <div id="panel">
       <div id="pane"></div>
       <div id="audio-panel">
@@ -43,6 +43,7 @@
       }
     </script>
     <script type="module">
+      import '../../loading.js';
       import * as THREE from "three";
       import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
       import { Reflector } from "three/addons/objects/Reflector.js";

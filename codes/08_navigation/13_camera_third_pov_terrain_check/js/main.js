@@ -8,7 +8,7 @@ let params = {
 const WORLD_SIZE = 2000;
 const WORLD_HALF = WORLD_SIZE / 2;
 const FLOOR_HEIGHT = -150;
-const C_GRAVITY = 0.3;
+const C_GRAVITY = 1080; // world units / second squared
 
 let plane;
 let user;
@@ -43,12 +43,16 @@ function setupThree() {
   folderLookAt.addBinding(thirdPovCam.idealLookAt, "z", { min: -1000, max: 1000, step: 1 });
 }
 
+let previousUpdateTime = null;
 function updateThree() {
+  const now = performance.now();
+  const dt = previousUpdateTime === null ? 0 : Math.min((now - previousUpdateTime) / 1000, 0.05);
+  previousUpdateTime = now;
   rayToBottom.updateOrigin(user.position);
-  let floorHeight = rayToBottom.getIntersection([plane]); // we send an array of objects to check for intersection.
+  rayToBottom.getIntersection([plane]); // we send an array of objects to check for intersection.
 
-  user.update();
-  thirdPovCam.update(user);
+  user.update(dt);
+  thirdPovCam.update(user, dt);
 }
 
 class Ray {
@@ -85,14 +89,14 @@ class Ray {
 
       // get the position of the intersection
       const intersectionPosition = intersection.point;
-      console.log('Intersection Position:', intersectionPosition);
+
 
       // optional
       this.intersectionMarker.position.copy(intersectionPosition);
 
       return intersectionPosition;
     } else {
-      console.log('Nothing below.');
+
       return null;
     }
   }
@@ -153,7 +157,8 @@ class ThirdPersonCamera {
     this.lookAtVector = new THREE.Vector3();
     this.idealOffset = new THREE.Vector3(100, 150, 350);
     this.idealLookAt = new THREE.Vector3(0, 0, -300);
-    this.lerpAmount = 0.05;
+    this.followRate = 3.08; // exponential smoothing per second
+    this.initialized = false;
   }
   calculateOffset(target) {
     const offset = new THREE.Vector3().copy(this.idealOffset);
@@ -167,12 +172,18 @@ class ThirdPersonCamera {
     lookAt.add(target.position);
     return lookAt;
   }
-  update(target) {
+  update(target, dt) {
     const offset = this.calculateOffset(target);
     const lookAt = this.calculateLookAt(target);
 
-    this.position.lerp(offset, this.lerpAmount);
-    this.lookAtVector.lerp(lookAt, this.lerpAmount);
+    if (!this.initialized) {
+      this.position.copy(offset);
+      this.lookAtVector.copy(lookAt);
+      this.initialized = true;
+    }
+    const amount = 1 - Math.exp(-this.followRate * dt);
+    this.position.lerp(offset, amount);
+    this.lookAtVector.lerp(lookAt, amount);
 
     this.camera.position.copy(this.position);
     this.camera.lookAt(this.lookAtVector);
@@ -190,12 +201,12 @@ class Character {
     this.position.y = FLOOR_HEIGHT;
     this.direction = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI * 0);
     this.moveVel = 0.0;
-    this.rotateVel = 0.02;
+    this.rotateVel = 1.2; // radians / second
     this.jumpVel = 0.0;
     //
-    this.runAcc = 6.0;
-    this.walkAcc = 2.5;
-    this.jumpAcc = 10;
+    this.runAcc = 360; // running speed, world units / second
+    this.walkAcc = 150; // walking speed, world units / second
+    this.jumpAcc = 600; // initial jump speed, world units / second
     this.isJumped = false;
     //
     this.keys = {
@@ -210,15 +221,22 @@ class Character {
     }
     document.addEventListener('keydown', (e) => this.onKeyDown(e), false);
     document.addEventListener('keyup', (e) => this.onKeyUp(e), false);
+    const resetInput = () => {
+      for (const key of Object.keys(this.keys)) this.keys[key] = false;
+    };
+    window.addEventListener('blur', resetInput);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) resetInput();
+    });
   }
-  update() {
-    this.rotate();
-    this.move();
-    this.jump();
+  update(dt) {
+    this.rotate(dt);
+    this.move(dt);
+    this.jump(dt);
     //
     this.mesh.setRotationFromQuaternion(this.direction);
   }
-  jump() {
+  jump(dt) {
     let floorHeight = getHeightAt(this.position, plane); // using global function with global plane.
     if (floorHeight === null) {
       floorHeight = FLOOR_HEIGHT;
@@ -230,67 +248,44 @@ class Character {
       }
     }
     // fall
-    this.position.y += this.jumpVel;
+    this.position.y += this.jumpVel * dt - 0.5 * C_GRAVITY * dt * dt;
     if (this.position.y > floorHeight) {
-      this.jumpVel -= C_GRAVITY;
+      this.jumpVel -= C_GRAVITY * dt;
     } else {
       this.position.y = floorHeight;
       this.isJumped = false;
       this.jumpVel = 0.0;
     }
   }
-  move() {
-    // walk or run
-    if (this.keys.shift) {
-      this.moveVel = this.runAcc;
-    } else {
-      this.moveVel = this.walkAcc;
-    }
-    // forward or backward
-    if (this.keys.forward) {
-      const vector = new THREE.Vector3(0, 0, 1); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(-this.moveVel); // negative
-      this.position.add(vector);
-    }
-    if (this.keys.backward) {
-      const vector = new THREE.Vector3(0, 0, 1); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(this.moveVel); // positive
-      this.position.add(vector);
-    }
-    // left or right
-    if (this.keys.left) {
-      const vector = new THREE.Vector3(1, 0, 0); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(-this.moveVel); // negative
-      this.position.add(vector);
-    }
-    if (this.keys.right) {
-      const vector = new THREE.Vector3(1, 0, 0); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(+this.moveVel); // positive
-      this.position.add(vector);
+  move(dt) {
+    this.moveVel = this.keys.shift ? this.runAcc : this.walkAcc;
+    const direction = new THREE.Vector3(
+      Number(this.keys.right) - Number(this.keys.left),
+      0,
+      Number(this.keys.backward) - Number(this.keys.forward)
+    );
+    // Normalize the combined input so diagonals are no faster than forward.
+    if (direction.lengthSq() > 0) {
+      direction.normalize().applyQuaternion(this.direction);
+      this.position.addScaledVector(direction, this.moveVel * dt);
     }
   }
-  rotate() {
+  rotate(dt) {
     // rotate left or right
     if (this.keys.rotateLeft) {
       let axis = new THREE.Vector3(0, 1, 0);
-      let quaternion = new THREE.Quaternion().setFromAxisAngle(axis, this.rotateVel); // positive
+      let quaternion = new THREE.Quaternion().setFromAxisAngle(axis, this.rotateVel * dt); // positive
       this.direction.multiply(quaternion);
     }
     if (this.keys.rotateRight) {
       let axis = new THREE.Vector3(0, 1, 0);
-      let quaternion = new THREE.Quaternion().setFromAxisAngle(axis, -this.rotateVel); // negative
+      let quaternion = new THREE.Quaternion().setFromAxisAngle(axis, -this.rotateVel * dt); // negative
       this.direction.multiply(quaternion);
     }
   }
   onKeyDown(event) {
+    if (event.target?.closest?.('input, textarea, select, [contenteditable="true"]')) return;
+    if (event.code === 'Space' || event.code.startsWith('Arrow')) event.preventDefault();
     switch (event.code) {
       case 'ArrowUp':
       case 'KeyW':

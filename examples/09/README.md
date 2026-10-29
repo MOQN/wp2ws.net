@@ -8,6 +8,8 @@ Raycasting for interaction and integrating ML models with Three.js.
 2. [Raycaster Mouse Click](02.md)
 3. [Dynamic Arrays Interaction](03.md)
 4. [Raycaster Arrow Helper](04.md)
+5. [Raycaster Create on Plane](12.md)
+6. [Raycaster Drag on Plane](13.md)
 
 ## Examples - ML Models
 
@@ -21,5 +23,11 @@ Raycasting for interaction and integrating ML models with Three.js.
 
 ## Resources
 
-- [09a GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/09a_interaction_raycaster)
-- [09b GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/09b_Interaction_w_MLmodels)
+- [Raycaster GitHub Repository (08a)](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/08a_interaction_raycaster)
+- [ML Models GitHub Repository (08b)](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/08b_Interaction_w_MLmodels)
+
+## Camera and model loading
+
+MoveNet, BlazePose, and Selfie Segmentation require camera permission and HTTPS (or localhost). With p5.js 2.x, ml5 models load with `await ml5.bodyPose()` inside `async setup()`. Allow time for the initial model download.
+
+The course repository uses `08a_interaction_raycaster`, `08b_Interaction_w_MLmodels`, and `09a_navigation`. This site keeps its existing example URLs for saved links.

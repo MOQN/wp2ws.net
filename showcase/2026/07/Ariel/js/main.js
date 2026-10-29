@@ -434,6 +434,7 @@ function loadGLTF(filepath, onLoaded) {
 
 function setupRivers(videoFile) {
   riverVideo = createVideo(videoFile);
+  window.showcaseLoading.trackMedia(riverVideo.elt);
   riverVideo.hide();
   riverVideo.elt.muted = true;
   riverVideo.elt.playsInline = true;

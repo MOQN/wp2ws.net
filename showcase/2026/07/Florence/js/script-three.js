@@ -1,3 +1,4 @@
+import '../../../loading.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Pane } from 'tweakpane';
@@ -138,7 +139,6 @@ jumpToView(initialView, true);
 let previousTime = performance.now();
 let motionTime = 0;
 let skyTime = 0;
-// Loading is silent; failures remain available in the developer console.
 function reportLoaded() {}
 // Each asset family can fail independently without hiding the architecture.
 Promise.allSettled([

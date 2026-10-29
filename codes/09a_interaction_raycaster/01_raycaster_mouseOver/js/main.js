@@ -3,7 +3,7 @@ let params = {
 };
 
 const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2(); // check the event listener at the bottom of this file.
+const mouse = new THREE.Vector2(-2, -2); // check the event listener at the bottom of this file.
 
 let cubes = [];
 
@@ -22,7 +22,7 @@ function updateThree() {
   // update the picking ray with the camera and mouse position
   raycaster.setFromCamera(mouse, camera);
   // calculate objects intersecting the picking ray
-  const intersections = raycaster.intersectObjects(scene.children);
+  const intersections = raycaster.intersectObjects(cubes.map(cube => cube.mesh), false);
 
   /*
   for (let i = 0; i < intersections.length; i++) {
@@ -146,10 +146,18 @@ class Cube {
 }
 
 // event listener
-window.addEventListener("mousemove", onMouseMove, false);
+window.addEventListener("pointermove", onMouseMove, false);
 function onMouseMove(event) {
+  if (event.target !== renderer.domElement) return;
+  const canvasBounds = renderer.domElement.getBoundingClientRect();
+  if (!canvasBounds.width || !canvasBounds.height) return;
   // calculate mouse position in normalized device coordinates
   // (-1 to +1) for both components
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  mouse.x = ((event.clientX - canvasBounds.left) / canvasBounds.width) * 2 - 1;
+  mouse.y = -((event.clientY - canvasBounds.top) / canvasBounds.height) * 2 + 1;
 }
+// Stop hovering after the pointer leaves the canvas or the window loses focus.
+window.addEventListener('pointerout', event => {
+  if (event.target === renderer.domElement) mouse.set(-2, -2);
+});
+window.addEventListener('blur', () => mouse.set(-2, -2));

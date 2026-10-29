@@ -3,9 +3,10 @@ let params = {
 };
 
 const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2(); // check the event listener at the bottom of this file.
+const mouse = new THREE.Vector2(-2, -2); // check the event listener at the bottom of this file.
 
 let cubes = [];
+let selectedObject = null;
 
 function setupThree() {
   for (let i = 0; i < 100; i++) {
@@ -19,27 +20,13 @@ function setupThree() {
 }
 
 function updateThree() {
-  // update the picking ray with the camera and mouse position
-  raycaster.setFromCamera(mouse, camera);
-  // calculate objects intersecting the picking ray
-  const intersections = raycaster.intersectObjects(scene.children);
-
-  /*
-  for (let i = 0; i < intersections.length; i++) {
-    let obj = intersections[i].object;
-    obj.material.color.set(0x00ff00);
+  for (const cube of cubes) {
+    cube.move();
+    cube.rotate();
+    cube.update();
+    cube.mesh.material.wireframe = cube.mesh !== selectedObject;
+    cube.mesh.material.color.set(cube.mesh === selectedObject ? 0x00ff00 : 0xffffff);
   }
-  */
-
-  for (let c of cubes) {
-    c.intersect(intersections);
-    c.move();
-    c.rotate();
-    c.update();
-  }
-
-  // to release mouse
-  releaseMouse();
 }
 
 function getBox() {
@@ -115,30 +102,6 @@ class Cube {
     }
     this.acc.add(force);
   }
-  intersect(intersections) {
-    let isIntersected = false;
-    // if you only want to select the first (closest) one.
-    if (intersections.length > 0) {
-      if (this.mesh === intersections[0].object) {
-        isIntersected = true;
-      }
-    }
-    /*
-    // if you want to select the whole objects on the ray.
-    for (let i of intersections) {
-      if (this.mesh  === i.object ) {
-        isIntersected = true;
-      }
-    }
-    */
-    if (isIntersected) {
-      this.mesh.material.wireframe = false;
-      this.mesh.material.color.set(0x00ff00);
-    } else {
-      this.mesh.material.wireframe = true;
-      this.mesh.material.color.set(0xffffff);
-    }
-  }
   update() {
     this.mesh.position.set(this.pos.x, this.pos.y, this.pos.z);
     this.mesh.rotation.set(this.rot.x, this.rot.y, this.rot.z);
@@ -146,25 +109,19 @@ class Cube {
   }
 }
 
-// event listeners
-window.addEventListener("resize", onWindowResize);
+// Click once to select; click empty space to clear. Selection survives pointer exit.
 window.addEventListener('click', onClick);
-
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
 function onClick(event) {
-  // calculate mouse position in normalized device coordinates
-  // (-1 to +1) for both components
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  if (event.target !== renderer.domElement || event.button !== 0) return;
+  const canvasBounds = renderer.domElement.getBoundingClientRect();
+  if (!canvasBounds.width || !canvasBounds.height) return;
+  mouse.set(
+    ((event.clientX - canvasBounds.left) / canvasBounds.width) * 2 - 1,
+    -((event.clientY - canvasBounds.top) / canvasBounds.height) * 2 + 1
+  );
+  scene.updateMatrixWorld(true);
+  camera.updateWorldMatrix(true, false);
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObjects(cubes.map(cube => cube.mesh), false);
+  selectedObject = hits.length ? hits[0].object : null;
 }
-
-function releaseMouse() {
-  // put the position out of the renderer with an arbitrary value
-  mouse.set(-10000, -10000);
-}
-

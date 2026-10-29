@@ -13,16 +13,30 @@ let moveBackward = false;
 let moveLeft = false;
 let moveRight = false;
 let canJump = true;
-let moveVelocity = 5;
+let moveVelocity = 300; // world units / second
 let jumpVelocity = 0;
-let jumpAccel = 10;
-let fallAccel = 0.3;
+let jumpAccel = 600; // world units / second
+let fallAccel = 1080; // world units / second squared
 
 function setupThree() {
   // controls
   controls = new PointerLockControls(camera, renderer.domElement);
   //controls.lock();
-  scene.add(controls.object);
+  scene.add(camera);
+
+  // Click Walk to capture the pointer. Esc releases it and returns to editing.
+  pane.addButton({ title: "Walk (Esc to exit)" }).on('click', () => controls.lock());
+  const resetMovement = () => {
+    moveForward = moveBackward = moveLeft = moveRight = false;
+  };
+  controls.addEventListener('unlock', resetMovement);
+  window.addEventListener('blur', resetMovement);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      resetMovement();
+      controls.unlock();
+    }
+  });
 
   // plane
   plane = getPlane();
@@ -53,25 +67,23 @@ function setupThree() {
   }
 }
 
+let previousUpdateTime = null;
 function updateThree() {
-  // PointerLockControls
-  if (moveForward) {
-    controls.moveForward(moveVelocity);
-  } else if (moveBackward) {
-    controls.moveForward(-moveVelocity);
+  const now = performance.now();
+  const dt = previousUpdateTime === null ? 0 : Math.min((now - previousUpdateTime) / 1000, 0.05);
+  previousUpdateTime = now;
+  if (!controls.isLocked) return;
+  const forward = Number(moveForward) - Number(moveBackward);
+  const sideways = Number(moveRight) - Number(moveLeft);
+  const length = Math.hypot(forward, sideways);
+  if (length > 0) {
+    controls.moveForward(forward / length * moveVelocity * dt);
+    controls.moveRight(sideways / length * moveVelocity * dt);
   }
-  if (moveLeft) {
-    controls.moveRight(-moveVelocity);
-  } else if (moveRight) {
-    controls.moveRight(moveVelocity);
-  }
-  // jump
-  controls.object.position.y += jumpVelocity;
-
-  if (controls.object.position.y > 0) {
-    jumpVelocity -= fallAccel;
-  } else {
-    controls.object.position.y = 0;
+  camera.position.y += jumpVelocity * dt - 0.5 * fallAccel * dt * dt;
+  jumpVelocity -= fallAccel * dt;
+  if (camera.position.y <= 0) {
+    camera.position.y = 0;
     jumpVelocity = 0;
     canJump = true;
   }
@@ -116,7 +128,8 @@ document.addEventListener('keydown', onKeyDown);
 document.addEventListener('keyup', onKeyUp);
 
 function onKeyDown(event) {
-  controls.lock(); // *** this should be triggered by user interaction
+  if (!controls.isLocked) return;
+  if (event.code === "Space" || event.code.startsWith("Arrow")) event.preventDefault();
   switch (event.code) {
     case 'ArrowUp':
     case 'KeyW':

@@ -235,6 +235,7 @@
     iframe.setAttribute('height', '400');
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allowfullscreen', 'true');
+    iframe.setAttribute('allow', 'camera; fullscreen; xr-spatial-tracking');
     iframe.style.margin = '0';
     iframe.style.width = '100%';
     iframeWrap.appendChild(iframe);

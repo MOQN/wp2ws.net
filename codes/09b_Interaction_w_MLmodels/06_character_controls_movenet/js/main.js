@@ -1,342 +1,229 @@
-let params = {
-  angle: 0,
-  distance: 0,
-};
-
+// Input sources produce the same intent; Character only knows how to move.
+let params = { fps: 0 };
 const WORLD_SIZE = 2000;
 const WORLD_HALF = WORLD_SIZE / 2;
 const FLOOR_HEIGHT = -150;
-const C_GRAVITY = 0.3;
 
-let plane;
 let user;
+let keyboard;
+let poseInput;
+let previousUpdateTime = null;
 
 function setupThree() {
-  // plane
-  plane = getPlane();
-  scene.add(plane);
-  plane.position.y = -WORLD_HALF / 4;
-  plane.rotation.x = -PI / 2;
+  const floor = getPlane();
+  floor.position.y = -WORLD_HALF / 4;
+  floor.rotation.x = -Math.PI / 2;
+  scene.add(floor);
 
-  // Character
-  user = new Character();
+  user = new Character({ floorHeight: FLOOR_HEIGHT });
+  scene.add(user.mesh);
+  keyboard = new KeyboardInput(document, window);
+  poseInput = new PoseInput();
 
-  pane.addBinding(camera.position, "z", { min: 10, max: 1000, step: 1 });
-  pane.addBinding(params, "angle", { min: -PI, max: PI, step: 0.01 });
-  pane.addBinding(params, "distance", { min: 0, max: 1000, step: 1 });
+  pane.addBinding(poseInput, "status", { readonly: true });
+  pane.addBinding(poseInput, "angle", { label: "Shoulder tilt (degrees)", readonly: true });
+  pane.addBinding(poseInput, "distance", { label: "Shoulder width", readonly: true });
+  pane.addBinding(poseInput, "neutralWidth", { readonly: true });
+  pane.addButton({ title: "Calibrate neutral pose" }).on("click", () => poseInput.calibrate());
 }
 
 function updateThree() {
-  user.moveByPose(pose);
-  user.update();
+  const now = performance.now();
+  const dt = previousUpdateTime === null ? 0 : Math.min((now - previousUpdateTime) / 1000, 0.05);
+  previousUpdateTime = now;
+
+  const keyboardIntent = keyboard.read();
+  let intent;
+  if (keyboardIntent.active) {
+    poseInput.status = "Keyboard control";
+    intent = keyboardIntent;
+  } else {
+    intent = poseInput.read(pose, lastPoseTime, now, document.hidden);
+  }
+  user.update(intent, dt);
 
   camera.position.copy(user.position);
   camera.quaternion.copy(user.direction);
 }
 
-function getBox() {
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshNormalMaterial();
-  const mesh = new THREE.Mesh(geometry, material);
-  return mesh;
-}
-
-function getPlane() {
-  const geometry = new THREE.PlaneGeometry(WORLD_HALF * 2, WORLD_HALF * 2, 100, 100);
-  const material = new THREE.MeshBasicMaterial({
-    wireframe: true,
-    side: THREE.DoubleSide
-  });
-  const mesh = new THREE.Mesh(geometry, material);
-
-  //console.log(geometry.attributes.position.array);
-  let posArray = geometry.attributes.position.array; // REORGANIZE
-  for (let i = 0; i < posArray.length; i += 3) {
-    let x = posArray[i + 0];
-    let y = posArray[i + 1];
-    let z = posArray[i + 2];
-
-    let xOffset = (x + WORLD_HALF) * 0.02;
-    let yOffset = (y + WORLD_HALF) * 0.02;
-    let amp = 4;
-    let noiseValue = (noise(xOffset, yOffset) * amp) ** 3;
-
-    posArray[i + 2] = noiseValue; // update the z value.
-  }
-
-  return mesh;
+// All input sources return local movement axes, a turn amount, and action flags.
+function getNeutralIntent() {
+  return { x: 0, z: 0, turn: 0, jump: false, run: false, active: false };
 }
 
 class Character {
-  constructor() {
-    this.position = new THREE.Vector3();
-    this.position.y = FLOOR_HEIGHT;
-    this.direction = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI * 0);
-    this.moveVel = 0.0;
-    this.rotateVel = 0.02;
-    this.jumpVel = 0.0;
-    //
-    this.runAcc = 6.0;
-    this.walkAcc = 2.5;
-    this.jumpAcc = 10;
-    this.isJumped = false;
-    //
+  constructor({ floorHeight = -150, walkSpeed = 150, runSpeed = 360,
+    turnSpeed = 1.2, jumpSpeed = 600, gravity = 1080 } = {}) {
+    this.floorHeight = floorHeight;
+    this.walkSpeed = walkSpeed;
+    this.runSpeed = runSpeed;
+    this.turnSpeed = turnSpeed;
+    this.jumpSpeed = jumpSpeed;
+    this.gravity = gravity;
+    this.verticalSpeed = 0;
+    this.grounded = true;
     this.mesh = getBox();
-    scene.add(this.mesh);
     this.mesh.scale.set(100, 200, 20);
-    //
-    this.keys = {
-      forward: false,
-      backward: false,
-      left: false,
-      right: false,
-      rotateLeft: false,
-      rotateRight: false,
-      space: false,
-      shift: false,
-    }
-    document.addEventListener('keydown', (e) => this.onKeyDown(e), false);
-    document.addEventListener('keyup', (e) => this.onKeyUp(e), false);
+    this.position = this.mesh.position;
+    this.position.y = floorHeight;
+    this.direction = this.mesh.quaternion;
+    this.movement = new THREE.Vector3();
+    this.upAxis = new THREE.Vector3(0, 1, 0);
+    this.rotation = new THREE.Quaternion();
   }
-  update() {
-    this.rotate();
-    this.move();
-    this.jump();
-    //
-    this.mesh.position.x = this.position.x;
-    this.mesh.position.y = this.position.y;
-    this.mesh.position.z = this.position.z;
-    //
-    this.mesh.setRotationFromQuaternion(this.direction);
+  update(intent, dt) {
+    if (!Number.isFinite(dt) || dt <= 0) return;
+    dt = Math.min(dt, 0.05);
+    this.rotate(intent.turn, dt);
+    this.move(intent, dt);
+    this.jump(intent.jump, dt);
   }
-  jump() {
-    if (this.keys.space) {
-      if (!this.isJumped) {
-        this.isJumped = true;
-        this.jumpVel += this.jumpAcc;
-      }
+  rotate(turn, dt) {
+    this.rotation.setFromAxisAngle(this.upAxis, turn * this.turnSpeed * dt);
+    this.direction.multiply(this.rotation);
+  }
+  move(intent, dt) {
+    this.movement.set(intent.x, 0, intent.z);
+    // Preserve analog pose input, but cap diagonal keyboard movement at length 1.
+    if (this.movement.lengthSq() > 1) this.movement.normalize();
+    this.movement.applyQuaternion(this.direction);
+    const speed = intent.run ? this.runSpeed : this.walkSpeed;
+    this.position.addScaledVector(this.movement, speed * dt);
+  }
+  jump(requested, dt) {
+    if (requested && this.grounded) {
+      this.verticalSpeed = this.jumpSpeed;
+      this.grounded = false;
     }
-    // fall
-    this.position.y += this.jumpVel;
-    if (this.position.y > FLOOR_HEIGHT) {
-      this.jumpVel -= C_GRAVITY;
-    } else {
-      this.position.y = FLOOR_HEIGHT;
-      this.isJumped = false;
-      this.jumpVel = 0.0;
+    this.position.y += this.verticalSpeed * dt - 0.5 * this.gravity * dt * dt;
+    this.verticalSpeed -= this.gravity * dt;
+    if (this.position.y <= this.floorHeight) {
+      this.position.y = this.floorHeight;
+      this.verticalSpeed = 0;
+      this.grounded = true;
     }
   }
-  move() {
-    // walk or run
-    if (this.keys.shift) {
-      this.moveVel = this.runAcc;
-    } else {
-      this.moveVel = this.walkAcc;
-    }
-    // forward or backward
-    if (this.keys.forward) {
-      const vector = new THREE.Vector3(0, 0, 1); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(-this.moveVel); // negative
-      this.position.add(vector);
-    }
-    if (this.keys.backward) {
-      const vector = new THREE.Vector3(0, 0, 1); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(this.moveVel); // positive
-      this.position.add(vector);
-    }
-    // left or right
-    if (this.keys.left) {
-      const vector = new THREE.Vector3(1, 0, 0); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(-this.moveVel); // negative
-      this.position.add(vector);
-    }
-    if (this.keys.right) {
-      const vector = new THREE.Vector3(1, 0, 0); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(+this.moveVel); // positive
-      this.position.add(vector);
-    }
+  dispose() {
+    this.mesh.removeFromParent();
+    this.mesh.geometry.dispose();
+    this.mesh.material.dispose();
   }
-  rotate() {
-    // rotate left or right
-    if (this.keys.rotateLeft) {
-      let axis = new THREE.Vector3(0, 1, 0);
-      let quaternion = new THREE.Quaternion().setFromAxisAngle(axis, this.rotateVel); // positive
-      this.direction.multiply(quaternion);
-    }
-    if (this.keys.rotateRight) {
-      let axis = new THREE.Vector3(0, 1, 0);
-      let quaternion = new THREE.Quaternion().setFromAxisAngle(axis, -this.rotateVel); // negative
-      this.direction.multiply(quaternion);
-    }
+}
+
+// This object interprets the body; it never changes a mesh or a camera.
+class PoseInput {
+  constructor() {
+    this.confidenceThreshold = 0.1;
+    this.timeoutMs = 500;
+    this.neutralWidth = 0;
+    this.angle = 0;
+    this.distance = 0;
+    this.status = "Waiting for pose";
   }
-  moveByPose(pose) {
-    const leftPart = pose.left_shoulder;
-    const rightPart = pose.right_shoulder;
-    const confidenceThreshold = 0.1;
-
-    if (leftPart < confidenceThreshold ||
-      rightPart < confidenceThreshold)
-      return;
-
-    let leftPos = new THREE.Vector3(leftPart.x, leftPart.y);
-    let rightPos = new THREE.Vector3(rightPart.x, rightPart.y);
-
-    let vector = p5.Vector.sub(rightPos, leftPos);
-    let angle = degrees(vector.heading());
-    let distance = vector.mag();
-
-    params.angle = angle;
-    params.distance = distance;
-
-    // forward or backward
-    const forwardThreshold = 300;
-    const backwardThreshold = 250;
-    if (distance > forwardThreshold) {
-      const adjustment = map(distance, forwardThreshold, forwardThreshold + 100, 0, 1, true);
-      const vector = new THREE.Vector3(0, 0, 1); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(-this.moveVel * adjustment); // negative
-      this.position.add(vector);
-    }
-    else if (distance < backwardThreshold) {
-      const adjustment = map(distance, backwardThreshold, forwardThreshold - 100, 0, 1, true);
-      const vector = new THREE.Vector3(0, 0, 1); // ***
-      vector.applyQuaternion(this.direction);
-      vector.normalize();
-      vector.multiplyScalar(this.moveVel * adjustment); // positive
-      this.position.add(vector);
-    }
-
-    // rotate
-    const angleThreshold = 12;
-    const angleAdjustment = map(abs(angle), angleThreshold, 30, 0, 1);
-    if (angle < -angleThreshold) {
-      let axis = new THREE.Vector3(0, 1, 0);
-      let quaternion = new THREE.Quaternion().setFromAxisAngle(axis, this.rotateVel * angleAdjustment); // positive
-      this.direction.multiply(quaternion);
-    }
-    else if (angle > angleThreshold) {
-      let axis = new THREE.Vector3(0, 1, 0);
-      let quaternion = new THREE.Quaternion().setFromAxisAngle(axis, -this.rotateVel * angleAdjustment); // negative
-      this.direction.multiply(quaternion);
-    }
+  calibrate() {
+    this.neutralWidth = 0;
+    this.status = "Stand naturally to calibrate";
   }
-  onKeyDown(event) {
-    switch (event.code) {
-      case 'ArrowUp':
-      case 'KeyW':
-        this.keys.forward = true;
-        break;
-      case 'ArrowLeft':
-      case 'KeyA':
-        this.keys.left = true;
-        break;
-      case 'ArrowDown':
-      case 'KeyS':
-        this.keys.backward = true;
-        break;
-      case 'ArrowRight':
-      case 'KeyD':
-        this.keys.right = true;
-        break;
-      case 'KeyQ':
-        this.keys.rotateLeft = true;
-        break;
-      case 'KeyE':
-        this.keys.rotateRight = true;
-        break;
-      case 'Space':
-        this.keys.space = true;
-        break;
-      case 'ShiftLeft':
-        this.keys.shift = true;
-        break;
-    }
-    /*
-    switch (event.keyCode) {
-      case 87: // w
-        this.keys.forward = true;
-        break;
-      case 65: // a
-        this.keys.left = true;
-        break;
-      case 83: // s
-        this.keys.backward = true;
-        break;
-      case 68: // d
-        this.keys.right = true;
-        break;
-      case 32: // SPACE
-        this.keys.space = true;
-        break;
-      case 16: // SHIFT
-        this.keys.shift = true;
-        break;
-    }
-    */
-  };
-
-  onKeyUp(event) {
-    switch (event.code) {
-      case 'ArrowUp':
-      case 'KeyW':
-        this.keys.forward = false;
-        break;
-      case 'ArrowLeft':
-      case 'KeyA':
-        this.keys.left = false;
-        break;
-      case 'ArrowDown':
-      case 'KeyS':
-        this.keys.backward = false;
-        break;
-      case 'ArrowRight':
-      case 'KeyD':
-        this.keys.right = false;
-        break;
-      case 'KeyQ':
-        this.keys.rotateLeft = false;
-        break;
-      case 'KeyE':
-        this.keys.rotateRight = false;
-        break;
-      case 'Space':
-        this.keys.space = false;
-        break;
-      case 'ShiftLeft':
-        this.keys.shift = false;
-        break;
-    }
-    /*
-    switch (event.keyCode) {
-      case 87: // w
-        this.keys.forward = false;
-        break;
-      case 65: // a
-        this.keys.left = false;
-        break;
-      case 83: // s
-        this.keys.backward = false;
-        break;
-      case 68: // d
-        this.keys.right = false;
-        break;
-      case 32: // SPACE
-        this.keys.space = false;
-        break;
-      case 16: // SHIFT
-        this.keys.shift = false;
-        break;
-    }
-    */
+  hasPoint(point) {
+    return point && point.confidence > this.confidenceThreshold
+      && Number.isFinite(point.x) && Number.isFinite(point.y);
   }
+  read(keypoints, lastDetectionTime, now, hidden = false) {
+    const intent = getNeutralIntent();
+    const left = keypoints?.left_shoulder;
+    const right = keypoints?.right_shoulder;
+    const age = now - lastDetectionTime;
+    if (hidden || !Number.isFinite(age) || age < 0 || age > this.timeoutMs
+        || !this.hasPoint(left) || !this.hasPoint(right)) {
+      this.status = "Pose lost — movement paused";
+      return intent;
+    }
+    const dx = right.x - left.x;
+    const dy = right.y - left.y;
+    this.distance = Math.hypot(dx, dy);
+    if (this.distance < 1) {
+      this.status = "Shoulders too close — movement paused";
+      return intent;
+    }
+    this.angle = Math.atan2(dy, Math.abs(dx)) * 180 / Math.PI;
+    if (!this.neutralWidth) this.neutralWidth = this.distance;
+    this.status = "Tracking";
+    const ratio = this.distance / this.neutralWidth;
+    const clamp = value => Math.max(0, Math.min(1, value));
+    // A neutral zone prevents small tracking jitters from starting movement.
+    intent.z = ratio > 1.1 ? -clamp((ratio - 1.1) / 0.3)
+      : ratio < 0.9 ? clamp((0.9 - ratio) / 0.3) : 0;
+    intent.turn = -Math.sign(this.angle) * clamp((Math.abs(this.angle) - 12) / 18);
+    intent.active = true;
+    return intent;
+  }
+}
+
+const KEY_ACTIONS = {
+  KeyW: "forward", ArrowUp: "forward", KeyS: "backward", ArrowDown: "backward",
+  KeyA: "left", ArrowLeft: "left", KeyD: "right", ArrowRight: "right",
+  KeyQ: "rotateLeft", KeyE: "rotateRight", Space: "jump",
+  ShiftLeft: "run", ShiftRight: "run",
 };
+
+// Key state and listener cleanup belong to the input object, not Character.
+class KeyboardInput {
+  constructor(keyTarget, windowTarget) {
+    this.keyTarget = keyTarget;
+    this.windowTarget = windowTarget;
+    this.pressed = new Set();
+    this.jumpRequested = false;
+    this.onKeyDown = event => {
+      if (!KEY_ACTIONS[event.code]) return;
+      if (event.target?.closest?.('input, textarea, select, [contenteditable="true"]')) return;
+      if (event.code === "Space" || event.code.startsWith("Arrow")) event.preventDefault();
+      if (event.code === "Space" && !this.pressed.has(event.code)) this.jumpRequested = true;
+      this.pressed.add(event.code);
+    };
+    this.onKeyUp = event => this.pressed.delete(event.code);
+    this.onBlur = () => this.reset();
+    this.onVisibility = () => { if (this.keyTarget.hidden) this.reset(); };
+    keyTarget.addEventListener("keydown", this.onKeyDown);
+    keyTarget.addEventListener("keyup", this.onKeyUp);
+    keyTarget.addEventListener("visibilitychange", this.onVisibility);
+    windowTarget.addEventListener("blur", this.onBlur);
+  }
+  reset() {
+    this.pressed.clear();
+    this.jumpRequested = false;
+  }
+  read() {
+    const actions = new Set([...this.pressed].map(code => KEY_ACTIONS[code]));
+    const intent = getNeutralIntent();
+    intent.x = Number(actions.has("right")) - Number(actions.has("left"));
+    intent.z = Number(actions.has("backward")) - Number(actions.has("forward"));
+    intent.turn = Number(actions.has("rotateLeft")) - Number(actions.has("rotateRight"));
+    intent.jump = this.jumpRequested;
+    intent.run = actions.has("run");
+    intent.active = this.pressed.size > 0 || intent.jump;
+    this.jumpRequested = false;
+    return intent;
+  }
+  dispose() {
+    this.reset();
+    this.keyTarget.removeEventListener("keydown", this.onKeyDown);
+    this.keyTarget.removeEventListener("keyup", this.onKeyUp);
+    this.keyTarget.removeEventListener("visibilitychange", this.onVisibility);
+    this.windowTarget.removeEventListener("blur", this.onBlur);
+  }
+}
+
+function getBox() {
+  return new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshNormalMaterial());
+}
+
+function getPlane() {
+  const geometry = new THREE.PlaneGeometry(WORLD_SIZE, WORLD_SIZE, 100, 100);
+  const positions = geometry.attributes.position.array;
+  for (let i = 0; i < positions.length; i += 3) {
+    const xOffset = (positions[i] + WORLD_HALF) * 0.02;
+    const yOffset = (positions[i + 1] + WORLD_HALF) * 0.02;
+    positions[i + 2] = (noise(xOffset, yOffset) * 4) ** 3;
+  }
+  return new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ wireframe: true, side: THREE.DoubleSide }));
+}

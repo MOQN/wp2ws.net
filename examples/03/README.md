@@ -16,5 +16,5 @@ Learn object organization, dynamic arrays, and GUI controls.
 
 ## Resources
 
-- [Objects & Dynamic Arrays GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/03_objects_dynamicArrays)
-- [GUI GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/03_adding_gui)
+- [Objects & Dynamic Arrays GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/03_objects_dynamicArrays)
+- [GUI GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/03_adding_gui)

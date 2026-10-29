@@ -16,4 +16,4 @@ Points material, buffer geometry, and dynamic point systems.
 
 ## Resources
 
-- [Points Material GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/codes/05_pointsMaterial)
+- [Points Material GitHub Repository](https://github.com/MOQN/IMA-Web-Page-To-Web-Space/tree/main/05_pointsMaterial)

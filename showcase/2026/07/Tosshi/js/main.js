@@ -85,6 +85,7 @@ function setupThree() {
   journeyButton = document.getElementById("btn-journey");
   journeyButton.addEventListener("click", toggleJourney);
   music = new Audio("assets/bittersweet.mp3");
+  window.showcaseLoading.trackMedia(music);
 music.loop = true;
 music.volume = 1;
 

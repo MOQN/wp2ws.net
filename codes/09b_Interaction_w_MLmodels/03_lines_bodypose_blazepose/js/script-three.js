@@ -25,6 +25,7 @@ function initThree() {
 
   controls = new OrbitControls(camera, renderer.domElement);
 
+  if (typeof params.fps === "undefined") params.fps = 0;
   pane = new Pane();
   pane.addBinding(params, "fps", {
     label: "FPS",
@@ -61,6 +62,7 @@ function animate() {
 }
 
 window.addEventListener("resize", function () {
+  if (!camera || !renderer) return;
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);

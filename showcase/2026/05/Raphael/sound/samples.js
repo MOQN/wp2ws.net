@@ -1,3 +1,5 @@
+import { FileLoader } from 'three';
+
 // Violin: VSCO 2 Community Edition (CC0). Rupture sounds: Boyan Peng.
 const files = [
   {
@@ -85,11 +87,11 @@ const files = [
 // Load the recordings once Sound is enabled.
 export async function loadSamples(context) {
   const entries = [];
+  const loader = new FileLoader().setResponseType('arraybuffer');
   for (const sample of files) {
     const url = new URL('./assets/' + sample.file, import.meta.url);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Unable to load sound: ' + sample.id);
-    const buffer = await context.decodeAudioData(await response.arrayBuffer());
+    const data = await loader.loadAsync(url.href);
+    const buffer = await context.decodeAudioData(data);
     entries.push({ ...sample, buffer });
   }
   return { entries, library: 'VSCO violin and original Logic Pro recordings' };

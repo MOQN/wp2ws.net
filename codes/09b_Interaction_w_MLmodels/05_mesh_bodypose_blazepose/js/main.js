@@ -1,153 +1,121 @@
-let params = {
-  poseScale: 250,
-};
-
+// BodyPose turns tracked landmarks into endpoint-based Bars from example 04.
+let params = { fps: 0 };
 const WORLD_SIZE = 2000;
-const WORLD_HALF = WORLD_SIZE / 2;
-const VIDEO_WIDTH = 640;
-
-let lines = [];
+let body;
 
 function setupThree() {
-  // floor
   const floor = getPlane();
+  floor.position.y = -WORLD_SIZE / 4;
+  floor.rotation.x = -Math.PI / 2;
   scene.add(floor);
-  floor.position.y = -WORLD_HALF / 2;
-  floor.rotation.x = -PI / 2;
 
-  /* lines */
-  // left _eye
-  lines.push(new Bar(pose.left_eye_outer, pose.left_eye));
-  lines.push(new Bar(pose.left_eye, pose.left_eye_inner));
-  // right _eye
-  lines.push(new Bar(pose.right_eye_outer, pose.right_eye));
-  lines.push(new Bar(pose.right_eye, pose.right_eye_inner));
-  // _mouth
-  lines.push(new Bar(pose.mouth_left, pose.mouth_right));
-  // _ears
-  lines.push(new Bar(pose.left_ear, pose.right_ear));
-
-  // torso
-  lines.push(new Bar(pose.left_shoulder, pose.right_shoulder));
-  lines.push(new Bar(pose.right_shoulder, pose.right_hip));
-  lines.push(new Bar(pose.right_hip, pose.left_hip));
-  lines.push(new Bar(pose.left_hip, pose.left_shoulder));
-
-  // left leg
-  lines.push(new Bar(pose.left_hip, pose.left_knee));
-  lines.push(new Bar(pose.left_knee, pose.left_ankle));
-  lines.push(new Bar(pose.left_heel, pose.left_foot_index));
-
-  // right leg
-  lines.push(new Bar(pose.right_hip, pose.right_knee));
-  lines.push(new Bar(pose.right_knee, pose.right_ankle));
-  lines.push(new Bar(pose.right_heel, pose.right_foot_index));
-
-  // left arm
-  lines.push(new Bar(pose.left_shoulder, pose.left_elbow));
-  lines.push(new Bar(pose.left_elbow, pose.left_wrist));
-  // left hand
-  lines.push(new Bar(pose.left_wrist, pose.left_thumb));
-  lines.push(new Bar(pose.left_wrist, pose.left_index));
-  lines.push(new Bar(pose.left_wrist, pose.left_pinky));
-
-  // right arm
-  lines.push(new Bar(pose.right_shoulder, pose.right_elbow));
-  lines.push(new Bar(pose.right_elbow, pose.right_wrist));
-  // left hand
-  lines.push(new Bar(pose.right_wrist, pose.right_thumb));
-  lines.push(new Bar(pose.right_wrist, pose.right_index));
-  lines.push(new Bar(pose.right_wrist, pose.right_pinky));
-
-
-  pane.addBinding(params, "poseScale", { min: 0, max: 500 });
+  body = new BodyPose();
+  scene.add(body.group);
+  pane.addBinding(body, "poseScale", { min: 0, max: 500 });
+  pane.addBinding(body, "confidenceThreshold", { min: 0, max: 1 });
 }
 
 function updateThree() {
-  // update the bars
-  for (const line of lines) {
-    line.update();
-  }
+  body.update(pose);
 }
 
-function updateWithBodypose(mesh, keypoint, confidenceThreshold = 0.1) {
-  if (keypoint.confidence > confidenceThreshold) {
-    mesh.visible = true;
-    mesh.position = getScaledVector(keypoint);
-  } else {
-    mesh.visible = false;
+// Each pair is one bone. Add or remove pairs without changing drawing logic.
+const BODY_CONNECTIONS = [
+  ["left_eye_outer", "left_eye"], ["left_eye", "left_eye_inner"],
+  ["right_eye_outer", "right_eye"], ["right_eye", "right_eye_inner"],
+  ["mouth_left", "mouth_right"], ["left_ear", "right_ear"],
+  ["left_shoulder", "right_shoulder"], ["right_shoulder", "right_hip"],
+  ["right_hip", "left_hip"], ["left_hip", "left_shoulder"],
+  ["left_hip", "left_knee"], ["left_knee", "left_ankle"],
+  ["left_heel", "left_foot_index"],
+  ["right_hip", "right_knee"], ["right_knee", "right_ankle"],
+  ["right_heel", "right_foot_index"],
+  ["left_shoulder", "left_elbow"], ["left_elbow", "left_wrist"],
+  ["left_wrist", "left_thumb"], ["left_wrist", "left_index"],
+  ["left_wrist", "left_pinky"],
+  ["right_shoulder", "right_elbow"], ["right_elbow", "right_wrist"],
+  ["right_wrist", "right_thumb"], ["right_wrist", "right_index"],
+  ["right_wrist", "right_pinky"],
+];
+
+class BodyPose {
+  constructor(connections = BODY_CONNECTIONS) {
+    this.group = new THREE.Group();
+    this.poseScale = 250;
+    this.confidenceThreshold = 0.1;
+    this.bones = connections.map(([startName, endName]) => {
+      const bar = new Bar(30);
+      this.group.add(bar.mesh);
+      return { startName, endName, bar };
+    });
+    // Reuse these vectors instead of allocating for every bone on every frame.
+    this.start = new THREE.Vector3();
+    this.end = new THREE.Vector3();
+  }
+  hasPoint(point) {
+    return point && point.confidence > this.confidenceThreshold
+      && Number.isFinite(point.x) && Number.isFinite(point.y) && Number.isFinite(point.z);
+  }
+  toWorld(point, output) {
+    // Pose Y points down; the arbitrary 0.5 depth scale keeps the body readable.
+    return output.set(
+      point.x * this.poseScale,
+      -point.y * this.poseScale,
+      -point.z * this.poseScale * 0.5
+    );
+  }
+  update(keypoints) {
+    for (const bone of this.bones) {
+      const start = keypoints?.[bone.startName];
+      const end = keypoints?.[bone.endName];
+      if (!this.hasPoint(start) || !this.hasPoint(end)) {
+        bone.bar.mesh.visible = false;
+        continue;
+      }
+      bone.bar.update(this.toWorld(start, this.start), this.toWorld(end, this.end));
+    }
+  }
+  dispose() {
+    for (const bone of this.bones) bone.bar.dispose();
+    this.group.removeFromParent();
   }
 }
 
 class Bar {
-  constructor(start, end) {
+  constructor(thickness = 30) {
     this.mesh = getBox();
-    scene.add(this.mesh);
-
-    this.mesh.scale.x = 50;
-    this.mesh.scale.y = 30;
-    this.mesh.scale.z = 30;
+    // Move the pivot to the left end: position = start, scale.x = length.
     this.mesh.geometry.translate(0.5, 0, 0);
-
-    this.start = start;
-    this.end = end;
+    this.mesh.scale.set(1, thickness, thickness);
+    this.mesh.visible = false;
+    this.axis = new THREE.Vector3(1, 0, 0);
+    this.direction = new THREE.Vector3();
   }
-  update() {
-    const confidenceThreshold = 0.1;
-    if (this.start.confidence < confidenceThreshold || this.end.confidence < confidenceThreshold) {
-      this.mesh.visible = false;
-      return;
-    } else {
-      this.mesh.visible = true;
-    }
-
-    let startVector = getScaledVector(this.start);
-    let endVector = getScaledVector(this.end);
-
-    let direction = new THREE.Vector3().subVectors(endVector, startVector); // target - origin
-    let distance = direction.length();
-    const quaternion = new THREE.Quaternion();
-    quaternion.setFromUnitVectors(new THREE.Vector3(1, 0, 0), direction.normalize());
-
-    this.mesh.position.copy(startVector);
-    this.mesh.rotation.setFromQuaternion(quaternion);
-    this.mesh.scale.x = distance;
+  update(start, end) {
+    this.direction.subVectors(end, start);
+    const length = this.direction.length();
+    // Coincident endpoints have no direction; do not normalize a zero vector.
+    this.mesh.visible = Number.isFinite(length) && length > 0.000001;
+    if (!this.mesh.visible) return;
+    this.mesh.position.copy(start);
+    this.mesh.scale.x = length;
+    this.mesh.quaternion.setFromUnitVectors(this.axis, this.direction.divideScalar(length));
+  }
+  dispose() {
+    this.mesh.removeFromParent();
+    this.mesh.geometry.dispose();
+    this.mesh.material.dispose();
   }
 }
 
-function getScaledVector(keypoint) {
-  return new THREE.Vector3(
-    keypoint.x * params.poseScale,
-    keypoint.y * params.poseScale * -1, // flipped!
-    keypoint.z * params.poseScale * -0.5 // flipped. 0.5 is an arbitrary value.
-  );
-}
 
-function getLine() {
-  const material = new THREE.LineBasicMaterial({ color: 0x00FF00 });
-  const points = [];
-  points.push(new THREE.Vector3(-10, 0, 0));
-  points.push(new THREE.Vector3(10, 0, 0));
-  const geometry = new THREE.BufferGeometry().setFromPoints(points);
-  const mesh = new THREE.Line(geometry, material);
-
-  return mesh;
+function getBox() {
+  return new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshNormalMaterial());
 }
 
 function getPlane() {
-  const geometry = new THREE.PlaneGeometry(WORLD_SIZE, WORLD_SIZE, 20, 20);
-  const material = new THREE.MeshBasicMaterial({
-    color: 0x999999,
-    wireframe: true,
-    side: THREE.DoubleSide
-  });
-  const mesh = new THREE.Mesh(geometry, material);
-  return mesh;
-}
-
-function getBox() {
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshNormalMaterial();
-  const mesh = new THREE.Mesh(geometry, material);
-  return mesh;
+  return new THREE.Mesh(
+    new THREE.PlaneGeometry(WORLD_SIZE, WORLD_SIZE, 20, 20),
+    new THREE.MeshBasicMaterial({ color: 0x999999, wireframe: true, side: THREE.DoubleSide })
+  );
 }
