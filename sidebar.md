@@ -31,10 +31,11 @@
 - **Examples**
   <div class="sidebar-section-divider">&nbsp;</div>
 
-  - [01 CreativeCoding Review](/examples/01/)
+  - **01 Creative Coding Review**
+    - [p5.js Basics, OOP & Vectors](/examples/01/README.md)
     - [Particles Step-by-Step](/examples/01/particles-step-by-step.md)
     - [CCLab All Examples](/examples/01/course-examples.md)
-  - [02 Intro to Three.js](/examples/02/README.md)
+  - **02 Intro to Three.js**
     - [01 Get Box](/examples/02/01.md)
     - [02 Get Sphere](/examples/02/02.md)
     - [03 Get Plane](/examples/02/03.md)
@@ -44,7 +45,7 @@
     - [07 MeshPhongMaterial & Light](/examples/02/07.md)
     - [08 Sculpture Template (Dark)](/examples/02/08.md)
     - [09 Sculpture Template (Bright)](/examples/02/09.md)
-  - [03 Objects & Dynamic Arrays + GUI](/examples/03/README.md)
+  - **03 Objects & Dynamic Arrays + GUI**
     - [01 Object Organization](/examples/03/01.md)
     - [02 Dynamic Arrays Prep](/examples/03/02.md)
     - [03 Dynamic Arrays Remove](/examples/03/03.md)
@@ -54,7 +55,7 @@
     - [07 GUI: Updating Values Manually](/examples/03/07.md)
     - [08 GUI: Using JS Objects and Folders](/examples/03/08.md)
     - [09 GUI: Manipulating Objects](/examples/03/09.md)
-  - [04 Lights & Shadow](/examples/04/README.md)
+  - **04 Lights & Shadow**
     - [01 Fogs](/examples/04/01.md)
     - [02 Ambient Light](/examples/04/02.md)
     - [03 Hemisphere Light](/examples/04/03.md)
@@ -64,7 +65,7 @@
     - [07 Spot Light Target](/examples/04/07.md)
     - [08 Directional Light Target](/examples/04/08.md)
     - [09 Rect Area Light](/examples/04/09.md)
-  - [05 Points Material](/examples/05/README.md)
+  - **05 Points Material**
     - [01 Points Material](/examples/05/01.md)
     - [02 Buffer Geometry needsUpdate](/examples/05/02.md)
     - [03 Buffer Geometry Dynamic Array Step 1](/examples/05/03.md)
@@ -73,7 +74,7 @@
     - [06 Points Noise](/examples/05/06.md)
     - [07 Points Flow with Noise](/examples/05/07.md)
     - [08 Points Vertex Colors](/examples/05/08.md)
-  - [06 Adding Realism](/examples/06/README.md)
+  - **06 Adding Realism**
     - [01 Geometry Terrain](/examples/06/01.md)
     - [02 Geometry Terrain Normals](/examples/06/02.md)
     - [03 Geometry Sea Texture](/examples/06/03.md)
@@ -104,14 +105,14 @@
     - [28 GLTFLoader Points](/examples/06/28.md)
     - [29 GLTFLoader Points Morph](/examples/06/29.md)
     - [30 GLTFLoader Texture Cube Refraction](/examples/06/30.md)
-  - [08a Interaction — Raycaster](/examples/08a/README.md)
+  - **08a Interaction — Raycaster**
     - [01 Raycaster Mouse Over](/examples/08a/01.md)
     - [02 Raycaster Mouse Click](/examples/08a/02.md)
     - [03 Dynamic Arrays Interaction](/examples/08a/03.md)
     - [04 Raycaster Arrow Helper](/examples/08a/04.md)
     - [05 Raycaster Create on Plane](/examples/08a/05.md)
     - [06 Raycaster Drag on Plane](/examples/08a/06.md)
-  - [08b Interaction — ML Models](/examples/08b/README.md)
+  - **08b Interaction — ML Models**
     - [01 Mesh Bodypose MoveNet](/examples/08b/01.md)
     - [02 Lines Bodypose MoveNet](/examples/08b/02.md)
     - [03 Lines Bodypose BlazePose](/examples/08b/03.md)
@@ -119,7 +120,7 @@
     - [05 Mesh Bodypose BlazePose](/examples/08b/05.md)
     - [06 Character Controls MoveNet](/examples/08b/06.md)
     - [07 Points MediaPipe Selfie Segmentation](/examples/08b/07.md)
-  - [09a Navigation](/examples/09a/README.md)
+  - **09a Navigation**
     - [01 Orbit Controls](/examples/09a/01.md)
     - [02 Orbit Controls More](/examples/09a/02.md)
     - [03 Map Controls](/examples/09a/03.md)
@@ -133,7 +134,7 @@
     - [11 Manual Character Controls](/examples/09a/11.md)
     - [12 Camera Third POV](/examples/09a/12.md)
     - [13 Camera Third POV Terrain Check](/examples/09a/13.md)
-  - [11 WebXR](/examples/11/README.md)
+  - **11 WebXR**
     - [01 WebXR Basic](/examples/11/01.md)
     - [02 WebXR Points](/examples/11/02.md)
     - [03 WebXR Drag](/examples/11/03.md)
