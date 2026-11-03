@@ -11,7 +11,9 @@
     * [ArcballControls](https://threejs.org/docs/#examples/en/controls/ArcballControls)
   * [MapControls](https://threejs.org/examples/?q=controls#misc_controls_map)
   * [DragControls](https://threejs.org/docs/examples/en/controls/DragControls.html)
+  * [TransformControls](https://threejs.org/docs/pages/TransformControls.html)
   * [FlyControls](https://threejs.org/docs/examples/en/controls/FlyControls.html)
+  * [FirstPersonControls](https://threejs.org/docs/pages/FirstPersonControls.html)
   * [PointerLockControls](https://threejs.org/docs/examples/en/controls/PointerLockControls.html)
 * Camera
   * [lookAt()](https://threejs.org/docs/index.html?q=object#api/en/core/Object3D.lookAt)
