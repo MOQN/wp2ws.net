@@ -66,6 +66,30 @@
   * **`quaternion.identity()`**
     * Resets the quaternion to its unrotated orientation.
 
+* Applying Quaternions to a Mesh
+  * **`mesh.quaternion.copy(q)`**
+    * Replaces the mesh's local orientation with an existing quaternion.
+  * **`mesh.setRotationFromQuaternion(q)`**
+    * Sets the mesh's local rotation using a quaternion. Like `mesh.quaternion.copy(q)`, it replaces the current orientation.
+  * **`mesh.applyQuaternion(q)`**
+    * Adds a rotation to the mesh's current orientation by premultiplying: `mesh.quaternion = q × mesh.quaternion`.
+    * Unlike copying an orientation, repeated calls accumulate the rotation.
+  * **`mesh.quaternion.slerp(target, t)`**
+    * Blends the mesh's current orientation toward a target orientation in the same local coordinate space.
+    * Example: use `t = 0.05` each frame for a smooth turn that eases toward the target.
+  * **`mesh.quaternion.rotateTowards(target, step)`**
+    * Turns toward a target local orientation by up to `step` radians per update without overshooting.
+    * Example: use a turn speed multiplied by elapsed time for a consistent rotation speed across frame rates.
+  * **`mesh.rotateOnAxis(axis, angle)`**
+    * Rotates around a unit axis in the mesh's local space. The angle is in radians.
+    * Example: rotate around the character's own Y axis as it turns.
+  * **`mesh.rotateOnWorldAxis(axis, angle)`**
+    * Rotates around a unit axis in world space. The angle is in radians.
+    * Assumes the mesh has no rotated parent.
+  * **`mesh.getWorldQuaternion(result)`**
+    * Stores the mesh's world orientation in an existing quaternion, including rotations inherited from its parents.
+    * Example: apply `result` to a local forward vector to find the character's facing direction in world space.
+
 #### Bonus
 
 * About Quaternions
