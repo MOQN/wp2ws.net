@@ -11,7 +11,7 @@ let models = [];
 let linearFog, exponentialFog;
 
 function setupThree() {
-  loadGLTF("assets/test-model.glb");
+  loadGLTF("assets/__test-model.glb");
   linearFog = new THREE.Fog(params.color, params.near, params.far);
   exponentialFog = new THREE.FogExp2(params.color, params.density);
   updateFog();
@@ -95,7 +95,6 @@ function getLight() {
   const light = new THREE.PointLight(0xffffff, 1, 3000, 0.01);
   return light;
 }
-
 
 class Model {
   constructor(object) {

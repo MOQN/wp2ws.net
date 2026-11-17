@@ -1,5 +1,5 @@
 # Interactive 3D Object
-<h1>Week 08 | Nov 27 & 29, 2026</h1>
+<h1>Week 08 | Oct 27 & 29, 2026</h1>
 
 ## Project Brief
 

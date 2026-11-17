@@ -7,7 +7,6 @@ let params = {
   density: 0.001,
 };
 
-
 let cubes = [];
 let linearFog, exponentialFog;
 
@@ -59,7 +58,6 @@ function updateThree() {
     c.update();
   }
 }
-
 
 function getBox() {
   let geometry = new THREE.BoxGeometry(1, 1, 1);
