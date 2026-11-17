@@ -111,7 +111,7 @@
 
 * [W09 - Virtual Self: Exploring Interaction and Navigation](https://docs.google.com/document/d/1OH-SeNXuankDISuhR9uCAHy4ICLW5XCMwxEQlZJjT3E/edit?tab=t.lx4nk7qsdwcn)
 
-?> Due **Nov 9, 2026**
+?> Due **Nov 16, 2026**
 
 ## Readings
 
