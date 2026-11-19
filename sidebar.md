@@ -20,7 +20,10 @@
   - [Week 08](/docs/week08.md)
   - [Week 09](/docs/week09.md)
   - [Weeks 10 & 11](/docs/week10-11.md)
+    <!-- - [Socket.IO](/docs/socket-io.md) -->
+    - [Firebase RealtimeDatabase](/docs/firebase-rtdb.md)
   - [Week 12](/docs/week12.md)
+  <!-- - [WebXR](/docs/webxr.md) -->
   - [Week 13](/docs/week13.md)
   - [Week 14](/docs/week14.md)
 

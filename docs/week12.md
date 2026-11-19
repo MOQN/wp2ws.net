@@ -5,8 +5,7 @@
 
 ### Lecture
 
-* WebXR
-  * (Details to be updated.)
+* [WebXR Notes](/docs/webxr.md)
 
 ## Assignment
 

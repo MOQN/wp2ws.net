@@ -232,7 +232,7 @@
     const iframe = document.createElement('iframe');
     iframe.setAttribute('src', frameSrc);
     iframe.setAttribute('width', '100%');
-    iframe.setAttribute('height', '400');
+    iframe.setAttribute('height', '500');
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allowfullscreen', 'true');
     iframe.setAttribute('allow', 'camera; fullscreen; xr-spatial-tracking');
@@ -293,7 +293,7 @@
     }
   }
 
-  // Horizontal layout (code left, canvas right)
+  // Full-width layout with the height from createCanvas().
   function loadCodeBlock(folderOrOptions, anchorId) {
     const config = normalizeConfig(folderOrOptions, anchorId);
     const resolvedFolder = resolveFolder(config.folder);
@@ -309,9 +309,7 @@
     fetchPreferredSource(resolvedFolder, config.sourcePath, config.sourceCandidates)
       .then(function (result) {
         const canvasSize = parseCanvasSize(result.source);
-        const canvasWidth = canvasSize ? canvasSize.width : 400;
-        const canvasHeight = canvasSize ? canvasSize.height : 400;
-        const useHorizontal = canvasWidth <= 400;
+        const canvasHeight = (canvasSize ? canvasSize.height : 400) + 100;
 
         const iframeWrap = createIframeBlock(frameSrc);
         const iframe = iframeWrap.querySelector('iframe');
@@ -321,42 +319,14 @@
 
         const codeBlock = createCodeBlock();
 
-        if (useHorizontal) {
-          const rowWrap = document.createElement('div');
-          rowWrap.style.display = 'flex';
-          rowWrap.style.flexWrap = 'nowrap';
-          rowWrap.style.alignItems = 'flex-start';
-          rowWrap.style.gap = '10px';
-          rowWrap.style.margin = '10px 0';
+        const stackWrap = document.createElement('div');
+        stackWrap.style.margin = '10px 0';
+        stackWrap.style.width = '100%';
+        iframeWrap.style.margin = '0 0 10px 0';
 
-          iframeWrap.style.flex = '0 0 ' + canvasWidth + 'px';
-          iframeWrap.style.width = canvasWidth + 'px';
-          iframeWrap.style.maxWidth = '100%';
-
-          codeBlock.codeWrap.style.flex = '0 0 390px';
-          codeBlock.codeWrap.style.width = '390px';
-          codeBlock.codeWrap.style.maxWidth = '100%';
-
-          rowWrap.appendChild(codeBlock.codeWrap);
-          rowWrap.appendChild(iframeWrap);
-          insertBlock(rowWrap, insertion.insertionParent, insertion.insertionTarget, insertion.main);
-        } else {
-          const stackWrap = document.createElement('div');
-          stackWrap.style.margin = '10px 0';
-          stackWrap.style.width = canvasWidth + 'px';
-          stackWrap.style.maxWidth = '100%';
-
-          iframeWrap.style.margin = '0 0 10px 0';
-          iframeWrap.style.width = canvasWidth + 'px';
-          iframeWrap.style.maxWidth = '100%';
-
-          codeBlock.codeWrap.style.width = canvasWidth + 'px';
-          codeBlock.codeWrap.style.maxWidth = '100%';
-
-          stackWrap.appendChild(iframeWrap);
-          stackWrap.appendChild(codeBlock.codeWrap);
-          insertBlock(stackWrap, insertion.insertionParent, insertion.insertionTarget, insertion.main);
-        }
+        stackWrap.appendChild(iframeWrap);
+        stackWrap.appendChild(codeBlock.codeWrap);
+        insertBlock(stackWrap, insertion.insertionParent, insertion.insertionTarget, insertion.main);
 
         applyCodeText(codeBlock.code, result.source);
       })
@@ -380,16 +350,14 @@
 
     const stackWrap = document.createElement('div');
     stackWrap.style.margin = '10px 0';
-    stackWrap.style.width = '800px';
+    stackWrap.style.width = '100%';
     stackWrap.style.maxWidth = '100%';
 
     const iframeWrap = createIframeBlock(frameSrc);
     iframeWrap.style.margin = '0 0 10px 0';
-    iframeWrap.style.width = '800px';
     iframeWrap.style.maxWidth = '100%';
 
     const codeBlock = createCodeBlock();
-    codeBlock.codeWrap.style.width = '800px';
     codeBlock.codeWrap.style.maxWidth = '100%';
 
     stackWrap.appendChild(iframeWrap);

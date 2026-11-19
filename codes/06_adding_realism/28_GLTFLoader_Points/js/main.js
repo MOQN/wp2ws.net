@@ -10,7 +10,7 @@ function setupThree() {
   controls.target.set(0, 400, 0);
   controls.update();
 
-  loadGLTF("assets/__test-model.glb");
+  loadGLTF("assets/test-model.glb");
 }
 
 function updateThree() {

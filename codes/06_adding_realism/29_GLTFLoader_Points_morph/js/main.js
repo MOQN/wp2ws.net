@@ -12,7 +12,7 @@ function setupThree() {
   controls.target.set(0, 400, 0);
   controls.update();
 
-  loadGLTF("assets/__test-model.glb");
+  loadGLTF("assets/test-model.glb");
 
   pane.addBinding(params, "percent", { min: 0, max: 3, step: 0.005 });
 }
