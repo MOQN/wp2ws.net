@@ -13,14 +13,14 @@
 
 * **Node.js** runs the JavaScript in `server.js`.
 * The **Express app (`app`)** serves the HTML, CSS, and JavaScript in `public/`.
-* The **HTTP server (`server`)** listens on a port and passes HTTP requests to the Express app.
+* We can create an **HTTP server (server)** to serve our **website** and use **Socket.IO** to exchange real-time updates with the browser.
 
 ## Why Socket.IO?
 
 * The **Socket.IO server (`io`)** uses the same HTTP server to exchange **named events** with browsers.
 * Send the mouse position as `{ x, y }`. The server forwards it so another browser can draw the point.
 
-?> **WebSocket vs. Socket.IO** — WebSocket is a protocol for two-way communication. Socket.IO can use WebSocket underneath and adds named events, automatic reconnection, and an HTTP long-polling fallback. Use the Socket.IO client to connect to a Socket.IO server.
+?> **WebSocket vs. Socket.IO** — WebSocket is **a protocol for two-way communication**. Socket.IO can **use WebSocket underneath** and adds **named events**, **automatic reconnection**, and so on.
 
 ## Node.js Setup
 
