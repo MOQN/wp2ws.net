@@ -254,3 +254,7 @@
   font-weight: 600;
   overflow-wrap: anywhere;
 }
+
+.code-only .code-block-name {
+  padding-top: 1lh;
+}

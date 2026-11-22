@@ -269,6 +269,7 @@
     if (!insertion) return;
 
     const container = document.createElement('div');
+    container.classList.toggle('code-only', framePath === null);
     container.style.margin = '10px 0';
     container.style.width = '100%';
     container.style.maxWidth = '100%';
