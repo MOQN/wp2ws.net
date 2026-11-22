@@ -41,28 +41,6 @@
     return cleanSubpath ? cleanBase + '/' + cleanSubpath : cleanBase;
   }
 
-  function normalizeConfig(folderOrOptions, anchorId) {
-    if (folderOrOptions && typeof folderOrOptions === 'object') {
-      return {
-        folder: folderOrOptions.folder || '',
-        anchorId: folderOrOptions.anchorId || anchorId || null,
-        sourcePath: folderOrOptions.sourcePath || null,
-        sourceCandidates: Array.isArray(folderOrOptions.sourceCandidates)
-          ? folderOrOptions.sourceCandidates
-          : defaultSourceCandidates,
-        framePath: folderOrOptions.framePath || null,
-      };
-    }
-
-    return {
-      folder: folderOrOptions,
-      anchorId: anchorId || null,
-      sourcePath: null,
-      sourceCandidates: defaultSourceCandidates,
-      framePath: null,
-    };
-  }
-
   function getInsertionTarget(anchorId) {
     const main = document.getElementById('main');
     if (!main) {
@@ -204,25 +182,6 @@
     }
   }
 
-  function parseCanvasSize(source) {
-    const match = source.match(/createCanvas\s*\(\s*([0-9]+(?:\.[0-9]+)?)\s*,\s*([0-9]+(?:\.[0-9]+)?)/);
-    if (!match) {
-      return null;
-    }
-
-    const width = Math.round(Number(match[1]));
-    const height = Math.round(Number(match[2]));
-
-    if (!Number.isFinite(width) || !Number.isFinite(height)) {
-      return null;
-    }
-
-    return {
-      width: Math.max(1, width),
-      height: Math.max(1, height),
-    };
-  }
-
   function createIframeBlock(frameSrc) {
     const iframeWrap = document.createElement('div');
     iframeWrap.className = 'sketch-frame-wrap';
@@ -293,78 +252,53 @@
     }
   }
 
-  // Full-width layout with the height from createCanvas().
-  function loadCodeBlock(folderOrOptions, anchorId) {
-    const config = normalizeConfig(folderOrOptions, anchorId);
-    const resolvedFolder = resolveFolder(config.folder);
+  function loadCodeBlock({ folder, framePath, sourcePath, sourceCandidates = defaultSourceCandidates, anchorId, width } = {}) {
+    const resolvedFolder = resolveFolder(folder);
     if (!resolvedFolder) return;
 
-    const frameSrc = config.framePath
-      ? joinPath(resolvedFolder, config.framePath)
-      : resolvedFolder;
-
-    const insertion = getInsertionTarget(config.anchorId);
+    const insertion = getInsertionTarget(anchorId);
     if (!insertion) return;
 
-    fetchPreferredSource(resolvedFolder, config.sourcePath, config.sourceCandidates)
-      .then(function (result) {
-        const canvasSize = parseCanvasSize(result.source);
-        const canvasHeight = (canvasSize ? canvasSize.height : 400) + 100;
-
-        const iframeWrap = createIframeBlock(frameSrc);
-        const iframe = iframeWrap.querySelector('iframe');
-        if (iframe) {
-          iframe.setAttribute('height', String(canvasHeight));
-        }
-
-        const codeBlock = createCodeBlock();
-
-        const stackWrap = document.createElement('div');
-        stackWrap.style.margin = '10px 0';
-        stackWrap.style.width = '100%';
-        iframeWrap.style.margin = '0 0 10px 0';
-
-        stackWrap.appendChild(iframeWrap);
-        stackWrap.appendChild(codeBlock.codeWrap);
-        insertBlock(stackWrap, insertion.insertionParent, insertion.insertionTarget, insertion.main);
-
-        applyCodeText(codeBlock.code, result.source);
-      })
-      .catch(function (error) {
-        console.error('Failed to load code:', error);
-      });
-  }
-
-  // Stacked layout (iframe top, code block full width below)
-  function loadCodeBlockWide(folderOrOptions, anchorId) {
-    const config = normalizeConfig(folderOrOptions, anchorId);
-    const resolvedFolder = resolveFolder(config.folder);
-    if (!resolvedFolder) return;
-
-    const frameSrc = config.framePath
-      ? joinPath(resolvedFolder, config.framePath)
-      : resolvedFolder;
-
-    const insertion = getInsertionTarget(config.anchorId);
-    if (!insertion) return;
-
-    const stackWrap = document.createElement('div');
-    stackWrap.style.margin = '10px 0';
-    stackWrap.style.width = '100%';
-    stackWrap.style.maxWidth = '100%';
-
-    const iframeWrap = createIframeBlock(frameSrc);
-    iframeWrap.style.margin = '0 0 10px 0';
-    iframeWrap.style.maxWidth = '100%';
+    const container = document.createElement('div');
+    container.style.margin = '10px 0';
+    container.style.width = '100%';
+    container.style.maxWidth = '100%';
 
     const codeBlock = createCodeBlock();
     codeBlock.codeWrap.style.maxWidth = '100%';
 
-    stackWrap.appendChild(iframeWrap);
-    stackWrap.appendChild(codeBlock.codeWrap);
+    if (framePath !== null) {
+      const frameSrc = framePath ? joinPath(resolvedFolder, framePath) : resolvedFolder;
+      const iframeWrap = createIframeBlock(frameSrc);
+      iframeWrap.style.maxWidth = '100%';
 
-    insertBlock(stackWrap, insertion.insertionParent, insertion.insertionTarget, insertion.main);
-    fetchPreferredSource(resolvedFolder, config.sourcePath, config.sourceCandidates)
+      // A number sets the preview width in pixels. CSS lengths and percentages also work.
+      const previewWidth = typeof width === 'number' ? width + 'px' : width;
+      if (width === 'half' || (previewWidth && CSS.supports('width', previewWidth))) {
+        container.style.display = 'flex';
+        container.style.flexWrap = 'wrap';
+        container.style.gap = '10px';
+        codeBlock.codeWrap.style.minWidth = '0';
+
+        if (width === 'half') {
+          const columnSize = '1 1 max(280px, calc((100% - 10px) / 2))';
+          iframeWrap.style.flex = columnSize;
+          codeBlock.codeWrap.style.flex = columnSize;
+        } else {
+          iframeWrap.style.width = previewWidth;
+          iframeWrap.style.flexShrink = '0';
+          codeBlock.codeWrap.style.flex = '1 1 280px';
+        }
+      } else {
+        iframeWrap.style.margin = '0 0 10px 0';
+      }
+
+      container.appendChild(iframeWrap);
+    }
+
+    container.appendChild(codeBlock.codeWrap);
+    insertBlock(container, insertion.insertionParent, insertion.insertionTarget, insertion.main);
+    fetchPreferredSource(resolvedFolder, sourcePath, sourceCandidates)
       .then(function (result) {
         applyCodeText(codeBlock.code, result.source);
       })
@@ -373,33 +307,5 @@
       });
   }
 
-  // New function to handle batch loading with automatic zero-padding
-  function loadCodeBlocks(baseFolder, count) {
-    for (let i = 1; i <= count; i++) {
-      // padStart ensures single digits become two digits (e.g., 1 -> 01, 10 -> 10)
-      const paddedNumber = String(i).padStart(2, '0');
-      const targetFolder = baseFolder + paddedNumber;
-      const targetAnchor = 'code-' + paddedNumber;
-
-      loadCodeBlock(targetFolder, targetAnchor);
-    }
-  }
-
-  function loadCodeBlocksFromEntries(entries) {
-    if (!Array.isArray(entries)) return;
-
-    entries.forEach(function (entry) {
-      if (!entry) return;
-      if (entry.layout === 'wide') {
-        loadCodeBlockWide(entry);
-      } else {
-        loadCodeBlock(entry);
-      }
-    });
-  }
-
   window.loadCodeBlock = loadCodeBlock;
-  window.loadCodeBlockWide = loadCodeBlockWide;
-  window.loadCodeBlocks = loadCodeBlocks;
-  window.loadCodeBlocksFromEntries = loadCodeBlocksFromEntries;
 })();

@@ -5,7 +5,7 @@
   setTimeout(function () {
     const examplePath = 'codes/09a_navigation_w_controls/07_controls_FirstPersonControls';
 
-    loadCodeBlockWide({
+    loadCodeBlock({
       folder: examplePath,
       framePath: 'index.html',
       sourcePath: 'js/main.js'

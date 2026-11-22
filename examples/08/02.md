@@ -5,7 +5,7 @@
   setTimeout(function () {
     const examplePath = 'codes/09a_navigation_w_controls/02_controls_OrbitContols_more';
 
-    loadCodeBlockWide({
+    loadCodeBlock({
       folder: examplePath,
       framePath: 'index.html',
       sourcePath: 'js/main.js'
