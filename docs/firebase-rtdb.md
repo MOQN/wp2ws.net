@@ -132,16 +132,16 @@
 
 ```html
 <script type="module">
-  import * as FirebaseApp from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import * as FirebaseDatabase from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+  import * as FirebaseApp from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+  import * as FirebaseDatabase from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
 
   window.FirebaseApp = FirebaseApp;
   window.FirebaseDatabase = FirebaseDatabase;
 </script>
 ```
 
-* In `script.js`, use the globals to initialize Firebase. Replace the dummy config with your own `firebaseConfig`, including `databaseURL`!
-* The snippets on this page use the modular SDK. The existing runnable class examples still load Firebase v8, so don't paste these snippets into them as-is.
+* In `js/script.js` (01–05) or `js/script-firebase.js` (06–11), use the globals to initialize Firebase. Replace the dummy config with your own `firebaseConfig`, including `databaseURL`!
+* The snippets on this page and the [Firebase class examples](/examples/10b/01.md) use the modular SDK.
 
 ```javascript
 const firebaseConfig = {

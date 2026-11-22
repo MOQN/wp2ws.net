@@ -2,19 +2,37 @@
 <html lang="en">
 
 <head>
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-database.js"></script>
-  <script src="../libs/dat.gui.min.js"></script>
-  <script src="../libs/p5.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase</title>
   <link rel="stylesheet" href="css/style.css">
-  <meta charset="utf-8" />
+
+  <script src="https://cdn.jsdelivr.net/npm/p5@2.3.4/lib/p5.js"></script>
+  <!--
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/",
+        "tweakpane": "https://cdn.jsdelivr.net/npm/tweakpane@4.0.5/dist/tweakpane.min.js"
+      }
+    }
+  </script>
+  -->
+  <script type="module">
+    import { Pane } from "https://cdn.jsdelivr.net/npm/tweakpane@4.0.5/dist/tweakpane.min.js";
+    import * as FirebaseApp from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+    import * as FirebaseDatabase from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
+
+    window.Pane = Pane;
+    window.FirebaseApp = FirebaseApp;
+    window.FirebaseDatabase = FirebaseDatabase;
+  </script>
+  <script defer src="js/script.js"></script>
 </head>
 
 <body>
-  <script src="script.js"></script>
 </body>
 
 </html>

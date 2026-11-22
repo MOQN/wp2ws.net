@@ -5,98 +5,127 @@
 * [Node.js Official Website](https://nodejs.org/)
 * [Socket.IO Official Website](https://socket.io/)
 * [Socket.IO Documentation](https://socket.io/docs/v4/)
+* [Emitting events](https://socket.io/docs/v4/emitting-events/)
+* [Listening to events](https://socket.io/docs/v4/listening-to-events/)
+* [Broadcasting events](https://socket.io/docs/v4/broadcasting-events/)
 
 ## Why Node.js?
 
-* **Node.js** runs JavaScript on the server.
-* The **Express app (`app`)** handles HTTP requests. `express.static("public")` serves files from `public/`.
-* The **HTTP server (`server`)** listens for connections. `http.createServer(app)` passes HTTP requests to the Express app.
+* **Node.js** runs the JavaScript in `server.js`.
+* The **Express app (`app`)** serves the HTML, CSS, and JavaScript in `public/`.
+* The **HTTP server (`server`)** listens on a port and passes HTTP requests to the Express app.
 
 ## Why Socket.IO?
 
-* The **Socket.IO server (`io`)** attaches to the HTTP server and exchanges **named events** with browsers.
-* **Broadcasting** sends an update from one browser to the other connected browsers.
+* The **Socket.IO server (`io`)** uses the same HTTP server to exchange **named events** with browsers.
+* Send the mouse position as `{ x, y }`. The server forwards it so another browser can draw the point.
 
-?> **WebSocket vs. Socket.IO** — WebSocket is a protocol for two-way communication. Socket.IO can use WebSocket as a transport and adds named events, automatic reconnection, and an HTTP long-polling fallback. Connect to a Socket.IO server with the Socket.IO client. [Socket.IO Documentation](https://socket.io/docs/v4/)
+?> **WebSocket vs. Socket.IO** — WebSocket is a protocol for two-way communication. Socket.IO can use WebSocket underneath and adds named events, automatic reconnection, and an HTTP long-polling fallback. Use the Socket.IO client to connect to a Socket.IO server.
 
 ## Node.js Setup
 
-### 1. Initialize the project
+### 1. Install dependencies
 
-* Install Node.js, then run these commands in your project folder.
-
-```sh
-npm init -y
-npm pkg set type=module
-npm install express
-```
+* From the folder with `package.json` and `server.js`, run `npm install`.
+* Starting from an empty folder? Run `npm init -y`, `npm pkg set type=module`, and `npm install express socket.io`.
 
 ### 2. Create the Express app and HTTP server
 
-* Create `server.js`. Put your web page in `public/index.html`.
+* In `server.js`, create the Express app and pass it to `http.createServer(app)`.
+* Put the browser files in `public/`. The static path is relative to the folder containing `server.js`.
+* The server uses port `3000` by default. Run `node server.js` and open [http://localhost:3000](http://localhost:3000).
 
 ```javascript
 import express from "express";
-import http from "node:http";
+import http from "http";
 
 const app = express();
-app.use(express.static("public"));
-
 const server = http.createServer(app);
+const port = process.env.PORT || 3000;
 
-server.listen(3000, "127.0.0.1", () => {
-  console.log("Server running at http://127.0.0.1:3000");
+app.use(express.static(import.meta.dirname + "/public"));
+
+server.listen(port, function () {
+  console.log("Open http://localhost:" + port);
 });
 ```
 
-* Run `node server.js` and open [http://127.0.0.1:3000](http://127.0.0.1:3000).
+?> **Restart after server changes.** Whenever you edit `server.js`, stop it with `Ctrl+C` and run `node server.js` again. For changes in `public/`, reload the browser page.
 
 ## Socket.IO Setup
 
-### 1. Attach the Socket.IO server
+### 1. Attach Socket.IO to the HTTP server
 
-* Run `npm install socket.io`.
-* Add this to `server.js` after `http.createServer(app)` and before `server.listen(...)`.
-* **`io`** is the Socket.IO server. Inside the connection handler, **`socket`** represents one connected browser.
-* **`socket.on()`** listens for an event. **`socket.broadcast.emit()`** sends it to all other connected browsers. [Broadcasting events](https://socket.io/docs/v4/broadcasting-events/)
+* Add the `Server` import with the other imports. Create `io` after `http.createServer(app)` and register the handler before `server.listen(...)`.
+* **`io.on("connection", ...)`** runs once for each connection. The **`socket`** inside it represents that client.
+* **`socket.on("message_name", ...)`** receives the coordinates. Check that both are finite numbers, then forward them to the other browsers.
 
 ```javascript
 import { Server } from "socket.io";
 
 const io = new Server(server);
 
-io.on("connection", (socket) => {
-  socket.on("message_name", (data) => {
-    socket.broadcast.emit("message_name", data);
+io.on("connection", function (socket) {
+  socket.on("message_name", function (data) {
+    if (!data || !Number.isFinite(data.x) || !Number.isFinite(data.y)) return;
+
+    socket.broadcast.emit("message_name", {
+      x: data.x,
+      y: data.y
+    });
   });
 });
 ```
 
-### 2. Connect the Socket.IO client
+### 2. Connect from the browser
 
-* Add this before the closing `</body>` tag in `public/index.html`.
-* **`io()`** connects the browser to the Socket.IO server. **`socket.emit()`** sends an event, and **`socket.on()`** listens for one. Use the same event name on both sides. [Emitting events](https://socket.io/docs/v4/emitting-events/)
+* In `public/index.html`, load the Socket.IO client before your sketch. The Socket.IO server serves `/socket.io/socket.io.js`.
 
 ```html
-<button id="send">Send</button>
-
 <script src="/socket.io/socket.io.js"></script>
-<script>
-  const socket = io();
-
-  socket.on("message_name", (data) => {
-    console.log(data);
-  });
-
-  document.querySelector("#send").addEventListener("click", () => {
-    socket.emit("message_name", { text: "Hello!" });
-  });
-</script>
+<script defer src="/js/script.js"></script>
 ```
 
-### 3. Try it in two tabs
+* In `public/js/script.js`, call `setupSocket()` from p5.js `setup()`.
+* Send the current coordinates on `mouseMoved()` while the pointer is inside the canvas. Store incoming coordinates in `otherPoint` and use them to draw the other browser's red point in `draw()`.
 
-?> **Restart after server changes.** Whenever you edit `server.js` or other server-side code, stop the server with `Ctrl+C`, then run `node server.js` again.
+```javascript
+let socket;
+let otherPoint = null;
 
-* Open the page in two tabs.
-* Click **Send** in one tab. Check the browser console in the other tab.
+function setupSocket() {
+  socket = io();
+  socket.on("message_name", receiveViaSocket);
+}
+
+function mouseMoved() {
+  if (mouseX < 0 || mouseY < 0 || mouseX > width || mouseY > height) return;
+  sendViaSocket();
+}
+
+function sendViaSocket() {
+  if (!socket || !socket.connected) return;
+
+  const data = {
+    x: mouseX,
+    y: mouseY
+  };
+  socket.emit("message_name", data);
+}
+
+function receiveViaSocket(data) {
+  otherPoint = data;
+}
+```
+
+### 3. Choose who gets the event
+
+* **Browser `socket.emit()`** sends an event to the server.
+* **Server `socket.emit()`** sends an event to one client. Use it to send `users_state` to a newly connected client.
+* **Server `socket.broadcast.emit()`** sends an event to every other connected client. Use it to forward `message_name`.
+* **Server `io.emit()`** sends an event to every connected client, including the sender. Use it to share updated `block_state`.
+
+### 4. Try it in two windows
+
+* Open [http://localhost:3000](http://localhost:3000) in two browser windows.
+* Move the mouse over one canvas. Look for the red point following it in the other window.

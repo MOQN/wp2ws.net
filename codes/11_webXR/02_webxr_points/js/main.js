@@ -1,4 +1,5 @@
 let params = {
+  fps: 0,
   drawCount: 0,
 };
 
@@ -70,7 +71,6 @@ function updateThree() {
 
   params.drawCount = particles.length;
 }
-
 
 ///// UTILS /////
 

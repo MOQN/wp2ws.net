@@ -6,6 +6,7 @@
 ### Lecture
 
 * [WebXR Notes](/docs/webxr.md)
+* [WebXR Practice](/codes/11_webXR/index.html ":ignore")
 
 ## Assignment
 

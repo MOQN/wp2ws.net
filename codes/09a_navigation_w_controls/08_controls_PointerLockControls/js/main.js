@@ -26,7 +26,7 @@ function setupThree() {
   scene.add(camera);
 
   // F toggles pointer lock. Esc releases it.
-  window.addEventListener("keydown", (event) => {
+  window.addEventListener("keydown", function(event) {
     if (event.code === "Escape" && controls.isLocked) {
       controls.unlock();
       return;
@@ -35,12 +35,12 @@ function setupThree() {
     if (controls.isLocked) controls.unlock();
     else controls.lock();
   });
-  const resetMovement = () => {
+  const resetMovement = function() {
     moveForward = moveBackward = moveLeft = moveRight = false;
   };
   controls.addEventListener('unlock', resetMovement);
   window.addEventListener('blur', resetMovement);
-  document.addEventListener('visibilitychange', () => {
+  document.addEventListener('visibilitychange', function() {
     if (document.hidden) {
       resetMovement();
       controls.unlock();
@@ -81,7 +81,7 @@ function updateThree() {
   if (!controls.isLocked) return;
   const forward = Number(moveForward) - Number(moveBackward);
   const sideways = Number(moveRight) - Number(moveLeft);
-  const length = Math.hypot(forward, sideways);
+  const length = dist(0, 0, forward, sideways);
   if (length > 0) {
     controls.moveForward(forward / length * params.moveSpeed * dt);
     controls.moveRight(sideways / length * params.moveSpeed * dt);

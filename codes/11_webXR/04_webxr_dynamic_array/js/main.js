@@ -1,4 +1,5 @@
 let params = {
+  fps: 0,
   cubes: 0,
   scene_children: 0,
 };
@@ -61,7 +62,6 @@ function updateThree() {
   params.cubes = cubes.length;
   params.scene_children = scene.children.length;
 }
-
 
 ///// UTILS /////
 
