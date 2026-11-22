@@ -178,7 +178,7 @@
   function applyCodeText(code, text) {
     code.textContent = text;
     if (window.Prism) {
-      Prism.highlightAll();
+      window.Prism.highlightElement(code);
     }
   }
 
@@ -211,11 +211,21 @@
     return iframeWrap;
   }
 
-  function createCodeBlock() {
+  function createCodeBlock(name) {
     const codeWrap = document.createElement('div');
     codeWrap.className = 'code-block-wrap';
-    codeWrap.style.position = 'relative';
     codeWrap.style.margin = '0';
+
+    if (typeof name === 'string' && name.trim()) {
+      const label = document.createElement('div');
+      label.className = 'code-block-name';
+      label.textContent = name;
+      codeWrap.appendChild(label);
+    }
+
+    const codeBody = document.createElement('div');
+    codeBody.style.position = 'relative';
+    codeWrap.appendChild(codeBody);
 
     const copyButton = document.createElement('button');
     copyButton.type = 'button';
@@ -223,7 +233,7 @@
     copyButton.textContent = 'Copy';
     copyButton.setAttribute('aria-label', 'Copy code to clipboard');
     applyButtonStyle(copyButton);
-    codeWrap.appendChild(copyButton);
+    codeBody.appendChild(copyButton);
 
     const pre = document.createElement('pre');
     pre.style.margin = '0';
@@ -232,12 +242,11 @@
     pre.style.marginBottom = '10px';
 
     const code = document.createElement('code');
-    code.id = 'code-block';
-    code.className = 'language-javascript';
+    code.className = 'code-block language-javascript';
     code.style.display = 'block';
 
     pre.appendChild(code);
-    codeWrap.appendChild(pre);
+    codeBody.appendChild(pre);
 
     addCopyBehavior(copyButton, code);
 
@@ -252,7 +261,7 @@
     }
   }
 
-  function loadCodeBlock({ folder, framePath, sourcePath, sourceCandidates = defaultSourceCandidates, anchorId, width } = {}) {
+  function loadCodeBlock({ folder, framePath, sourcePath, sourceCandidates = defaultSourceCandidates, anchorId, width, name } = {}) {
     const resolvedFolder = resolveFolder(folder);
     if (!resolvedFolder) return;
 
@@ -264,7 +273,7 @@
     container.style.width = '100%';
     container.style.maxWidth = '100%';
 
-    const codeBlock = createCodeBlock();
+    const codeBlock = createCodeBlock(name);
     codeBlock.codeWrap.style.maxWidth = '100%';
 
     if (framePath !== null) {
