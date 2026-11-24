@@ -3,9 +3,7 @@ let box;
 
 function setupThree() {
   createScene();
-  setupGUI();
-  showInstruction("Bring the index sphere into the box. Watch the contact state change.", "bounds.setFromObject(box)\nbounds.intersectsSphere(contactSphere)");
-  setupWebXR();
+  setupGUI();  setupWebXR();
 }
 
 function updateThree(xrFrame) {

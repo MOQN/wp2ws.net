@@ -1,0 +1,73 @@
+html,
+body {
+  height: 100%;
+  background-color: #000000;
+}
+
+body {
+  margin: 0;
+}
+
+canvas {
+  display: block;
+}
+
+#container-p5 {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+}
+
+#container-three {
+  display: block;
+  /* add your style */
+}
+
+.instruction {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 500px;
+  max-width: calc(100vw - 64px);
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #cccccc;
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
+.instruction-code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid #555555;
+}
+
+.hand-session {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 16px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.1);
+  color: #fff;
+  font: normal 13px sans-serif;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0.5;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.hand-session:not(:disabled):hover {
+  opacity: 1;
+}
+
+.hand-session:disabled {
+  cursor: default;
+}
