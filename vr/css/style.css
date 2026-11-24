@@ -1,0 +1,28 @@
+body {
+  margin: 32px;
+  background: #000000;
+  color: #dddddd;
+  font: 16px/1.7 sans-serif;
+}
+
+h1,
+h2 {
+  color: #f2f2f2;
+}
+
+a {
+  color: #d6d6d6;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+.home-button {
+  display: inline-block;
+  float: right;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid currentColor;
+  border-radius: 0.4rem;
+  text-decoration: none;
+}
