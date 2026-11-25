@@ -3,13 +3,16 @@
 <!-- ![WebXR screenshot 01](assets-webxr/webxr-01.png) -->
 <!-- ![WebXR screenshot 02](assets-webxr/webxr-02.png) -->
 
-WebXR lets a browser enter an immersive 3D scene. **VR** puts you inside a virtual space. **AR** lets you place virtual objects in your physical surroundings.
+**WebXR** lets you create extended reality experiences on the web. **XR (Extended Reality)** is an umbrella term for VR and AR.
 
-Start with [04 · Enter immersive VR](/vr/04_webxr_enter_vr/index.html ":ignore"). This guide uses a Meta Quest 3, a Mac, and VS Code Live Server.
+* **VR (Virtual Reality)** lets you build immersive 3D scenes.
+* **AR (Augmented Reality)** lets you use passthrough and depth sensing to place virtual objects in your physical surroundings.
+
+Start with [04 · Enter immersive VR](/vr/04_webxr_enter_vr/index.html ":ignore"). This guide uses a Meta Quest 3, a computer, and VS Code Live Server.
 
 ## 1. Run a Three.js scene in VR
 
-First, check that your scene renders in a normal browser tab. Open it over HTTPS or localhost.
+First, check that your scene renders in a normal browser tab. Use an HTTPS address like `https://wp2ws.net/vr/` or a local address like `http://localhost:5500/`.
 
 In the example's `index.html`, add these lines inside the existing module script.
 
@@ -36,39 +39,39 @@ We’ve been using it from the beginning to support **WebXR** :D
 
 [Meta Developer Mode setup](https://developers.meta.com/vr/documentation/unreal/ts-mqdh-getting-started/)
 
-## 3. Connect the Quest to your Mac
+## 3. Connect the Quest to your computer
 
-ADB (Android Debug Bridge) lets your Mac communicate with the headset. In the Mac Terminal, check whether it is installed.
+ADB (Android Debug Bridge) lets your computer communicate with the headset.
 
-```bash
-adb version
-```
+* **macOS** — If you use Homebrew, install ADB with `brew install --cask android-platform-tools`. Otherwise, download and unzip [Android SDK Platform-Tools for Mac](https://developer.android.com/tools/releases/platform-tools#downloads), then open Terminal in the extracted `platform-tools` folder and run `./adb version`.
+* **Windows** — Download and unzip [Android SDK Platform-Tools for Windows](https://developer.android.com/tools/releases/platform-tools#downloads). Install the [Meta Quest ADB driver](https://developers.meta.com/vr/documentation/native/android/mobile-device-setup/#install-the-oculus-adb-drivers-windows-only), then open PowerShell in the extracted `platform-tools` folder and run `.\adb.exe version`.
 
-If the command is missing and you use Homebrew, install Android Platform Tools.
+1. Connect the Quest with a **USB-C data cable**.
+2. Run `adb devices` and put on the headset.
+3. When **Allow USB debugging?** appears, choose **Allow**.
+   - If the prompt does not appear, unplug the USB cable, restart the Quest, and reconnect the cable once the headset is back on.
+4. Run `adb devices` again. The status beside the headset should read `device`.
 
-```bash
-brew install --cask android-platform-tools
-adb version
-```
+!> **Homebrew** is a package manager for macOS. Use the `brew` command to install tools like ADB from Terminal.
 
-Connect the Quest with a **USB-C data cable**. Run `adb devices` and put on the headset. When **Allow USB debugging?** appears, choose **Allow**. If you see `unauthorized` and the prompt is missing, keep the headset awake, unplug the cable, and reconnect it. Run `adb devices` again. The status beside the headset should read `device`.
+?> If you downloaded Platform-Tools manually, keep using that terminal in the `platform-tools` folder. Use `./adb` on macOS or `.\adb.exe` in Windows PowerShell in place of `adb` in the commands below.
 
 ## 4. Open your local example on the Quest
 
-1. In VS Code, open the `12_webXR` folder in your local course examples and click **Go Live**. Check the port shown in the Mac browser. The commands below assume it is `5500`.
-2. In Mac Terminal or the VS Code terminal, run the following command from any folder.
+1. In VS Code, open the `12_webXR` folder in your local course examples and click **Go Live**. Check the port shown in your computer’s browser. The commands below assume it is `5500`.
+2. Run the following command in the terminal where you set up ADB.
 
 ```bash
 adb reverse tcp:5500 tcp:5500
 ```
 
-3. In **Quest Browser**, open `http://localhost:5500/04_webxr_enter_vr/index.html`. If you opened a parent folder in VS Code, copy the path after the port from the Mac browser. If Live Server uses another port, use that port in both parts of the ADB command and in the Quest address.
+3. In **Quest Browser**, open `http://localhost:5500/04_webxr_enter_vr/index.html`. If you opened a parent folder in VS Code, copy the path after the port from your computer’s browser. If Live Server uses another port, use that port in both parts of the ADB command and in the Quest address.
 
 This lets you open your local files on the Quest over USB. You can also open the [hosted examples](/vr/ ":ignore") directly in Quest Browser.
 
-## 5. View the Quest console on your Mac
+## 5. View the Quest console on your computer
 
-1. In **Chrome on your Mac**, enter **`chrome://inspect/#devices`** in the address bar and check **Discover USB devices**.
+1. In **Chrome on your computer**, enter **`chrome://inspect/#devices`** in the address bar and check **Discover USB devices**.
 2. Find the tab you opened in Quest Browser. Click **Inspect**, then open **Console** in DevTools.
 3. In the Quest, click **Enter VR**. Example 04 logs `VR session started.` when you enter and `VR session ended.` when you leave.
 
@@ -78,7 +81,9 @@ renderer.xr.addEventListener("sessionstart", function () {
 });
 ```
 
-After changing your code, reload the Quest tab and enter VR again. Enable **Preserve log** if you want to keep messages across reloads. To leave VR on Quest 3, press the **Meta button on the right controller** and choose **Quit** in the system menu.
+1. After changing your code, reload the Quest tab and enter VR again.
+2. Enable **Preserve log** if you want to keep messages across reloads.
+3. To leave VR on Quest 3, press the **Meta button on the right controller** and choose **Quit** in the system menu.
 
 [Meta remote debugging guide](https://developers.meta.com/vr/documentation/web/browser-remote-debugging/)
 

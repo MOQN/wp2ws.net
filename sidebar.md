@@ -23,7 +23,7 @@
     - [Node.js + Socket.IO](/docs/socket-io.md)
     - [Firebase RealtimeDatabase](/docs/firebase-rtdb.md)
   - [Week 12](/docs/week12.md)
-    - [WebXR Setup Guide](/docs/webxr.md)
+    - [WebXR Setup](/docs/webxr.md)
   - [Week 13](/docs/week13.md)
   - [Week 14](/docs/week14.md)
 
