@@ -52,7 +52,7 @@ ADB (Android Debug Bridge) lets your computer communicate with the headset.
    - If the prompt does not appear, unplug the USB cable, restart the Quest, and reconnect the cable once the headset is back on.
 4. Run `adb devices` again. The status beside the headset should read `device`.
 
-!> **Homebrew** is a package manager for macOS. Use the `brew` command to install tools like ADB from Terminal.
+!> [Homebrew](https://brew.sh/) is a package manager for macOS. Use the `brew` command to install various tools like ADB from Terminal.
 
 ?> If you downloaded Platform-Tools manually, keep using that terminal in the `platform-tools` folder. Use `./adb` on macOS or `.\adb.exe` in Windows PowerShell in place of `adb` in the commands below.
 
